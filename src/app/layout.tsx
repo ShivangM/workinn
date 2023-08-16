@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SideNav from '@/components/SideNav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={inter.style} className="">
+      <body style={inter.style} className="relative">
         <Navbar />
+        <SideNav />
         <ToastContainer position="bottom-right" />
         {children}
         <Footer />

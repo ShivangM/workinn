@@ -32,7 +32,11 @@ const Footer = (props: Props) => {
             <ul className="space-y-1">
               {hirerLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link rel="noopener noreferrer" href={link.url}>
+                  <Link
+                    className="text-gray-700 hover:text-gray-900 hover:underline"
+                    rel="noopener noreferrer"
+                    href={link.url}
+                  >
                     {link.title}
                   </Link>
                 </li>
@@ -44,7 +48,11 @@ const Footer = (props: Props) => {
             <ul className="space-y-1">
               {sellerLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link rel="noopener noreferrer" href={link.url}>
+                  <Link
+                    className="text-gray-700 hover:text-gray-900 hover:underline"
+                    rel="noopener noreferrer"
+                    href={link.url}
+                  >
                     {link.title}
                   </Link>
                 </li>
@@ -56,7 +64,11 @@ const Footer = (props: Props) => {
             <ul className="space-y-1">
               {companyLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link rel="noopener noreferrer" href={link.url}>
+                  <Link
+                    className="text-gray-700 hover:text-gray-900 hover:underline"
+                    rel="noopener noreferrer"
+                    href={link.url}
+                  >
                     {link.title}
                   </Link>
                 </li>
