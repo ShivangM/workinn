@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-sm hover:bg-brand focus:outline-none focus:ring-2 focus:ring-offset-2
+}

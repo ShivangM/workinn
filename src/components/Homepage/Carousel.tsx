@@ -11,7 +11,10 @@ const HomePageCarouselCard = ({ service }: { service: Service }) => {
   return (
     <div className="h-[480px] relative w-full bg-gray-300">
       <Image
-        src={carouselImage || '/images/hero.jpg'}
+        src={
+          carouselImage ||
+          `https://source.unsplash.com/random/1920x1080/?${name}`
+        }
         alt="hero"
         layout="fill"
         objectFit="cover"
@@ -23,8 +26,7 @@ const HomePageCarouselCard = ({ service }: { service: Service }) => {
         <p className="text-gray-300 text-xs line-clamp-2 sm:line-clamp-3 sm:text-sm">
           {description}
         </p>
-        <Link href={`/blogs/${slug}`} className="btn w-fit group block">
-          <span className="btn-shadow-span"></span>
+        <Link href={`/services/${slug}`} className="btn w-fit group block">
           <span className="relative">Explore Service</span>
         </Link>
       </div>
@@ -44,6 +46,7 @@ const HomePageCarousel = ({ services }: Props) => {
         infiniteLoop
         showIndicators={false}
         showThumbs={false}
+        showStatus={false}
       >
         {services?.map((service) => (
           <HomePageCarouselCard key={service._id} service={service} />
