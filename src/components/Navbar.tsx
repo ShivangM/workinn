@@ -7,10 +7,10 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <nav className="w-full bg-gray-50 shadow-md py-2">
-      <div className="max-w-7xl  mx-auto flex items-center justify-between">
+    <nav className="w-full sticky z-40 bg-gray-50 shadow-md py-2 px-4">
+      <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <div className="">
+          <Link href="/" className="">
             <Image
               height={180}
               width={180}
@@ -18,7 +18,7 @@ const Navbar = (props: Props) => {
               alt="WorkInn Logo"
               src="/WorkInn Logo.svg"
             />
-          </div>
+          </Link>
           <SearchBar />
         </div>
 

@@ -1,0 +1,22 @@
+[
+    {
+        "title": "About",
+        "url": "/about"
+    },
+    {
+        "title": "Terms of Service",
+        "url": "/tos"
+    },
+    {
+        "title": "Privacy Policy",
+        "url": "/privacy"
+    },
+    {
+        "title": "Contact",
+        "url": "/contact"
+    },
+    {
+        "title": "FAQ",
+        "url": "/faq"
+    }
+]
