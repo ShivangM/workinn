@@ -3,6 +3,7 @@ import Image from '../../node_modules/next/image';
 import Link from '../../node_modules/next/link';
 import SearchBar from './SearchBar';
 import HamburgerIcon from './HamburgerIcon';
+import AuthButton from './AuthButton';
 
 type Props = {};
 
@@ -47,9 +48,7 @@ const Navbar = (props: Props) => {
             </Link>
           </div>
 
-          <Link className="btn" href="/signin">
-            Sign In
-          </Link>
+          <AuthButton />
         </div>
 
         <HamburgerIcon />

@@ -5,3 +5,7 @@
 .btn {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-sm hover:bg-brand focus:outline-none focus:ring-2 focus:ring-offset-2
 }
+
+.btnOutline {
+    @apply border-2 px-4 rounded-lg py-2 w-full text-center flex items-center justify-center
+}

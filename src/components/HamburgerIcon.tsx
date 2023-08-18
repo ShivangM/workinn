@@ -9,7 +9,7 @@ const HamburgerIcon = () => {
   return (
     <GiHamburgerMenu
       onClick={toggleSideNav}
-      className="h-8 w-8 mx-2 lg:hidden"
+      className="h-8 w-8 mx-2 cursor-pointer lg:hidden"
     />
   );
 };

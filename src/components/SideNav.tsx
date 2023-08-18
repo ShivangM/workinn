@@ -4,8 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { FaPowerOff } from 'react-icons/fa';
+import { BiLogInCircle } from 'react-icons/bi';
 import useUiStore from '@/store/uiStore';
 import useUserStore from '@/store/userStore';
+import { useRouter } from 'next/navigation';
 
 const SideNav = () => {
   const [toggleSideNav, sideNavShow] = useUiStore((state) => [
@@ -13,11 +15,17 @@ const SideNav = () => {
     state.sideNavShow,
   ]);
 
-  const [userData, logout, login] = useUserStore((state) => [
+  const [userData, logout] = useUserStore((state) => [
     state.userData,
     state.logout,
-    state.login,
   ]);
+
+  const router = useRouter();
+
+  const handleLogin = () => {
+    toggleSideNav();
+    router.push('/signin');
+  };
 
   return (
     <div className="w-full">
@@ -53,35 +61,41 @@ const SideNav = () => {
         </div>
 
         <div className="w-full absolute bottom-6 left-0 px-4">
-          <div className="flex items-center justify-between">
+          <div className="space-y-4">
             {userData !== null ? (
               <div className="flex space-x-2 items-center">
                 <Image
-                  alt={userData.name.join(' ')}
-                  src={userData.image}
+                  alt={userData?.displayName!}
+                  src={userData?.photoURL || '/assets/Dummy Profile.png'}
                   width={40}
                   height={40}
                   className="rounded-full"
                 />
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold">
-                    {userData.name.join(' ').slice(0, 14)}
-                    {userData.name.join(' ')?.length > 14 ? '...' : ''}
+                  <span className="text-sm line-clamp-1 font-semibold">
+                    {userData?.displayName!}
                   </span>
-                  <span className="text-xs text-gray-500">
-                    {userData.email.slice(0, 14)}
-                    {userData.email.length > 14 ? '...' : ''}
+                  <span className="text-xs line-clamp-1 text-gray-500">
+                    {userData?.email!}
                   </span>
                 </div>
               </div>
             ) : null}
 
-            <button className="border-2 px-4 rounded-lg py-2 border-red-500">
-              <span
-                onClick={logout}
-                className="flex cursor-pointer items-center"
-              >
-                Logout <FaPowerOff className="text-red-500 ml-2" />
+            <button
+              className={classNames(
+                'btnOutline',
+                userData !== null ? 'border-red-500' : 'border-gray-500'
+              )}
+              onClick={userData !== null ? logout : handleLogin}
+            >
+              <span className="flex cursor-pointer items-center">
+                <span>{userData !== null ? 'Logout' : 'Login'}</span>
+                {userData !== null ? (
+                  <FaPowerOff className="text-red-500 ml-2" />
+                ) : (
+                  <BiLogInCircle className="text-gray-500 ml-2" />
+                )}
               </span>
             </button>
           </div>
