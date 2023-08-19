@@ -9,7 +9,7 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <nav className="w-full sticky z-30 bg-gray-50 shadow-md py-2 px-2 sm:px-4">
+    <nav className="w-full fixed z-30 bg-gray-50 shadow-md py-2 px-2 sm:px-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center justify-center space-x-2 sm:space-x-4">
           <Link href="/" className="">

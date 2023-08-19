@@ -22,12 +22,28 @@ export const SIDENAV_OPTIONS = [
         url: '/profile',
       },
       {
-        name: 'Orders',
-        url: '/orders',
+        name: 'Dashboard',
+        url: '/dashboard',
+      },
+      {
+        name: 'Post a Request',
+        url: '/post-request',
       },
       {
         name: 'Settings',
         url: '/settings',
+      },
+      {
+        name: 'Billings & Payments',
+        url: '/billings-payments',
+      },
+      {
+        name: 'Refer a Friend',
+        url: '/refer-friend',
+      },
+      {
+        name: 'Help & Support',
+        url: '/help-support',
       },
     ],
   },

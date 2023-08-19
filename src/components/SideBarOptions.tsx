@@ -40,7 +40,6 @@ const SideBarOptions = ({ option }: NavOptionsProps) => {
                 />
               </Disclosure.Button>
               <div
-                onMouseLeave={() => close()}
                 className={classNames(
                   'px-0 py-2 text-sm flex -z-10 flex-col space-y-2 transition-all duration-300 ease-out lg:absolute lg:top-8 lg:px-2 lg:bg-white lg:rounded-lg',
                   open

@@ -9,7 +9,7 @@ const HomePageCarouselCard = ({ service }: { service: Service }) => {
   const { name, description, carouselImage, slug } = service;
 
   return (
-    <div className="h-[480px] relative w-full bg-gray-300">
+    <div className="h-[480px] lg:h-screen relative w-full bg-gray-300">
       <Image
         src={
           carouselImage ||

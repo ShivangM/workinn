@@ -6,6 +6,10 @@ import Link from 'next/link';
 import useUserStore from '@/store/userStore';
 import { IconType } from 'react-icons/lib';
 import { FaCog, FaUser } from 'react-icons/fa';
+import { RxDashboard } from 'react-icons/rx';
+import { AiOutlineTeam } from 'react-icons/ai';
+import { BiHelpCircle } from 'react-icons/bi';
+import { RiPagesLine, RiBillLine } from 'react-icons/ri';
 
 type Option = {
   href: string;
@@ -19,12 +23,42 @@ const options: Option[] = [
     href: '/profile',
     Icon: FaUser,
     name: 'Profile',
+    color: 'teal',
+  },
+  {
+    href: '/dashboard',
+    Icon: RxDashboard,
+    name: 'Dashboard',
+    color: 'orange',
+  },
+  {
+    href: '/post-request',
+    Icon: RiPagesLine,
+    name: 'Post a Request',
     color: 'brand',
   },
   {
-    href: '/profile/settings',
+    href: '/settings',
     Icon: FaCog,
     name: 'Settings',
+    color: 'brand',
+  },
+  {
+    href: '/billings-payments',
+    Icon: RiBillLine,
+    name: 'Billing & Payments',
+    color: 'brand',
+  },
+  {
+    href: '/refer-friend',
+    Icon: AiOutlineTeam,
+    name: 'Refer a Friend',
+    color: 'brand',
+  },
+  {
+    href: '/help-support',
+    Icon: BiHelpCircle,
+    name: 'Help & Support',
     color: 'brand',
   },
 ];
@@ -32,13 +66,13 @@ const options: Option[] = [
 const UserProfileDropdownOption = ({ option }: { option: Option }) => {
   const { Icon, color, href, name } = option;
   return (
-    <li className="font-medium">
+    <li className="font-medium text-sm">
       <Link
         href={href}
-        className={`flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-${color}`}
+        className={`flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-${color}-500`}
       >
         <div className="mr-3">
-          <Icon className={`w-6 h-6 text-${color}`} />
+          <Icon className={`w-5 h-5 text-${color}`} />
         </div>
         {name}
       </Link>
@@ -85,22 +119,22 @@ const UserProfileDropdown = () => {
         </div>
 
         {show ? (
-          <div className="absolute w-60 px-5 py-3 bg-white rounded-lg shadow border mt-5 right-0">
-            <ul className="space-y-3">
+          <div className="absolute w-60 px-5 py-3 pb-4 bg-white rounded-lg shadow border mt-5 right-0">
+            <ul className="space-y-5">
               {options.map((option, idx) => (
                 <UserProfileDropdownOption option={option} key={idx} />
               ))}
 
               <hr className="" />
 
-              <li className="font-medium">
+              <li className="font-medium text-sm">
                 <button
                   onClick={logout}
-                  className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600"
+                  className="flex items-center transform transition-colors duration-200 border-r-4 w-full border-transparent hover:border-red-600"
                 >
                   <div className="mr-3 text-red-600">
                     <svg
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

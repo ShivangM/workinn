@@ -13,8 +13,9 @@ const ParallaxSection = ({ image }: Props) => {
       bgImageAlt="Hirer and Seller Shaking Hands"
       bgImageSizes="3982x2579"
       strength={-200}
+      className="h-80 sm:h-96 object-cover lg:h-[480px]"
     >
-      <div className="h-80 sm:h-96 lg:h-[480px]" />
+      {/* <div /> */}
     </Parallax>
   );
 };
