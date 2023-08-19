@@ -8,6 +8,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import useUiStore from '@/store/uiStore';
 import useUserStore from '@/store/userStore';
 import { useRouter } from 'next/navigation';
+import SidebarLinks from './SidebarLinks';
 
 const SideNav = () => {
   const [toggleSideNav, sideNavShow] = useUiStore((state) => [
@@ -60,6 +61,8 @@ const SideNav = () => {
           />
         </div>
 
+        <SidebarLinks />
+
         <div className="w-full absolute bottom-6 left-0 px-4">
           <div className="space-y-4">
             {userData !== null ? (
@@ -85,7 +88,9 @@ const SideNav = () => {
             <button
               className={classNames(
                 'btnOutline',
-                userData !== null ? 'border-red-500' : 'border-gray-500'
+                userData !== null
+                  ? 'border-red-500 hover:border-red-600'
+                  : 'border-brand hover:border-teal-500'
               )}
               onClick={userData !== null ? logout : handleLogin}
             >

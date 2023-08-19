@@ -1,35 +1,30 @@
+import features from '@/constants/features';
 import Image from 'next/image';
 import React from 'react';
+import { IconType } from 'react-icons/lib';
 
-type Props = {};
+type Feature = {
+  Icon: IconType;
+  name: string;
+  description: string;
+};
 
-const Feature = (props: Props) => {
+type Props = {
+  feature: Feature;
+};
+
+const Feature = ({ feature }: Props) => {
+  const { Icon, name, description } = feature;
   return (
     <div className="flex">
       <div className="flex-shrink-0">
-        <div className="flex items-center justify-center w-12 h-12 rounded-md bg-tertiary text-gray-900">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
+        <div className="flex items-center justify-center w-12 h-12 rounded-md bg-secondary text-gray-900">
+          <Icon className="w-7 h-7" />
         </div>
       </div>
       <div className="ml-4">
-        <h4 className="text-lg font-medium leadi">Per ei quaeque sensibus</h4>
-        <p className="mt-2">
-          Ex usu illum iudico molestie. Pro ne agam facete mediocritatem, ridens
-          labore facete mea ei. Pro id apeirian dignissim.
-        </p>
+        <h4 className="text-lg font-medium leadi">{name}</h4>
+        <p className="mt-2 text-sm sm:text-base">{description}</p>
       </div>
     </div>
   );
@@ -42,37 +37,31 @@ const Features = () => {
         <div>
           <h2 className="text-3xl font-bold tracki text-center sm:text-5xl text-gray-900">
             <span>Why Work</span>
-            <span className="text-brand italic font-serif">Inn</span>
+            <span className="text-primary italic font-serif">Inn</span>
             <span>?</span>
           </h2>
-          <p className="max-w-3xl mx-auto mt-4 text-xl text-center text-gray-700">
-            Quando cetero his ne, eum admodum sapientem ut.
+          <p className="max-w-3xl mx-auto mt-4 sm:text-xl text-center text-gray-700">
+            Embrace the power of AI. Explore seamless task matching, secure UPI
+            payments, and transparent blockchain transactions. Elevate your
+            freelancing experience today.
           </p>
         </div>
 
         <div className="grid lg:gap-8 lg:grid-cols-2 lg:items-center">
           <div>
-            <h3 className="text-2xl font-bold tracki sm:text-3xl text-gray-900">
-              Ad vix debet docendi
-            </h3>
-            <p className="mt-3 text-lg text-gray-700">
-              Ne dicta praesent ocurreret has, diam theophrastus at pro. Eos
-              etiam regione ut, persius eripuit quo id. Sit te euismod
-              tacimates.
-            </p>
-            <div className="mt-12 space-y-12">
-              <Feature />
-              <Feature />
-              <Feature />
+            <div className="space-y-12">
+              {features.map((feature, idx) => (
+                <Feature feature={feature} key={idx} />
+              ))}
             </div>
           </div>
           <div aria-hidden="true" className="mt-10 lg:mt-0">
             <Image
-              src="https://source.unsplash.com/random/360x480"
+              src="/assets/WhyWorkInn.svg"
               alt=""
-              height={481}
-              width={361}
-              className="mx-auto rounded-lg shadow-lg dark:bg-gray-500"
+              height={500}
+              width={500}
+              className="mx-auto"
             />
           </div>
         </div>
