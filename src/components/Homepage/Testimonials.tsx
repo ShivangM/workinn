@@ -38,9 +38,10 @@ const Testimonials = (props: Props) => {
           <div className="max-w-2xl mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
             <h2 className="text-4xl font-bold text-gray-900">What Users Say</h2>
             <p className="text-gray-700">
-              Pri ex magna scaevola moderatius. Nullam accommodare no vix, est
-              ei diceret alienum, et sit cetero malorum. Et sea iudico
-              consequat, est sanctus adipisci ex.
+              Discover what freelancers and clients are saying about their
+              WorkInn experience. Real stories from real people who have
+              harnessed the power of our innovative features. Join them in
+              revolutionizing the way freelancing works in India.
             </p>
           </div>
           <div className="p-6 xl:col-span-3">

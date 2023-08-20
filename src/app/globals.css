@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-sm hover:bg-brand focus:outline-none focus:ring-2 focus:ring-offset-2
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-lg transition-all ease-in-out duration-300 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2
 }
 
 .btnOutline {
-    @apply border-2 px-4 rounded-lg py-2 w-full text-center flex items-center justify-center
+    @apply border-2 shadow-lg px-4 rounded-lg py-2 w-full text-center flex items-center justify-center transition-all ease-in-out duration-300
+}
+
+.sidebar-link {
+    @apply flex w-full items-center space-x-2 rounded-lg bg-gray-50 p-4 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:bg-gray-200 lg:p-0 lg:hover:bg-inherit lg:bg-inherit lg:focus:bg-inherit
 }

@@ -8,12 +8,19 @@ import { BiLogInCircle } from 'react-icons/bi';
 import useUiStore from '@/store/uiStore';
 import useUserStore from '@/store/userStore';
 import { useRouter } from 'next/navigation';
+import SidebarLinks from './SidebarLinks';
+import { TbSwitchHorizontal } from 'react-icons/tb';
+import { UserModes } from '@/interfaces/user.d';
 
 const SideNav = () => {
-  const [toggleSideNav, sideNavShow] = useUiStore((state) => [
-    state.toggleSideNav,
-    state.sideNavShow,
-  ]);
+  const [toggleSideNav, sideNavShow, userMode, toggleUserMode] = useUiStore(
+    (state) => [
+      state.toggleSideNav,
+      state.sideNavShow,
+      state.userMode,
+      state.toggleUserMode,
+    ]
+  );
 
   const [userData, logout] = useUserStore((state) => [
     state.userData,
@@ -60,6 +67,8 @@ const SideNav = () => {
           />
         </div>
 
+        <SidebarLinks />
+
         <div className="w-full absolute bottom-6 left-0 px-4">
           <div className="space-y-4">
             {userData !== null ? (
@@ -82,10 +91,32 @@ const SideNav = () => {
               </div>
             ) : null}
 
+            {userData !== null ? (
+              <button
+                className={classNames(
+                  'btnOutline',
+                  'border-teal-500 hover:border-teal-600'
+                )}
+                onClick={toggleUserMode}
+              >
+                <span className="flex cursor-pointer items-center">
+                  <span>
+                    Switch To{' '}
+                    {userMode === UserModes.SELLER
+                      ? UserModes.BUYER
+                      : UserModes.SELLER}
+                  </span>
+                  <TbSwitchHorizontal className={`ml-2 text-teal-500`} />
+                </span>
+              </button>
+            ) : null}
+
             <button
               className={classNames(
                 'btnOutline',
-                userData !== null ? 'border-red-500' : 'border-gray-500'
+                userData !== null
+                  ? 'border-red-500 hover:border-red-600'
+                  : 'border-brand hover:border-teal-500'
               )}
               onClick={userData !== null ? logout : handleLogin}
             >

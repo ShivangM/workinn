@@ -10,17 +10,21 @@ const CTA = (props: Props) => {
         <h1 className="text-5xl font-bold leadi text-center text-gray-900">
           Get Started?
         </h1>
-        <p className="text-xl font-medium text-center text-gray-700">
-          At a assumenda quas cum earum ut itaque commodi saepe rem aspernatur
-          quam natus quis nihil quod, hic explicabo doloribus magnam neque,
-          exercitationem eius sunt!
+        <p className="sm:text-xl font-medium text-center text-gray-700">
+          At WorkInn, getting started is simple. With intelligent task matching,
+          secure UPI payments, and transparent blockchain transactions,
+          you&apos;re in control. Join us today and experience the future of
+          freelancing.
         </p>
-        <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-8">
+        <div className="flex items-center space-x-4 sm:space-x-8">
           <Link href="/services" className="btn">
             Explore Services
           </Link>
-          <Link href="/" className="btn">
-            Become A Freelancer
+          <Link
+            href="/"
+            className="btnOutline border-brand hover:border-teal-500"
+          >
+            Become A Seller
           </Link>
         </div>
       </div>
