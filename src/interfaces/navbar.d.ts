@@ -5,6 +5,12 @@ interface NavLink {
   url?: string;
 }
 
+type UserProfileDropdownOption = {
+  href: string;
+  Icon: IconType;
+  name: string;
+};
+
 export interface NavOption extends NavLink {
   sublinks?: NavLink[];
   Icon: IconType;

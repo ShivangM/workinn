@@ -24,7 +24,7 @@ const CTA = (props: Props) => {
             href="/"
             className="btnOutline border-brand hover:border-teal-500"
           >
-            Become A Freelancer
+            Become A Seller
           </Link>
         </div>
       </div>

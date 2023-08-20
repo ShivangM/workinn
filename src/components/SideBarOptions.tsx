@@ -16,11 +16,7 @@ const SideBarOptions = ({ option }: NavOptionsProps) => {
   return (
     <div className="relative text-gray-700 hover:underline">
       {url ? (
-        <Link
-          onClick={toggleSideNav}
-          href={url}
-          className="sidebar-link hover:text-brand"
-        >
+        <Link onClick={toggleSideNav} href={url} className="sidebar-link">
           <Icon className="h-5 w-5" />
           <span>{name}</span>
         </Link>
@@ -29,7 +25,7 @@ const SideBarOptions = ({ option }: NavOptionsProps) => {
           {({ open, close }) => (
             <div className="relative">
               <Disclosure.Button className="sidebar-link justify-between">
-                <div className="flex items-center hover:text-brand space-x-2">
+                <div className="flex items-center space-x-2">
                   <Icon className="h-5 w-5" />
                   <span>{name}</span>
                 </div>

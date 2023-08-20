@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from '../../node_modules/next/image';
 import Link from '../../node_modules/next/link';
 import SearchBar from './SearchBar';
@@ -9,7 +8,10 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <nav className="w-full fixed z-30 bg-gray-50 shadow-md py-2 px-2 sm:px-4">
+    <nav
+      style={{ backdropFilter: 'blur(10px)' }}
+      className="w-full sticky top-0 z-30 bg-white bg-opacity-70 bg-clip-padding shadow-md py-2 px-2 sm:px-4"
+    >
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center justify-center space-x-2 sm:space-x-4">
           <Link href="/" className="">
@@ -32,21 +34,19 @@ const Navbar = (props: Props) => {
           <SearchBar />
         </div>
 
-        <div className="hidden lg:flex items-center space-x-8">
-          <div className="flex items-center space-x-4">
-            <Link
-              className="text-gray-700 hover:text-gray-900 hover:underline"
-              href="/explore"
-            >
-              Explore
-            </Link>
-            <Link
-              className="text-gray-700 hover:text-gray-900 hover:underline"
-              href="/seller"
-            >
-              Become a Seller
-            </Link>
-          </div>
+        <div className="hidden lg:flex items-center space-x-6">
+          <Link
+            className="text-gray-700 hover:text-gray-900 hover:underline"
+            href="/explore"
+          >
+            Explore
+          </Link>
+          <Link
+            className="text-gray-700 hover:text-gray-900 hover:underline"
+            href="/seller"
+          >
+            Become a Seller
+          </Link>
 
           <AuthButton />
         </div>
