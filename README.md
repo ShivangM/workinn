@@ -5,7 +5,7 @@
 
 [![Welcome to my profile](https://img.shields.io/badge/Hello,Programmer!-Welcome-blue.svg?style=flat&logo=github)](https://github.com/ShivangM)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ShivangM/workinn)
-![License](https://img.shields.io/badge/License-Apache-red.svg)
+![License](https://img.shields.io/badge/License-MIT-red.svg)
 ![Stars](https://img.shields.io/github/stars/ShivangM/workinn?style=flat&logo=github)
 ![Forks](https://img.shields.io/github/forks/ShivangM/workinn?style=flat&logo=github)
 
