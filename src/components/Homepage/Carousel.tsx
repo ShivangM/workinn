@@ -1,12 +1,12 @@
 'use client';
-import { Service } from '@/interfaces/service';
+import { SubCategory } from '@/interfaces/service';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
-const HomePageCarouselCard = ({ service }: { service: Service }) => {
-  const { name, description, carouselImage, slug } = service;
+const HomePageCarouselCard = ({ subCategory }: { subCategory: SubCategory }) => {
+  const { name, description, carouselImage, slug } = subCategory;
 
   return (
     <div className="h-[480px] lg:h-screen relative w-full bg-gray-300">
@@ -21,7 +21,7 @@ const HomePageCarouselCard = ({ service }: { service: Service }) => {
       />
 
       <div className="bg-gradient-to-t w-full h-full absolute z-10 from-black via-black/70 to-transparent bg-opacity-80"></div>
-      <div className="absolute text-left text-white w-5/6 sm:w-1/2 z-20 left-6 bottom-8 sm:left-8 space-y-4">
+      <div className="absolute text-left text-white w-5/6 sm:w-1/2 z-20 left-8 bottom-10 sm:left-10 space-y-4">
         <h1 className="font-bold text-xl sm:text-3xl ">{name}</h1>
         <p className="text-gray-300 text-xs line-clamp-2 sm:line-clamp-3 sm:text-sm">
           {description}
@@ -35,10 +35,10 @@ const HomePageCarouselCard = ({ service }: { service: Service }) => {
 };
 
 type Props = {
-  services: Service[];
+  subCategories: SubCategory[];
 };
 
-const HomePageCarousel = ({ services }: Props) => {
+const HomePageCarousel = ({ subCategories }: Props) => {
   return (
     <div>
       <Carousel
@@ -48,8 +48,8 @@ const HomePageCarousel = ({ services }: Props) => {
         showThumbs={false}
         showStatus={false}
       >
-        {services?.map((service) => (
-          <HomePageCarouselCard key={service._id} service={service} />
+        {subCategories?.map((subCategory) => (
+          <HomePageCarouselCard key={subCategory._id} subCategory={subCategory} />
         ))}
       </Carousel>
     </div>

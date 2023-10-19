@@ -1,15 +1,15 @@
 'use client';
-import { Service } from '@/interfaces/service';
+import { SubCategory } from '@/interfaces/service';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 
 type Props = {
-  services: Service[];
+  subCategories: SubCategory[];
 };
 
-const ServiceCard = ({ service }: { service: Service }) => {
-  const { name, description, slug, image, carouselImage } = service;
+const SubCategoryCard = ({ subCategory }: { subCategory: SubCategory }) => {
+  const { name, description, slug, image } = subCategory;
 
   return (
     <Link
@@ -27,7 +27,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
       <div className="absolute z-10 top-0 bottom-0 left-0 right-0 bg-gradient-to-b via-transparent from-gray-900 to-gray-900"></div>
       <div className="absolute z-10 top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
         <p className="px-3 py-2 text-xs font-semibold tracking-wider uppercase text-gray-100">
-          POPULAR SERVICE
+          POPULAR SUB CATEGORY
         </p>
         {/* <div className="flex flex-col justify-start text-center text-gray-100">
           <span className="text-3xl font-semibold leading-none tracking-wide">
@@ -52,7 +52,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
   );
 };
 
-const PopularServices = ({ services }: Props) => {
+const PopularSubCategories = ({ subCategories }: Props) => {
   const scrollRef = useRef<HTMLDivElement>();
 
   const handleScrollRight = () => {
@@ -65,14 +65,15 @@ const PopularServices = ({ services }: Props) => {
 
   return (
     <section
-      id="popular-services"
-      className="sm:h-screen sm:max-h-[600px] md:max-h-[900px] xl:max-h-full sm:overflow-hidden flex flex-col items-center justify-center relative space-y-8"
+      id="popular-sub-categories"
+      className="container mx-auto flex flex-col items-center justify-center relative space-y-8 p-6 py-12"
     >
-      <div className="flex justify-between items-center w-5/6">
+      <div className="flex justify-between items-center w-full">
         <h1 className="text-xl font-bold tracki text-center sm:text-3xl text-gray-900">
-          POPULAR SERVICES
+          POPULAR SUB CATEGORIES
         </h1>
-        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+
+        <div className="flex items-center space-x-2">
           <button
             title="previous"
             type="button"
@@ -91,6 +92,7 @@ const PopularServices = ({ services }: Props) => {
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
+
           <button
             title="next"
             type="button"
@@ -112,18 +114,16 @@ const PopularServices = ({ services }: Props) => {
         </div>
       </div>
 
-      <div className="max-w-screen-xl w-5/6 mx-auto">
-        <div
-          ref={scrollRef as any}
-          className="flex gap-5 w-full overflow-x-auto scrollbar-none"
-        >
-          {services.map((service, idx) => {
-            return <ServiceCard service={service} key={idx} />;
-          })}
-        </div>
+      <div
+        ref={scrollRef as any}
+        className="flex gap-5 w-full overflow-x-auto scrollbar-none"
+      >
+        {subCategories.map((subCategory, idx) => {
+          return <SubCategoryCard subCategory={subCategory} key={idx} />;
+        })}
       </div>
     </section>
   );
 };
 
-export default PopularServices;
+export default PopularSubCategories;

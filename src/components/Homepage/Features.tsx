@@ -23,7 +23,7 @@ const Feature = ({ feature }: Props) => {
         </div>
       </div>
       <div className="ml-4">
-        <h4 className="text-lg font-medium leadi">{name}</h4>
+        <h4 className="text-lg font-semibold">{name}</h4>
         <p className="mt-2 text-sm sm:text-base">{description}</p>
       </div>
     </div>
@@ -32,38 +32,36 @@ const Feature = ({ feature }: Props) => {
 
 const Features = () => {
   return (
-    <section className="">
-      <div className="container max-w-xl p-6 py-12 mx-auto space-y-24 lg:px-8 lg:max-w-7xl">
-        <div>
-          <h2 className="text-3xl font-bold tracki text-center sm:text-5xl text-gray-900">
-            <span>Why Work</span>
-            <span className="text-primary italic font-serif">Inn</span>
-            <span>?</span>
-          </h2>
-          <p className="max-w-3xl mx-auto mt-4 sm:text-xl text-center text-gray-700">
-            Embrace the power of AI. Explore seamless task matching, secure UPI
-            payments, and transparent blockchain transactions. Elevate your
-            freelancing experience today.
-          </p>
-        </div>
+    <section className="container p-6 py-12 mx-auto">
+      <div>
+        <h2 className="text-3xl font-bold tracki text-center sm:text-5xl text-gray-900">
+          <span>Why Work</span>
+          <span className="text-primary italic font-serif">Inn</span>
+          <span>?</span>
+        </h2>
+        <p className="max-w-3xl mx-auto mt-4 sm:text-xl text-center text-gray-700">
+          Embrace the power of AI. Explore seamless task matching, secure UPI
+          payments, and transparent blockchain transactions. Elevate your
+          freelancing experience today.
+        </p>
+      </div>
 
-        <div className="grid lg:gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <div className="space-y-12">
-              {features.map((feature, idx) => (
-                <Feature feature={feature} key={idx} />
-              ))}
-            </div>
+      <div className="grid lg:gap-8 lg:grid-cols-2 lg:items-center mt-24">
+        <div>
+          <div className="space-y-12">
+            {features.map((feature, idx) => (
+              <Feature feature={feature} key={idx} />
+            ))}
           </div>
-          <div aria-hidden="true" className="mt-10 lg:mt-0">
-            <Image
-              src="/assets/WhyWorkInn.svg"
-              alt=""
-              height={500}
-              width={500}
-              className="mx-auto"
-            />
-          </div>
+        </div>
+        <div aria-hidden="true" className="mt-10 lg:mt-0">
+          <Image
+            src="/assets/WhyWorkInn.svg"
+            alt=""
+            height={500}
+            width={500}
+            className="mx-auto"
+          />
         </div>
       </div>
     </section>

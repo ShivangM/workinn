@@ -17,8 +17,8 @@ const CTA = (props: Props) => {
           freelancing.
         </p>
         <div className="flex items-center space-x-4 sm:space-x-8">
-          <Link href="/services" className="btn">
-            Explore Services
+          <Link href="/explore" className="btn">
+            Explore Categories
           </Link>
           <Link
             href="/"

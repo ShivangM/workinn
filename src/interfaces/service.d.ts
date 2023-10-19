@@ -1,4 +1,4 @@
-export interface Service {
+export interface SubCategory {
   _id: string;
   name: string;
   description: string;
