@@ -4,16 +4,17 @@ import Features from '@/components/Homepage/Features';
 import PopularServices from '@/components/Homepage/PopularSubCategories';
 import Testimonials from '@/components/Homepage/Testimonials';
 import ParallaxSection from '@/components/Parallax';
-import fetchTrendingSubCategories from '@/lib/fetchTrendingSubCategories';
+import fetchTrendingServiceCategories from '@/lib/fetchTrendingServiceCategories';
 
 export default async function Home() {
-  const trendingSubCategories = await fetchTrendingSubCategories();
+  const { data: trendingServiceCategories } = await fetchTrendingServiceCategories();
+
   return (
     <main className="space-y-10">
-      <HomePageCarousel subCategories={trendingSubCategories} />
+      <HomePageCarousel serviceCategories={trendingServiceCategories} />
       <Features />
       <ParallaxSection image="/assets/freelancer.jpg" />
-      <PopularServices subCategories={trendingSubCategories} />
+      <PopularServices serviceCategories={trendingServiceCategories} />
       <ParallaxSection image="/assets/hirer-seller.jpg" />
       <Testimonials />
       <ParallaxSection image="/assets/happy-person.jpg" />

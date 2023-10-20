@@ -1,12 +1,12 @@
 'use client';
-import { SubCategory } from '@/interfaces/service';
+import { ServiceCategory } from '@/interfaces/service';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
-const HomePageCarouselCard = ({ subCategory }: { subCategory: SubCategory }) => {
-  const { name, description, carouselImage, slug } = subCategory;
+const HomePageCarouselCard = ({ serviceCategory }: { serviceCategory: ServiceCategory }) => {
+  const { name, description, carouselImage, slug } = serviceCategory;
 
   return (
     <div className="h-[480px] lg:h-screen relative w-full bg-gray-300">
@@ -35,10 +35,10 @@ const HomePageCarouselCard = ({ subCategory }: { subCategory: SubCategory }) => 
 };
 
 type Props = {
-  subCategories: SubCategory[];
+  serviceCategories: ServiceCategory[];
 };
 
-const HomePageCarousel = ({ subCategories }: Props) => {
+const HomePageCarousel = ({ serviceCategories }: Props) => {
   return (
     <div>
       <Carousel
@@ -48,8 +48,8 @@ const HomePageCarousel = ({ subCategories }: Props) => {
         showThumbs={false}
         showStatus={false}
       >
-        {subCategories?.map((subCategory) => (
-          <HomePageCarouselCard key={subCategory._id} subCategory={subCategory} />
+        {serviceCategories?.map((serviceCategory) => (
+          <HomePageCarouselCard key={serviceCategory.id} serviceCategory={serviceCategory} />
         ))}
       </Carousel>
     </div>

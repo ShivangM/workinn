@@ -1,15 +1,15 @@
 'use client';
-import { SubCategory } from '@/interfaces/service';
+import { ServiceCategory } from '@/interfaces/service';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 
 type Props = {
-  subCategories: SubCategory[];
+  serviceCategories: ServiceCategory[];
 };
 
-const SubCategoryCard = ({ subCategory }: { subCategory: SubCategory }) => {
-  const { name, description, slug, image } = subCategory;
+const ServiceCategoryCard = ({ serviceCategory }: { serviceCategory: ServiceCategory }) => {
+  const { name, description, slug, image } = serviceCategory;
 
   return (
     <Link
@@ -27,14 +27,14 @@ const SubCategoryCard = ({ subCategory }: { subCategory: SubCategory }) => {
       <div className="absolute z-10 top-0 bottom-0 left-0 right-0 bg-gradient-to-b via-transparent from-gray-900 to-gray-900"></div>
       <div className="absolute z-10 top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
         <p className="px-3 py-2 text-xs font-semibold tracking-wider uppercase text-gray-100">
-          POPULAR SUB CATEGORY
+          POPULAR SERVICE CATEGORY
         </p>
-        {/* <div className="flex flex-col justify-start text-center text-gray-100">
-          <span className="text-3xl font-semibold leading-none tracking-wide">
+        <div className="flex flex-col justify-start text-left text-gray-100">
+          <span className="text-xl sm:text-2xl xl:text-3xl font-semibold leading-none tracking-wide">
             20+
           </span>
-          <span className="leading-none uppercase">SUB</span>
-        </div> */}
+          <span className="leading-none uppercase">SERVICES</span>
+        </div>
       </div>
       <div className="z-10 p-5">
         <h2 className="">
@@ -52,7 +52,7 @@ const SubCategoryCard = ({ subCategory }: { subCategory: SubCategory }) => {
   );
 };
 
-const PopularSubCategories = ({ subCategories }: Props) => {
+const PopularSubCategories = ({ serviceCategories }: Props) => {
   const scrollRef = useRef<HTMLDivElement>();
 
   const handleScrollRight = () => {
@@ -65,12 +65,12 @@ const PopularSubCategories = ({ subCategories }: Props) => {
 
   return (
     <section
-      id="popular-sub-categories"
+      id="popular-services"
       className="container mx-auto flex flex-col items-center justify-center relative space-y-8 p-6 py-12"
     >
       <div className="flex justify-between items-center w-full">
         <h1 className="text-xl font-bold tracki text-center sm:text-3xl text-gray-900">
-          POPULAR SUB CATEGORIES
+          POPULAR SERVICE CATEGORIES
         </h1>
 
         <div className="flex items-center space-x-2">
@@ -118,8 +118,8 @@ const PopularSubCategories = ({ subCategories }: Props) => {
         ref={scrollRef as any}
         className="flex gap-5 w-full overflow-x-auto scrollbar-none"
       >
-        {subCategories.map((subCategory, idx) => {
-          return <SubCategoryCard subCategory={subCategory} key={idx} />;
+        {serviceCategories.map((serviceCategory, idx) => {
+          return <ServiceCategoryCard serviceCategory={serviceCategory} key={idx} />;
         })}
       </div>
     </section>

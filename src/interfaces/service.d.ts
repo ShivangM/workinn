@@ -1,5 +1,5 @@
-export interface SubCategory {
-  _id: string;
+export interface ServiceCategory {
+  id: string;
   name: string;
   description: string;
   carouselImage?: string;
