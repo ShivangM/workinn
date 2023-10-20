@@ -1,6 +1,6 @@
-import Banner from '@/components/Categories/Banner'
-import Categories from '@/components/Categories/Categories'
-import FAQs from '@/components/Categories/FAQs'
+import Banner from '@/components/Categories/CategoryPage/Banner'
+import Categories from '@/components/Categories/CategoryPage/Categories'
+import FAQs from '@/components/Categories/CategoryPage/FAQs'
 import React from 'react'
 
 const page = () => {

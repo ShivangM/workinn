@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
 
     const categoriesRef = db.collection("categories");
     const total = await categoriesRef.count().get().then((snapshot) => snapshot.data().count);
+    const pageTotal = Math.ceil(total / PAGE_LIMIT);
 
     const categoriesSnapshot = await categoriesRef.limit(PAGE_LIMIT).offset(page * PAGE_LIMIT).get();
     const data = categoriesSnapshot.docs.map((doc) => {
@@ -18,7 +19,7 @@ export async function GET(request: NextRequest) {
         return data;
     });
 
-    return Response.json({ data, total }, {
+    return Response.json({ data, total, pageTotal }, {
         status: 200,
         statusText: "OK",
     });

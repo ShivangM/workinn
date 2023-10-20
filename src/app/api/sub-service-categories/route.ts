@@ -35,15 +35,19 @@ export async function GET(request: NextRequest) {
     const subServiceCategoriesRef = db.collection("categories").doc(category).collection("sub-categories").doc(subCategory).collection("service-categories").doc(serviceCategory).collection("sub-service-categories");
 
     const total = await subServiceCategoriesRef.count().get().then((snapshot) => snapshot.data().count);
+    const pageTotal = Math.ceil(total / PAGE_LIMIT);
 
     const subServiceCategoriesSnapshot = await subServiceCategoriesRef.limit(PAGE_LIMIT).offset(page * PAGE_LIMIT).get();
     const data = subServiceCategoriesSnapshot.docs.map((doc) => {
         const data = doc.data();
         data.id = doc.id;
+        data.categoryId = category;
+        data.subCategoryId = subCategory;
+        data.serviceCategoryId = serviceCategory;
         return data;
     });
 
-    return Response.json({ data, total }, {
+    return Response.json({ data, total, pageTotal }, {
         status: 200,
         statusText: "OK",
     });

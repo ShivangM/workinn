@@ -1,5 +1,6 @@
 'use client';
 import { ServiceCategory } from '@/interfaces/service';
+import getImageFromUnsplash from '@/utils/getImageFromUnsplash';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
@@ -9,15 +10,15 @@ type Props = {
 };
 
 const ServiceCategoryCard = ({ serviceCategory }: { serviceCategory: ServiceCategory }) => {
-  const { name, description, slug, image } = serviceCategory;
+  const { name, description, image, id, categoryId, subCategoryId } = serviceCategory;
 
   return (
     <Link
-      href={`/services/${slug}`}
+      href={`/categories/${categoryId}/${subCategoryId}/${id}`}
       className="relative group flex items-end overflow-hidden justify-start min-w-[300px] text-left bg-center bg-cover h-96"
     >
       <Image
-        src={image || `https://source.unsplash.com/random/1920x1080/?${name}`}
+        src={image || getImageFromUnsplash(name)}
         alt={name}
         fill
         className="z-0 group-hover:scale-105 transition-all ease-in-out duration-300"

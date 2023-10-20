@@ -1,5 +1,5 @@
-interface Response<T> {
+interface APIResponse<T> {
     data: T
     total: number
-    page?: number
+    pageTotal?: number
 }

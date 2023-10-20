@@ -3,6 +3,14 @@ export interface ServiceCategory {
   name: string;
   description: string;
   carouselImage?: string;
-  slug: string;
+  image?: string;
+  categoryId: string;
+  subCategoryId: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
   image?: string;
 }
