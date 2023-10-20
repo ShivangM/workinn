@@ -53,7 +53,7 @@ const ServiceCategoryCard = ({ serviceCategory }: { serviceCategory: ServiceCate
   );
 };
 
-const PopularSubCategories = ({ serviceCategories }: Props) => {
+const PopularServiceCategories = ({ serviceCategories }: Props) => {
   const scrollRef = useRef<HTMLDivElement>();
 
   const handleScrollRight = () => {
@@ -127,4 +127,4 @@ const PopularSubCategories = ({ serviceCategories }: Props) => {
   );
 };
 
-export default PopularSubCategories;
+export default PopularServiceCategories;

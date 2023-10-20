@@ -6,7 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
 const HomePageCarouselCard = ({ serviceCategory }: { serviceCategory: ServiceCategory }) => {
-  const { name, description, carouselImage, slug } = serviceCategory;
+  const { name, description, carouselImage, categoryId, subCategoryId, id } = serviceCategory;
 
   return (
     <div className="h-[480px] lg:h-screen relative w-full bg-gray-300">
@@ -26,7 +26,7 @@ const HomePageCarouselCard = ({ serviceCategory }: { serviceCategory: ServiceCat
         <p className="text-gray-300 text-xs line-clamp-2 sm:line-clamp-3 sm:text-sm">
           {description}
         </p>
-        <Link href={`/services/${slug}`} className="btn w-fit group block">
+        <Link href={`/categories/${categoryId}/${subCategoryId}/${id}`} className="btn w-fit group block">
           <span className="relative">Explore Service</span>
         </Link>
       </div>
