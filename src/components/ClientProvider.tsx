@@ -4,7 +4,8 @@ import { auth } from '@/utils/firebase';
 import { useEffect, ReactNode } from 'react';
 
 const ClientProvider = ({ children }: { children: ReactNode }) => {
-  const [setUserData] = useUserStore((state) => [state.setUserData]);
+  const [setUserData, userData] = useUserStore((state) => [state.setUserData, state.userData]);
+  console.log(userData)
 
   useEffect(() => {
     const listner = auth.onAuthStateChanged(

@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth, GoogleAuthProvider, EmailAuthProvider } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -19,20 +19,5 @@ const app = !apps.length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const uiConfig = {
-  signInSuccessUrl: '/',
-  signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
-    GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    EmailAuthProvider.PROVIDER_ID,
-  ],
-
-  tosUrl: 'tos',
-  privacyPolicyUrl: 'privacy-policy',
-};
-
-export { auth, uiConfig };
+export { auth };
 export default db;

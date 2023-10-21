@@ -1,7 +1,7 @@
 import { auth } from '@/utils/firebase';
 import { signOut, User } from 'firebase/auth';
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 
 interface UserState {
   userData: null | User;
