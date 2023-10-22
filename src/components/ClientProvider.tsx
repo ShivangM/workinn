@@ -2,16 +2,22 @@
 import useUserStore from '@/store/userStore';
 import { auth } from '@/utils/firebase';
 import { useEffect, ReactNode } from 'react';
+import { setCookie } from 'cookies-next';
 
 const ClientProvider = ({ children }: { children: ReactNode }) => {
-  const [setUserData, userData] = useUserStore((state) => [state.setUserData, state.userData]);
-  console.log(userData)
+  const [setUserData, setToken] = useUserStore((state) => [
+    state.setUserData,
+    state.setToken,
+  ]);
 
   useEffect(() => {
     const listner = auth.onAuthStateChanged(
-      (user) => {
+      async (user) => {
         if (user) {
           setUserData(user);
+          const token = await user.getIdToken();
+          setToken(token);
+          setCookie('token', token);
         }
       },
       (error) => {
@@ -22,7 +28,7 @@ const ClientProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       listner();
     };
-  }, []);
+  }, [setToken, setUserData]);
 
   return <div>{children}</div>;
 };

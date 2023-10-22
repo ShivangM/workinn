@@ -3,13 +3,25 @@
 @tailwind utilities;
 
 .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-lg transition-all ease-in-out duration-300 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2
+  @apply inline-flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-lg transition-all ease-in-out duration-300 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 
 .btnOutline {
-    @apply border-2 shadow-lg px-4 rounded-lg py-2 w-full text-center flex items-center justify-center transition-all ease-in-out duration-300
+  @apply border-2 shadow-lg px-2 py-1 sm:px-4 sm:py-2 rounded-lg w-full text-center flex items-center justify-center transition-all ease-in-out duration-300 text-sm sm:text-base;
 }
 
 .sidebar-link {
-    @apply flex w-full items-center space-x-2 rounded-lg bg-gray-50 p-4 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:bg-gray-200 lg:p-0 lg:hover:bg-inherit lg:bg-inherit lg:focus:bg-inherit
+  @apply flex w-full items-center space-x-2 rounded-lg bg-gray-50 p-4 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:bg-gray-200 lg:p-0 lg:hover:bg-inherit lg:bg-inherit lg:focus:bg-inherit;
+}
+
+.profile-section {
+  @apply flex flex-col w-full bg-white rounded-lg p-6 col-span-1 shadow-md gap-2;
+}
+
+.profile-section h2 {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+.form-input {
+  @apply mt-1 py-2 px-4 bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
 }

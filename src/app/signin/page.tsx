@@ -2,14 +2,15 @@
 import { useEffect, useCallback } from 'react';
 import 'firebaseui/dist/firebaseui.css';
 import db, { auth } from '@/utils/firebase';
-import { EmailAuthProvider, GoogleAuthProvider, sendEmailVerification } from 'firebase/auth';
+import {
+  EmailAuthProvider,
+  GoogleAuthProvider,
+  sendEmailVerification,
+} from 'firebase/auth';
 import { toast } from 'react-toastify';
-import useUserStore from '@/store/userStore';
 import { doc, setDoc } from 'firebase/firestore';
 
 const SignIn = () => {
-  const [setUserData] = useUserStore((state) => [state.setUserData]);
-
   const loadFirebaseui = useCallback(async () => {
     const firebaseui = await import('firebaseui');
 
@@ -25,25 +26,28 @@ const SignIn = () => {
 
       tosUrl: 'tos',
       privacyPolicyUrl: 'privacy-policy',
-      siteName: "WorkInn",
+      siteName: 'WorkInn',
       callbacks: {
         signInSuccessWithAuthResult: (authResult) => {
-          console.log(authResult)
+          console.log(authResult);
           if (authResult.additionalUserInfo?.isNewUser) {
-            sendEmailVerification(authResult.user);
+            if (!authResult.user.emailVerified) {
+              sendEmailVerification(authResult.user);
+              toast.success(
+                'Account created successfully 🎉. Please verify your email address.'
+              );
+            }
+
             setDoc(doc(db, 'users', authResult.user.uid), {
               email: authResult.user.email,
               uid: authResult.user.uid,
               displayName: authResult.user.displayName,
               photoURL: authResult.user.photoURL,
               phoneNumber: authResult.user.phoneNumber,
-              emailVerified: authResult.user.emailVerified,
-              providerId: authResult.user.providerId,
               creationTime: authResult.user.metadata.creationTime,
-              lastSignInTime: authResult.user.metadata.lastSignInTime,
             });
-            toast.success('Account created successfully 🎉. Please verify your email address.');
           }
+
           return true;
         },
       },

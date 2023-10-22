@@ -7,10 +7,10 @@ const CTA = (props: Props) => {
   return (
     <section className="py-6">
       <div className="container mx-auto flex flex-col items-center justify-center p-4 space-y-8 md:p-10 md:px-24 xl:px-48">
-        <h1 className="text-5xl font-bold leadi text-center text-gray-900">
+        <h1 className="text-3xl lg:text-4xl 2xl:text-5xl font-bold leadi text-center text-gray-900">
           Get Started?
         </h1>
-        <p className="sm:text-xl font-medium text-center text-gray-700">
+        <p className="text-sm sm:text-base 2xl:text-lg font-medium text-center text-gray-700">
           At WorkInn, getting started is simple. With intelligent task matching,
           secure UPI payments, and transparent blockchain transactions,
           you&apos;re in control. Join us today and experience the future of

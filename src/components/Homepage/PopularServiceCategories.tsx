@@ -9,8 +9,13 @@ type Props = {
   serviceCategories: ServiceCategory[];
 };
 
-const ServiceCategoryCard = ({ serviceCategory }: { serviceCategory: ServiceCategory }) => {
-  const { name, description, image, id, categoryId, subCategoryId } = serviceCategory;
+const ServiceCategoryCard = ({
+  serviceCategory,
+}: {
+  serviceCategory: ServiceCategory;
+}) => {
+  const { name, description, image, id, categoryId, subCategoryId } =
+    serviceCategory;
 
   return (
     <Link
@@ -30,12 +35,13 @@ const ServiceCategoryCard = ({ serviceCategory }: { serviceCategory: ServiceCate
         <p className="px-3 py-2 text-xs font-semibold tracking-wider uppercase text-gray-100">
           POPULAR SERVICE CATEGORY
         </p>
-        <div className="flex flex-col justify-start text-left text-gray-100">
+
+        {/* <div className="flex flex-col justify-start text-left text-gray-100">
           <span className="text-xl sm:text-2xl xl:text-3xl font-semibold leading-none tracking-wide">
             20+
           </span>
           <span className="leading-none uppercase">SERVICES</span>
-        </div>
+        </div> */}
       </div>
       <div className="z-10 p-5">
         <h2 className="">
@@ -120,7 +126,9 @@ const PopularServiceCategories = ({ serviceCategories }: Props) => {
         className="flex gap-5 w-full overflow-x-auto scrollbar-none"
       >
         {serviceCategories.map((serviceCategory, idx) => {
-          return <ServiceCategoryCard serviceCategory={serviceCategory} key={idx} />;
+          return (
+            <ServiceCategoryCard serviceCategory={serviceCategory} key={idx} />
+          );
         })}
       </div>
     </section>

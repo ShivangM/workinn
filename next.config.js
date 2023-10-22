@@ -3,9 +3,12 @@ const nextConfig = {
   images: {
     domains: [
       'source.unsplash.com',
-      'res.cloudinary.com',
+      'firebasestorage.googleapis.com',
       'lh3.googleusercontent.com',
     ],
+  },
+  experimental: {
+    serverActions: true,
   },
 };
 

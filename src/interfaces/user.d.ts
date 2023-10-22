@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export enum UserModes {
   BUYER = 'Buyer',
   SELLER = 'Seller',
@@ -37,17 +39,20 @@ enum DegreeTitle {
   OTHER = 'Other',
 }
 
-interface Language {
+export interface Language {
+  id: string;
   language: string;
   level: LanguageLevels;
 }
 
-interface Skill {
+export interface Skill {
+  id: string;
   skill: string;
   level: SkillLevels;
 }
 
-interface Education {
+export interface Education {
+  id: string;
   country: string;
   school: string;
   title: DegreeTitle;
@@ -55,22 +60,23 @@ interface Education {
   yearOfGraduation: number;
 }
 
-interface Certification {
+export interface Certification {
+  id: string;
   name: string;
   organization: string;
   year: number;
 }
 
-export interface UserData {
-  uid: string;
-  name: string[];
-  email: string;
-  image?: string;
-  country?: string;
-  memberSince: string;
+export interface BasicDetails {
+  displayName: string;
+  title: string;
+  photoURL?: string;
+  country?: any;
   description?: string;
-  languages?: Language[];
-  skills?: Skill[];
-  education?: Education[];
-  certifications?: Certification[];
+}
+
+export interface UserData extends BasicDetails {
+  uid: string;
+  email: string;
+  creationTime: string;
 }
