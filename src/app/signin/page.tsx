@@ -58,7 +58,7 @@ const SignIn = () => {
 
   useEffect(() => {
     loadFirebaseui();
-  }, []);
+  }, [loadFirebaseui]);
 
   return (
     <main className="container mx-auto py-32">

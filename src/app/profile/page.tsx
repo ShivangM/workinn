@@ -5,7 +5,7 @@ import React from 'react';
 const page = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 items-start justify-center gap-10">
-      {/* @ts-expect-error Async Server Component */}
+      {/* @ts-ignore */}
       <BasicDetails viewOnly={false} />
       <ProfileForm viewOnly={false} />
     </div>
