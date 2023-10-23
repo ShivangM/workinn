@@ -8,7 +8,7 @@ const fetchEducation = async (
   const res = await fetch(
     userId
       ? `${BASE_URL}/api/user/education?userId=${userId}`
-      : '${BASE_URL}/api/user/education',
+      : `${BASE_URL}/api/user/education`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

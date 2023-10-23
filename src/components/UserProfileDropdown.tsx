@@ -9,7 +9,7 @@ import { TbSwitchHorizontal } from 'react-icons/tb';
 import { UserProfileDropdownOption } from '@/interfaces/navbar';
 import useNavbarLinks from '@/hooks/useNavbarLinks';
 import useUiStore from '@/store/uiStore';
-import { UserModes } from '@/interfaces/user.d';
+import { UserData, UserModes } from '@/interfaces/user.d';
 
 const UserProfileDropdownOption = ({
   option,
@@ -32,11 +32,12 @@ const UserProfileDropdownOption = ({
   );
 };
 
-const UserProfileDropdown = () => {
-  const [logout, userData] = useUserStore((state) => [
-    state.logout,
-    state.userData,
-  ]);
+type Props = {
+  userData: UserData;
+};
+
+const UserProfileDropdown = ({ userData }: Props) => {
+  const [logout] = useUserStore((state) => [state.logout]);
 
   const [userMode, toggleUserMode] = useUiStore((state) => [
     state.userMode,
@@ -69,7 +70,7 @@ const UserProfileDropdown = () => {
           />
           <div className="flex flex-col">
             <span className="text-sm line-clamp-1 font-semibold">
-              {userData?.displayName!}
+              {userData?.displayName}
             </span>
             <span className="text-xs line-clamp-1 text-gray-500">
               {userData?.email!}

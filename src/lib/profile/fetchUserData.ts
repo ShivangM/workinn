@@ -6,7 +6,7 @@ const fetchUserData = async (
   userId?: string
 ): Promise<APIResponse<UserData>> => {
   const res = await fetch(
-    userId ? `${BASE_URL}/api/user?userId=${userId}` : '${BASE_URL}/api/user',
+    userId ? `${BASE_URL}/api/user?userId=${userId}` : `${BASE_URL}/api/user`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -2,11 +2,16 @@ import Image from '../../node_modules/next/image';
 import Link from '../../node_modules/next/link';
 import SearchBar from './SearchBar';
 import HamburgerIcon from './HamburgerIcon';
-import AuthButton from './AuthButton';
+import fetchUserData from '@/lib/profile/fetchUserData';
+import { cookies } from 'next/headers';
+import UserProfileDropdown from './UserProfileDropdown';
 
 type Props = {};
 
-const Navbar = (props: Props) => {
+const Navbar = async (props: Props) => {
+  const token = cookies().get('token')?.value;
+  const { data: userData } = await fetchUserData(token);
+
   return (
     <nav
       style={{ backdropFilter: 'blur(10px)' }}
@@ -48,7 +53,13 @@ const Navbar = (props: Props) => {
             Become a Seller
           </Link>
 
-          <AuthButton />
+          {userData !== null ? (
+            <UserProfileDropdown userData={userData} />
+          ) : (
+            <Link className="btn" href="/signin">
+              Sign In
+            </Link>
+          )}
         </div>
 
         <HamburgerIcon />

@@ -8,7 +8,7 @@ const fetchLanguages = async (
   const res = await fetch(
     userId
       ? `${BASE_URL}/api/user/languages?userId=${userId}`
-      : '${BASE_URL}/api/user/languages',
+      : `${BASE_URL}/api/user/languages`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

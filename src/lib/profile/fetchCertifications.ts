@@ -8,7 +8,7 @@ const fetchCertifications = async (
   const res = await fetch(
     userId
       ? `${BASE_URL}/api/user/certifications?userId=${userId}`
-      : '${BASE_URL}/api/user/certifications',
+      : `${BASE_URL}/api/user/certifications`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -8,7 +8,7 @@ const fetchSkills = async (
   const res = await fetch(
     userId
       ? `${BASE_URL}/api/user/skills?userId=${userId}`
-      : '${BASE_URL}/api/user/skills',
+      : `${BASE_URL}/api/user/skills`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

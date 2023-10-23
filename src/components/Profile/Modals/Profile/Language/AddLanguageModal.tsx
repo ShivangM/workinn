@@ -52,8 +52,6 @@ const AddLanguageModal = () => {
     reset();
   };
 
-  console.log(language);
-
   return (
     <Transition appear show={addLanguageModalOpen} as={Fragment}>
       <Dialog

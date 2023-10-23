@@ -29,7 +29,6 @@ const SignIn = () => {
       siteName: 'WorkInn',
       callbacks: {
         signInSuccessWithAuthResult: (authResult) => {
-          console.log(authResult);
           if (authResult.additionalUserInfo?.isNewUser) {
             if (!authResult.user.emailVerified) {
               sendEmailVerification(authResult.user);
