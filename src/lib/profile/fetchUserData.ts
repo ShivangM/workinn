@@ -1,23 +1,28 @@
 import { UserData } from '@/interfaces/user';
-import BASE_URL from '@/utils/baseUrl';
+import { auth, db } from '@/utils/firebaseAdmin';
 
 const fetchUserData = async (
   token: string | undefined,
   userId?: string
 ): Promise<APIResponse<UserData>> => {
-  const res = await fetch(
-    userId ? `${BASE_URL}/api/user?userId=${userId}` : `${BASE_URL}/api/user`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      next: {
-        tags: ['basic-details'],
-      },
+  try {
+    if (!token) {
+      throw new Error('Invalid token');
     }
-  ).then((res) => res.json());
 
-  return res;
+    const decodedToken = await auth.verifyIdToken(token);
+    const uid = userId || decodedToken.uid;
+
+    const userRef = db.collection('users').doc(uid);
+    const userSnapshot = await userRef.get();
+    const user = userSnapshot.data() as UserData;
+
+    return {
+      data: user,
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
 export default fetchUserData;

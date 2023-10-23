@@ -1,15 +1,28 @@
 import { Category } from '@/interfaces/service';
-import BASE_URL from '@/utils/baseUrl';
+import { db } from '@/utils/firebaseAdmin';
+
+const PAGE_LIMIT = 10;
 
 const fetchCategories = async (page = 1): Promise<APIResponse<Category[]>> => {
-  const res = await fetch(`${BASE_URL}/api/categories?page=${page - 1}`);
+  const categoriesRef = db.collection('categories');
+  const total = await categoriesRef
+    .count()
+    .get()
+    .then((snapshot) => snapshot.data().count);
+  const pageTotal = Math.ceil(total / PAGE_LIMIT);
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
+  const categoriesSnapshot = await categoriesRef
+    .limit(PAGE_LIMIT)
+    .offset(page * PAGE_LIMIT)
+    .get();
 
-  return res.json();
+  const data = categoriesSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    data.id = doc.id;
+    return data;
+  }) as Category[];
+
+  return { data, total, pageTotal };
 };
 
 export default fetchCategories;

@@ -8,6 +8,7 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import EditBasicDetailsButton from './EditBasicDetailsButton';
 import fetchUserData from '@/lib/profile/fetchUserData';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 type Props = {
   title: string;
@@ -33,30 +34,42 @@ type BasicDetailsProps = {
 };
 
 const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
-  const token = cookies().get('token')?.value;
-  const { data: userData } = await fetchUserData(token, userId);
+  const token = cookies().get('token');
+  let userData = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchUserData(token.value, userId);
+      userData = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <section
       title="Basic Details"
       className="flex flex-col w-full bg-white rounded-lg p-6 lg:col-span-1 shadow-md gap-2 sticky top-24"
     >
-      {!viewOnly ? <EditBasicDetailsButton basicDetails={userData} /> : null}
+      {!viewOnly && userData ? (
+        <EditBasicDetailsButton basicDetails={userData} />
+      ) : null}
 
       <div className="flex flex-col items-center justify-center space-y-4">
         <div className="rounded-full overflow-hidden relative w-1/2 mx-auto aspect-square">
           <Image
-            alt={userData.displayName}
-            src={userData.photoURL || '/assets/Dummy Profile.png'}
+            alt={userData?.displayName || 'User Profile Picture'}
+            src={userData?.photoURL || '/assets/Dummy Profile.png'}
             fill
             className="object-cover"
           />
         </div>
 
         <div className="space-y-1 text-center">
-          <h1 className="text-lg font-bold">{userData.displayName}</h1>
+          <h1 className="text-lg font-bold">{userData?.displayName}</h1>
           <h3 className="text-sm text-gray-700">
-            {userData.title || 'No title provided'}
+            {userData?.title || 'No title provided'}
           </h3>
         </div>
 
@@ -64,7 +77,7 @@ const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
           lines={3}
           className="text-xs sm:text-sm text-center text-gray-600"
         >
-          {userData.description || 'No description provided'}
+          {userData?.description || 'No description provided'}
         </ReadMorePara>
 
         <hr className="border w-full border-gray-200" />
@@ -77,7 +90,7 @@ const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
           />
           <BasicDetailProperty
             title="Member Since"
-            value={moment(userData.creationTime).format('MMM YYYY')}
+            value={moment(userData?.creationTime).format('MMM YYYY')}
             Icon={BsFillPersonFill}
           />
         </div>

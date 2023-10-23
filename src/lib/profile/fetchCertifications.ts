@@ -1,25 +1,26 @@
 import { Certification } from '@/interfaces/user';
-import BASE_URL from '@/utils/baseUrl';
+import { auth, db } from '@/utils/firebaseAdmin';
 
 const fetchCertifications = async (
-  token: string | undefined,
+  token: string,
   userId?: string
 ): Promise<APIResponse<Certification[]>> => {
-  const res = await fetch(
-    userId
-      ? `${BASE_URL}/api/user/certifications?userId=${userId}`
-      : `${BASE_URL}/api/user/certifications`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      next: {
-        tags: ['certifications'],
-      },
-    }
-  ).then((res) => res.json());
+  const decodedToken = await auth.verifyIdToken(token);
+  const uid = userId || decodedToken.uid;
 
-  return res;
+  const certificationsRef = db
+    .collection('users')
+    .doc(uid)
+    .collection('certifications');
+
+  const certificationsSnapshot = await certificationsRef.get();
+  const certifications = certificationsSnapshot.docs.map((doc) => {
+    return { ...doc.data(), id: doc.id };
+  }) as Certification[];
+
+  return {
+    data: certifications,
+  };
 };
 
 export default fetchCertifications;

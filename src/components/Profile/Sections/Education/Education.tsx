@@ -1,6 +1,7 @@
 import { Education } from '@/interfaces/user';
 import fetchEducation from '@/lib/profile/fetchEducation';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import React from 'react';
 import AddEducationButton from './AddEducationButton';
 import DeleteEducationButton from './DeleteEducationButton';
@@ -50,7 +51,17 @@ type EducationProps = {
 
 const Education = async ({ viewOnly, userId }: EducationProps) => {
   const token = cookies().get('token')?.value;
-  const { data: educations } = await fetchEducation(token, userId);
+  let education = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchEducation(token, userId);
+      education = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <section title="Education" className="profile-section">
@@ -60,8 +71,8 @@ const Education = async ({ viewOnly, userId }: EducationProps) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {educations.length > 0 ? (
-          educations.map((education) => (
+        {education && education.length > 0 ? (
+          education.map((education) => (
             <EducationCard
               viewOnly={viewOnly}
               education={education}
@@ -69,7 +80,7 @@ const Education = async ({ viewOnly, userId }: EducationProps) => {
             />
           ))
         ) : (
-          <h3 className="text-gray-600">No educations added</h3>
+          <h3 className="text-gray-600">No education added</h3>
         )}
       </div>
     </section>

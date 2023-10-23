@@ -62,18 +62,18 @@ const UserProfileDropdown = ({ userData }: Props) => {
       >
         <div className="flex space-x-2 px-4 cursor-pointer items-center">
           <Image
-            alt={userData?.displayName!}
-            src={userData?.photoURL || '/assets/Dummy Profile.png'}
+            alt={userData.displayName}
+            src={userData.photoURL || '/assets/Dummy Profile.png'}
             width={40}
             height={40}
             className="rounded-full"
           />
           <div className="flex flex-col">
             <span className="text-sm line-clamp-1 font-semibold">
-              {userData?.displayName}
+              {userData.displayName}
             </span>
             <span className="text-xs line-clamp-1 text-gray-500">
-              {userData?.email!}
+              {userData.email}
             </span>
           </div>
         </div>

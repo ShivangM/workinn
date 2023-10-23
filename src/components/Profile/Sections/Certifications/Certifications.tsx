@@ -1,6 +1,7 @@
 import { Certification } from '@/interfaces/user';
 import fetchCertifications from '@/lib/profile/fetchCertifications';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import React from 'react';
 import AddCertificationButton from './AddCertificationButton';
 import DeleteCertificationButton from './DeleteCertificationButton';
@@ -47,7 +48,17 @@ type CertificationsProps = {
 
 const Certifications = async ({ viewOnly, userId }: CertificationsProps) => {
   const token = cookies().get('token')?.value;
-  const { data: certifications } = await fetchCertifications(token, userId);
+  let certifications = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchCertifications(token, userId);
+      certifications = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <section title="Certifications" className="profile-section">
@@ -57,7 +68,7 @@ const Certifications = async ({ viewOnly, userId }: CertificationsProps) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
-        {certifications.length > 0 ? (
+        {certifications && certifications.length > 0 ? (
           certifications.map((certification) => (
             <CertificationCard
               certification={certification}
