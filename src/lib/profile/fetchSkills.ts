@@ -1,4 +1,5 @@
 import { Skill } from '@/interfaces/user';
+import BASE_URL from '@/utils/baseUrl';
 
 const fetchSkills = async (
   token: string | undefined,
@@ -6,8 +7,8 @@ const fetchSkills = async (
 ): Promise<APIResponse<Skill[]>> => {
   const res = await fetch(
     userId
-      ? `http://localhost:3000/api/user/skills?userId=${userId}`
-      : 'http://localhost:3000/api/user/skills',
+      ? `${BASE_URL}/api/user/skills?userId=${userId}`
+      : '${BASE_URL}/api/user/skills',
     {
       headers: {
         Authorization: `Bearer ${token}`,

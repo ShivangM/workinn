@@ -1,4 +1,5 @@
 import { Certification } from '@/interfaces/user';
+import BASE_URL from '@/utils/baseUrl';
 
 const fetchCertifications = async (
   token: string | undefined,
@@ -6,8 +7,8 @@ const fetchCertifications = async (
 ): Promise<APIResponse<Certification[]>> => {
   const res = await fetch(
     userId
-      ? `http://localhost:3000/api/user/certifications?userId=${userId}`
-      : 'http://localhost:3000/api/user/certifications',
+      ? `${BASE_URL}/api/user/certifications?userId=${userId}`
+      : '${BASE_URL}/api/user/certifications',
     {
       headers: {
         Authorization: `Bearer ${token}`,

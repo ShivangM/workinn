@@ -1,13 +1,12 @@
 import { UserData } from '@/interfaces/user';
+import BASE_URL from '@/utils/baseUrl';
 
 const fetchUserData = async (
   token: string | undefined,
   userId?: string
 ): Promise<APIResponse<UserData>> => {
   const res = await fetch(
-    userId
-      ? `http://localhost:3000/api/user?userId=${userId}`
-      : 'http://localhost:3000/api/user',
+    userId ? `${BASE_URL}/api/user?userId=${userId}` : '${BASE_URL}/api/user',
     {
       headers: {
         Authorization: `Bearer ${token}`,

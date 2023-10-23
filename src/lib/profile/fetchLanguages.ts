@@ -1,4 +1,5 @@
 import { Language } from '@/interfaces/user';
+import BASE_URL from '@/utils/baseUrl';
 
 const fetchLanguages = async (
   token: string | undefined,
@@ -6,8 +7,8 @@ const fetchLanguages = async (
 ): Promise<APIResponse<Language[]>> => {
   const res = await fetch(
     userId
-      ? `http://localhost:3000/api/user/languages?userId=${userId}`
-      : 'http://localhost:3000/api/user/languages',
+      ? `${BASE_URL}/api/user/languages?userId=${userId}`
+      : '${BASE_URL}/api/user/languages',
     {
       headers: {
         Authorization: `Bearer ${token}`,

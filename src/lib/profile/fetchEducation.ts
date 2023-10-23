@@ -1,4 +1,5 @@
 import { Education } from '@/interfaces/user';
+import BASE_URL from '@/utils/baseUrl';
 
 const fetchEducation = async (
   token: string | undefined,
@@ -6,8 +7,8 @@ const fetchEducation = async (
 ): Promise<APIResponse<Education[]>> => {
   const res = await fetch(
     userId
-      ? `http://localhost:3000/api/user/education?userId=${userId}`
-      : 'http://localhost:3000/api/user/education',
+      ? `${BASE_URL}/api/user/education?userId=${userId}`
+      : '${BASE_URL}/api/user/education',
     {
       headers: {
         Authorization: `Bearer ${token}`,
