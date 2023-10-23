@@ -5,8 +5,8 @@ import useProfileStore from '@/store/profile';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useState, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from './ModalConfirmButton';
-import ModalRejectButton from './ModalRejectButton';
+import ModalConfirmButton from '../ModalConfirmButton';
+import ModalRejectButton from '../ModalRejectButton';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import { useMemo } from 'react';
@@ -75,6 +75,7 @@ const EditBasicDetailsModal = () => {
 
     await updateBasicDetails(data, token);
     toggleEditBasicDetailsModal(null);
+    reset();
   };
 
   return (

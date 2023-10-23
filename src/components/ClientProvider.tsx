@@ -25,6 +25,8 @@ const ClientProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
+    console.log("ran client provider's use effect function");
+
     return () => {
       listner();
     };

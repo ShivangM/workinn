@@ -15,11 +15,11 @@
 }
 
 .profile-section {
-  @apply flex flex-col w-full bg-white rounded-lg p-6 col-span-1 shadow-md gap-2;
+  @apply flex flex-col w-full bg-white rounded-lg p-6 col-span-1 shadow-md gap-2 space-y-2;
 }
 
 .profile-section h2 {
-  @apply text-lg font-semibold text-gray-900;
+  @apply text-lg font-bold text-gray-900;
 }
 
 .form-input {

@@ -1,0 +1,18 @@
+[
+    {
+        "value": "Basic",
+        "label": "Basic"
+    },
+    {
+        "value": "Intermediate",
+        "label": "Intermediate"
+    },
+    {
+        "value": "Advanced",
+        "label": "Advanced"
+    },
+    {
+        "value": "Native",
+        "label": "Native"
+    }
+]

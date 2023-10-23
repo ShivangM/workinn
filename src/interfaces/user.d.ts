@@ -39,21 +39,30 @@ enum DegreeTitle {
   OTHER = 'Other',
 }
 
+type Country = {
+  label: string;
+  value: string;
+};
+
 export interface Language {
   id: string;
-  language: string;
+  language: {
+    name: string;
+    nativeName: string;
+    code: string;
+  };
   level: LanguageLevels;
 }
 
 export interface Skill {
   id: string;
-  skill: string;
+  name: string;
   level: SkillLevels;
 }
 
 export interface Education {
   id: string;
-  country: string;
+  country: Country;
   school: string;
   title: DegreeTitle;
   major: string;
@@ -71,7 +80,7 @@ export interface BasicDetails {
   displayName: string;
   title: string;
   photoURL?: string;
-  country?: any;
+  country?: Country;
   description?: string;
 }
 
