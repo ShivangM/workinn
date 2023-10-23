@@ -37,7 +37,7 @@ const Page = () => {
       {/* CTA Section */}
       <section className="bg-white py-16 text-center">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-gray-700">What's Your Skill?</h2>
+          <h2 className="text-3xl font-bold mb-4 text-gray-700">What&apos;s Your Skill?</h2>
           <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
             Get Started
           </button>
@@ -99,7 +99,7 @@ const Page = () => {
               },
             ].map((item, index) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-                <p className="text-2xl font-semibold mt-4">"{item.quote}"</p>
+                <p className="text-2xl font-semibold mt-4">&quot;{item.quote}&quot;</p>
                 <p className="text-gray-700">{item.author}</p>
               </div>
             ))}
