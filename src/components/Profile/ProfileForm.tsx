@@ -12,13 +12,13 @@ type Props = {
 const ProfileForm = ({ userId, viewOnly }: Props) => {
   return (
     <div className="space-y-4 lg:col-span-2">
-      {/* @ts-expect-error Async Server Component */}
+      {/* @ts-ignore */}
       <Languages userId={userId} viewOnly={viewOnly} />
-      {/* @ts-expect-error Async Server Component */}
+      {/* @ts-ignore */}
       <Skills userId={userId} viewOnly={viewOnly} />
-      {/* @ts-expect-error Async Server Component */}
+      {/* @ts-ignore */}
       <Education userId={userId} viewOnly={viewOnly} />
-      {/* @ts-expect-error Async Server Component */}
+      {/* @ts-ignore */}
       <Certifications userId={userId} viewOnly={viewOnly} />
     </div>
   );
