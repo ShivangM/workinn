@@ -10,11 +10,11 @@ const updateLanguage = async (id: string, data: Language, token: string) => {
   await db
     .collection('users')
     .doc(uid)
-    .collection('langueages')
+    .collection('languages')
     .doc(id)
     .update({ ...data });
 
-  revalidateTag('langueages');
+  revalidateTag('languages');
 };
 
 export default updateLanguage;

@@ -1,0 +1,70 @@
+[
+    {
+        "value": "Associate",
+        "label": "Associate"
+    },
+    {
+        "value": "Certificate",
+        "label": "Certificate"
+    },
+    {
+        "value": "Bachelor of Arts",
+        "label": "BA"
+    },
+    {
+        "value": "Bachelor of Architecture",
+        "label": "BArch"
+    },
+    {
+        "value": "Bachelor of Music",
+        "label": "BM"
+    },
+    {
+        "value": "Bachelor of Fine Arts",
+        "label": "BFA"
+    },
+    {
+        "value": "Bachelor of Science",
+        "label": "BSc"
+    },
+    {
+        "value": "Master of Arts",
+        "label": "MA"
+    },
+    {
+        "value": "Master of Business Administration",
+        "label": "MBA"
+    },
+    {
+        "value": "Master of Science",
+        "label": "MSc"
+    },
+    {
+        "value": "Master of Fine Arts",
+        "label": "MFA"
+    },
+    {
+        "value": "Juris Doctor",
+        "label": "JD"
+    },
+    {
+        "value": "Doctor of Medicine",
+        "label": "MD"
+    },
+    {
+        "value": "Doctor of Philosophy",
+        "label": "PhD"
+    },
+    {
+        "value": "Bachelor of Laws",
+        "label": "LLB"
+    },
+    {
+        "value": "Master of Laws",
+        "label": "LLM"
+    },
+    {
+        "value": "Other",
+        "label": "Other"
+    }
+]

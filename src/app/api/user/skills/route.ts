@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const token = request.headers.get('Authorization')?.split(' ')[1];
+  const searchParams = request.nextUrl.searchParams;
+  const userId = searchParams.get('userId');
 
   if (!token) {
     return NextResponse.json(
@@ -15,13 +17,13 @@ export async function GET(request: NextRequest) {
   }
 
   const decodedToken = await auth.verifyIdToken(token);
-  const uid = decodedToken.uid;
+  const uid = userId || decodedToken.uid;
 
   const skillsRef = db.collection('users').doc(uid).collection('skills');
 
   const skillsSnapshot = await skillsRef.get();
   const skills = skillsSnapshot.docs.map((doc) => {
-    return { id: doc.id, ...doc.data() };
+    return { ...doc.data(), id: doc.id };
   });
 
   return NextResponse.json(

@@ -27,19 +27,24 @@ const BasicDetailProperty = ({ title, value, Icon }: Props) => {
   );
 };
 
-const BasicDetails = async () => {
+type BasicDetailsProps = {
+  viewOnly: boolean;
+  userId?: string;
+};
+
+const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
   const token = cookies().get('token')?.value;
-  const { data: userData } = await fetchUserData(token);
+  const { data: userData } = await fetchUserData(token, userId);
 
   return (
     <section
       title="Basic Details"
-      className="flex flex-col w-full bg-white rounded-lg p-6 col-span-1 shadow-md gap-2 relative"
+      className="flex flex-col w-full bg-white rounded-lg p-6 lg:col-span-1 shadow-md gap-2 sticky top-24"
     >
-      <EditBasicDetailsButton basicDetails={userData} />
+      {!viewOnly ? <EditBasicDetailsButton basicDetails={userData} /> : null}
 
       <div className="flex flex-col items-center justify-center space-y-4">
-        <div className="rounded-full overflow-hidden relative w-3/4 mx-auto aspect-square">
+        <div className="rounded-full overflow-hidden relative w-1/2 mx-auto aspect-square">
           <Image
             alt={userData.displayName}
             src={userData.photoURL || '/assets/Dummy Profile.png'}
@@ -67,7 +72,7 @@ const BasicDetails = async () => {
         <div className="flex flex-col items-center justify-center text-sm text-gray-600 space-y-2 w-full">
           <BasicDetailProperty
             title="Country"
-            value={userData.country.label || 'No country provided'}
+            value={userData?.country?.label || 'No country provided'}
             Icon={IoLocationSharp}
           />
           <BasicDetailProperty
