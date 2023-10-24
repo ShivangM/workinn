@@ -5,12 +5,23 @@ import HamburgerIcon from './HamburgerIcon';
 import fetchUserData from '@/lib/profile/fetchUserData';
 import { cookies } from 'next/headers';
 import UserProfileDropdown from './UserProfileDropdown';
+import { redirect } from 'next/navigation';
 
 type Props = {};
 
 const Navbar = async (props: Props) => {
-  const token = cookies().get('token')?.value;
-  const { data: userData } = await fetchUserData(token);
+  const token = cookies().get('token');
+  let userData = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchUserData(token.value);
+      userData = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <nav
@@ -53,7 +64,7 @@ const Navbar = async (props: Props) => {
             Become a Seller
           </Link>
 
-          {userData !== null ? (
+          {userData ? (
             <UserProfileDropdown userData={userData} />
           ) : (
             <Link className="btn" href="/signin">

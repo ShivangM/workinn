@@ -1,19 +1,41 @@
 import { ServiceCategory } from '@/interfaces/service';
-import BASE_URL from '@/utils/baseUrl';
+import { db } from '@/utils/firebaseAdmin';
+
+const PAGE_LIMIT = 10;
 
 const fetchTrendingServiceCategories = async (
-  page = 0
+  page = 0,
+  category: string,
+  subCategory: string
 ): Promise<APIResponse<ServiceCategory[]>> => {
-  const res = await fetch(
-    `${BASE_URL}/api/service-categories?category=gzkMNphktJN3HsJLOPny&sub-category=0e7JSDhNAXuHWxLzxjq6&page=${page}`
-  );
+  const serviceCategoriesRef = db
+    .collection('categories')
+    .doc(category)
+    .collection('sub-categories')
+    .doc(subCategory)
+    .collection('service-categories');
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
+  const total = await serviceCategoriesRef
+    .count()
+    .get()
+    .then((snapshot) => snapshot.data().count);
 
-  return res.json();
+  const pageTotal = Math.ceil(total / PAGE_LIMIT);
+
+  const serviceCategoriesSnapshot = await serviceCategoriesRef
+    .limit(PAGE_LIMIT)
+    .offset(page * PAGE_LIMIT)
+    .get();
+
+  const data = serviceCategoriesSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    data.id = doc.id;
+    data.categoryId = category;
+    data.subCategoryId = subCategory;
+    return data;
+  }) as ServiceCategory[];
+
+  return { data, total, pageTotal };
 };
 
 export default fetchTrendingServiceCategories;

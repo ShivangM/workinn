@@ -1,25 +1,23 @@
 import { Skill } from '@/interfaces/user';
-import BASE_URL from '@/utils/baseUrl';
+import { auth, db } from '@/utils/firebaseAdmin';
 
 const fetchSkills = async (
-  token: string | undefined,
+  token: string,
   userId?: string
 ): Promise<APIResponse<Skill[]>> => {
-  const res = await fetch(
-    userId
-      ? `${BASE_URL}/api/user/skills?userId=${userId}`
-      : `${BASE_URL}/api/user/skills`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      next: {
-        tags: ['skills'],
-      },
-    }
-  ).then((res) => res.json());
+  const decodedToken = await auth.verifyIdToken(token);
+  const uid = userId || decodedToken.uid;
 
-  return res;
+  const skillsRef = db.collection('users').doc(uid).collection('skills');
+
+  const skillsSnapshot = await skillsRef.get();
+  const skills = skillsSnapshot.docs.map((doc) => {
+    return { ...doc.data(), id: doc.id };
+  }) as Skill[];
+
+  return {
+    data: skills,
+  };
 };
 
 export default fetchSkills;

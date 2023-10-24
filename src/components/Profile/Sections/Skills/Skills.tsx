@@ -1,6 +1,7 @@
 import { Skill } from '@/interfaces/user';
 import fetchSkills from '@/lib/profile/fetchSkills';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import React from 'react';
 import AddSkillButton from './AddSkillButton';
 import DeleteSkillButton from './DeleteSkillButton';
@@ -39,7 +40,17 @@ type SkillsProps = {
 
 const Skills = async ({ viewOnly, userId }: SkillsProps) => {
   const token = cookies().get('token')?.value;
-  const { data: skills } = await fetchSkills(token, userId);
+  let skills = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchSkills(token, userId);
+      skills = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <section title="Skill" className="profile-section">
@@ -49,7 +60,7 @@ const Skills = async ({ viewOnly, userId }: SkillsProps) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-        {skills.length > 0 ? (
+        {skills && skills.length > 0 ? (
           skills.map((skill) => (
             <SkillCard viewOnly={viewOnly} skill={skill} key={skill.id} />
           ))

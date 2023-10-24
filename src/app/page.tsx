@@ -7,7 +7,12 @@ import ParallaxSection from '@/components/Parallax';
 import fetchTrendingServiceCategories from '@/lib/fetchTrendingServiceCategories';
 
 export default async function Home() {
-  const { data: trendingServiceCategories } = await fetchTrendingServiceCategories();
+  const { data: trendingServiceCategories } =
+    await fetchTrendingServiceCategories(
+      0,
+      'gzkMNphktJN3HsJLOPny',
+      '0e7JSDhNAXuHWxLzxjq6'
+    );
 
   return (
     <main className="space-y-10">

@@ -1,6 +1,7 @@
 import { Language } from '@/interfaces/user';
 import fetchLanguages from '@/lib/profile/fetchLanguages';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import React from 'react';
 import AddLanguageButton from './AddLanguageButton';
 import DeleteLanguageButton from './DeleteLanguageButton';
@@ -40,8 +41,18 @@ type LanguageProps = {
 };
 
 const Languages = async ({ viewOnly, userId }: LanguageProps) => {
-  const token = cookies().get('token')?.value;
-  const { data: languages } = await fetchLanguages(token, userId);
+  const token = cookies().get('token');
+  let languages = null;
+
+  if (token) {
+    try {
+      const { data } = await fetchLanguages(token.value, userId);
+      languages = data;
+    } catch (error) {
+      cookies().delete('token');
+      redirect('/signin');
+    }
+  }
 
   return (
     <section title="Languages" className="profile-section">
@@ -51,8 +62,8 @@ const Languages = async ({ viewOnly, userId }: LanguageProps) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-        {languages.length > 0 ? (
-          languages.map((language) => (
+        {languages && languages?.length > 0 ? (
+          languages?.map((language) => (
             <LanguageCard
               viewOnly={viewOnly}
               language={language}

@@ -1,25 +1,23 @@
 import { Education } from '@/interfaces/user';
-import BASE_URL from '@/utils/baseUrl';
+import { auth, db } from '@/utils/firebaseAdmin';
 
 const fetchEducation = async (
-  token: string | undefined,
+  token: string,
   userId?: string
 ): Promise<APIResponse<Education[]>> => {
-  const res = await fetch(
-    userId
-      ? `${BASE_URL}/api/user/education?userId=${userId}`
-      : `${BASE_URL}/api/user/education`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      next: {
-        tags: ['education'],
-      },
-    }
-  ).then((res) => res.json());
+  const decodedToken = await auth.verifyIdToken(token);
+  const uid = userId || decodedToken.uid;
 
-  return res;
+  const educationRef = db.collection('users').doc(uid).collection('education');
+
+  const educationSnapshot = await educationRef.get();
+  const education = educationSnapshot.docs.map((doc) => {
+    return { ...doc.data(), id: doc.id };
+  }) as Education[];
+
+  return {
+    data: education,
+  };
 };
 
 export default fetchEducation;
