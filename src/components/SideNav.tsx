@@ -43,6 +43,7 @@ const SideNav = () => {
           sideNavShow ? 'block' : 'hidden'
         )}
       />
+
       <aside
         className={classNames(
           'fixed h-screen overflow-y-hidden max-w-xs sm:max-w-sm w-full p-4 z-50 transition-all duration-300 bg-white ease-in-out top-0 left-0',

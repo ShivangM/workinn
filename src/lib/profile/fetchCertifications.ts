@@ -11,7 +11,7 @@ const fetchCertifications = async (
   const certificationsRef = db
     .collection('users')
     .doc(uid)
-    .collection('certifications');
+    .collection('certifications').orderBy('createdAt', 'desc');
 
   const certificationsSnapshot = await certificationsRef.get();
   const certifications = certificationsSnapshot.docs.map((doc) => {

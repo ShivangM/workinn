@@ -8,7 +8,7 @@ const fetchEducation = async (
   const decodedToken = await auth.verifyIdToken(token);
   const uid = userId || decodedToken.uid;
 
-  const educationRef = db.collection('users').doc(uid).collection('education');
+  const educationRef = db.collection('users').doc(uid).collection('education').orderBy('createdAt', 'desc');
 
   const educationSnapshot = await educationRef.get();
   const education = educationSnapshot.docs.map((doc) => {

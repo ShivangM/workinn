@@ -33,11 +33,13 @@ const EducationCard = ({ education, viewOnly }: EducationCardProps) => {
         </div>
 
         <span className="text-sm text-gray-500">
-          {education.school}, {education.country.label}
+          {education.school}
         </span>
-        <p className="text-sm text-gray-600">
-          <span className="text-gray-900 font-medium">Grauation Year:</span>{' '}
-          <span>{education.yearOfGraduation}</span>{' '}
+        <p className="text-sm text-gray-500">
+          <span className="">
+            {education.country.label}
+          </span>,{' '}
+          <span>Graduated {education.yearOfGraduation}</span>
         </p>
       </div>
     </div>
@@ -58,7 +60,7 @@ const Education = async ({ viewOnly, userId }: EducationProps) => {
       const { data } = await fetchEducation(token, userId);
       education = data;
     } catch (error) {
-      cookies().delete('token');
+
       redirect('/signin');
     }
   }

@@ -1,7 +1,7 @@
 'use server';
 import { Language } from '@/interfaces/user';
-import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 
 const updateLanguage = async (id: string, data: Language, token: string) => {
   const decodedToken = await auth.verifyIdToken(token);
@@ -12,9 +12,9 @@ const updateLanguage = async (id: string, data: Language, token: string) => {
     .doc(uid)
     .collection('languages')
     .doc(id)
-    .update({ ...data });
+    .update({ ...data, updatedAt: admin.firestore.Timestamp.now() });
 
-  revalidateTag('languages');
+  revalidatePath('/profile')
 };
 
 export default updateLanguage;

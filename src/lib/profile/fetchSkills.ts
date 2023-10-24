@@ -8,7 +8,7 @@ const fetchSkills = async (
   const decodedToken = await auth.verifyIdToken(token);
   const uid = userId || decodedToken.uid;
 
-  const skillsRef = db.collection('users').doc(uid).collection('skills');
+  const skillsRef = db.collection('users').doc(uid).collection('skills').orderBy('createdAt', 'desc');
 
   const skillsSnapshot = await skillsRef.get();
   const skills = skillsSnapshot.docs.map((doc) => {

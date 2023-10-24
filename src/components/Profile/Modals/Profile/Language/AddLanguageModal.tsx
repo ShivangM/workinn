@@ -7,12 +7,14 @@ import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
-import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
+import Select, { OptionProps } from 'react-select';
 import useUserStore from '@/store/userStore';
 import addLanguage from '@/actions/profile/languages/addLanguage';
-import languages from '@/constants/isoLangs';
 import languageLevels from '@/constants/language-levels.json';
 import updateLanguage from '@/actions/profile/languages/updateLanguage';
+import debounce from 'lodash.debounce';
+import fetchLanguageOptions from '@/lib/profile/fetchLanguageOptions';
 
 const AddLanguageModal = () => {
   const [addLanguageModalOpen, toggleAddLanguageModal, language] =
@@ -52,6 +54,18 @@ const AddLanguageModal = () => {
     reset();
   };
 
+  const promiseLanguageOptions = (inputValue: string, callback: (res: Language[]) => void) => {
+    try {
+      fetchLanguageOptions(inputValue).then((res) => {
+        callback(res);
+      });
+    } catch (error) {
+      // Todo: Handle error
+    }
+  };
+
+  const loadLanguageOptions = debounce(promiseLanguageOptions, 300);
+
   return (
     <Transition appear show={addLanguageModalOpen} as={Fragment}>
       <Dialog
@@ -87,31 +101,41 @@ const AddLanguageModal = () => {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  {language ? `Edit ${language.language.name}` : 'Add Language'}
+                  {language ? `Edit ${language.name}` : 'Add Language'}
                 </Dialog.Title>
 
                 <form className="mt-2 py-4 space-y-6">
                   <Controller
-                    name="language"
+                    name="id"
                     control={control}
                     render={({ field: { onChange, ref } }) => (
                       <InputWithFieldError
-                        label="Name"
+                        label="Language"
                         errors={errors}
-                        name="language"
+                        name="id"
                       >
-                        <Select
+                        <AsyncSelect
                           ref={ref}
-                          defaultValue={
-                            language
-                              ? languages.find(
-                                  (l) => l.label === language.language.name
-                                )
-                              : null
-                          }
+                          defaultValue={language}
                           isDisabled={!!language}
-                          onChange={(val) => onChange(val?.value)}
-                          options={languages}
+                          isMulti={false}
+                          onChange={(val) => onChange((val as Language).id)}
+                          loadOptions={loadLanguageOptions}
+                          getOptionLabel={(option) => option.name}
+                          components={{
+                            Option: ({ data, innerProps, innerRef }: OptionProps<Language>) => {
+                              return (
+                                <div className='cursor-pointer' ref={innerRef} {...innerProps}>
+                                  <div className="flex py-2 px-4 items-center space-x-2">
+                                    <div className="text-sm">
+                                      <p className='text-gray-900 font-medium'>{data.name}</p>
+                                      <p className='text-gray-500'>{data.nativeName}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            },
+                          }}
                         />
                       </InputWithFieldError>
                     )}
@@ -131,8 +155,8 @@ const AddLanguageModal = () => {
                           defaultValue={
                             language
                               ? languageLevels.find(
-                                  (l) => l.value === language.level
-                                )
+                                (l) => l.value === language.level
+                              )
                               : null
                           }
                           onChange={(val) => onChange(val?.value)}
@@ -158,8 +182,8 @@ const AddLanguageModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : language
-                        ? 'Save'
-                        : 'Add'
+                          ? 'Save'
+                          : 'Add'
                     }
                     loading={loading}
                   />

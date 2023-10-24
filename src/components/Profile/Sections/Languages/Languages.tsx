@@ -14,11 +14,11 @@ type LanguageCardProps = {
 
 const LanguageCard = ({ language, viewOnly }: LanguageCardProps) => {
   return (
-    <div key={language.id} className="flex flex-col bg-gray-100 rounded-lg p-4">
+    <div className="flex flex-col bg-gray-100 rounded-lg p-4">
       <div className="">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-gray-900">
-            {language.language.name}
+            {language.name}, {language.nativeName}
           </h3>
 
           {!viewOnly ? (
@@ -49,7 +49,7 @@ const Languages = async ({ viewOnly, userId }: LanguageProps) => {
       const { data } = await fetchLanguages(token.value, userId);
       languages = data;
     } catch (error) {
-      cookies().delete('token');
+
       redirect('/signin');
     }
   }

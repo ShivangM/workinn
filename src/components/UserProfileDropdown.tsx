@@ -9,7 +9,7 @@ import { TbSwitchHorizontal } from 'react-icons/tb';
 import { UserProfileDropdownOption } from '@/interfaces/navbar';
 import useNavbarLinks from '@/hooks/useNavbarLinks';
 import useUiStore from '@/store/uiStore';
-import { UserData, UserModes } from '@/interfaces/user.d';
+import { UserModes } from '@/interfaces/user.d';
 
 const UserProfileDropdownOption = ({
   option,
@@ -32,12 +32,9 @@ const UserProfileDropdownOption = ({
   );
 };
 
-type Props = {
-  userData: UserData;
-};
 
-const UserProfileDropdown = ({ userData }: Props) => {
-  const [logout] = useUserStore((state) => [state.logout]);
+const UserProfileDropdown = () => {
+  const [logout, userData] = useUserStore((state) => [state.logout, state.userData]);
 
   const [userMode, toggleUserMode] = useUiStore((state) => [
     state.userMode,
@@ -62,18 +59,18 @@ const UserProfileDropdown = ({ userData }: Props) => {
       >
         <div className="flex space-x-2 px-4 cursor-pointer items-center">
           <Image
-            alt={userData.displayName}
-            src={userData.photoURL || '/assets/Dummy Profile.png'}
+            alt={userData?.displayName || 'Users Profile Picture'}
+            src={userData?.photoURL || '/assets/Dummy Profile.png'}
             width={40}
             height={40}
             className="rounded-full"
           />
           <div className="flex flex-col">
             <span className="text-sm line-clamp-1 font-semibold">
-              {userData.displayName}
+              {userData?.displayName}
             </span>
             <span className="text-xs line-clamp-1 text-gray-500">
-              {userData.email}
+              {userData?.email}
             </span>
           </div>
         </div>

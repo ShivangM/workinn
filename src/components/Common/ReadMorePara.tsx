@@ -1,4 +1,5 @@
 'use client';
+import classNames from 'classnames';
 import { useState } from 'react';
 
 type Props = {
@@ -11,7 +12,7 @@ const ReadMorePara = ({ lines, children, className }: Props) => {
   const [readMore, setReadMore] = useState(false);
 
   return (
-    <p className={className}>
+    <p className={classNames(className, 'space-x-2')}>
       <span className={readMore ? '' : `line-clamp-3`}>{children}</span>
       <span
         onClick={() => setReadMore(!readMore)}

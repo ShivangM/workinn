@@ -4,7 +4,7 @@ import { db } from '@/utils/firebaseAdmin';
 const PAGE_LIMIT = 10;
 
 const fetchCategories = async (page = 1): Promise<APIResponse<Category[]>> => {
-  const categoriesRef = db.collection('categories');
+  const categoriesRef = db.collection('categories').orderBy('name', 'asc');
   const total = await categoriesRef
     .count()
     .get()

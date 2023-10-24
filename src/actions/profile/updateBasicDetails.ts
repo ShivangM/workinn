@@ -1,7 +1,7 @@
 'use server';
 import { BasicDetails } from '@/interfaces/user';
-import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 
 const updateBasicDetails = async (data: BasicDetails, token: string) => {
   const decodedToken = await auth.verifyIdToken(token);
@@ -12,9 +12,10 @@ const updateBasicDetails = async (data: BasicDetails, token: string) => {
     .doc(uid)
     .update({
       ...data,
+      updatedAt: admin.firestore.Timestamp.now(),
     });
 
-  revalidateTag('basic-details');
+  revalidatePath('/profile');
 };
 
 export default updateBasicDetails;

@@ -1,7 +1,7 @@
 'use server';
 import { Education } from '@/interfaces/user';
-import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 
 const updateEducation = async (id: string, data: Education, token: string) => {
   const decodedToken = await auth.verifyIdToken(token);
@@ -12,9 +12,9 @@ const updateEducation = async (id: string, data: Education, token: string) => {
     .doc(uid)
     .collection('education')
     .doc(id)
-    .update({ ...data });
+    .update({ ...data, updatedAt: admin.firestore.Timestamp.now() });
 
-  revalidateTag('education');
+  revalidatePath('/profile')
 };
 
 export default updateEducation;

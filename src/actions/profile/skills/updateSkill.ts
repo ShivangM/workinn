@@ -1,7 +1,7 @@
 'use server';
 import { Skill } from '@/interfaces/user';
-import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 
 const updateSkill = async (id: string, data: Skill, token: string) => {
   const decodedToken = await auth.verifyIdToken(token);
@@ -12,9 +12,9 @@ const updateSkill = async (id: string, data: Skill, token: string) => {
     .doc(uid)
     .collection('skills')
     .doc(id)
-    .update({ ...data });
+    .update({ ...data, updatedAt: admin.firestore.Timestamp.now() });
 
-  revalidateTag('skills');
+  revalidatePath('/profile')
 };
 
 export default updateSkill;

@@ -4,16 +4,14 @@ import { BasicDetails } from '@/interfaces/user';
 import useProfileStore from '@/store/profile';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useState, useTransition } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ModalConfirmButton from '../ModalConfirmButton';
 import ModalRejectButton from '../ModalRejectButton';
-import Select from 'react-select';
-import countryList from 'react-select-country-list';
-import { useMemo } from 'react';
 import ImagePicker from '@/components/Common/Form/ImagePicker';
 import updateBasicDetails from '@/actions/profile/updateBasicDetails';
 import useUserStore from '@/store/userStore';
 import uploadImage from '@/utils/uploadFile';
+import CountrySelect from '@/components/Common/Form/CountrySelect';
 
 const EditBasicDetailsModal = () => {
   const [editBasicDetailsModalOpen, toggleEditBasicDetailsModal, basicDetails] =
@@ -28,25 +26,12 @@ const EditBasicDetailsModal = () => {
     state.userData,
   ]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    control,
-    reset,
-    getValues,
-  } = useForm<BasicDetails>();
+  const methods = useForm<BasicDetails>();
+  const { handleSubmit, reset, control, register, formState: { errors }, setValue, getValues } = methods;
 
   useEffect(() => {
     if (basicDetails) reset(basicDetails);
   }, [basicDetails, reset]);
-
-  const options = useMemo<any>(() => countryList().getData(), []);
-
-  const changeHandler = (value: any) => {
-    setValue('country', value);
-  };
 
   const [image, setImage] = useState<File | null>(null);
 
@@ -116,101 +101,86 @@ const EditBasicDetailsModal = () => {
                   Edit Basic Details
                 </Dialog.Title>
 
-                <form className="mt-2 py-4 space-y-6">
-                  <ImagePicker
-                    previewImage={getValues('photoURL') as string}
-                    setImage={setImageHandler}
-                  />
-
-                  <InputWithFieldError
-                    label="Name"
-                    errors={errors}
-                    name="displayName"
-                  >
-                    <input
-                      type="text"
-                      {...register('displayName', {
-                        required: 'Display name is required',
-                        maxLength: {
-                          value: 20,
-                          message:
-                            'Display name cannot be more than 20 characters',
-                        },
-                        minLength: {
-                          value: 3,
-                          message:
-                            'Display name cannot be less than 3 characters',
-                        },
-                      })}
-                      className="form-input placeholder:gray-400"
-                      placeholder='e.g. "John Doe"'
+                <FormProvider {...methods}>
+                  <form className="mt-2 py-4 space-y-6">
+                    <ImagePicker
+                      previewImage={getValues('photoURL') as string}
+                      setImage={setImageHandler}
                     />
-                  </InputWithFieldError>
 
-                  <InputWithFieldError
-                    label="Title"
-                    errors={errors}
-                    name="title"
-                  >
-                    <input
-                      type="text"
-                      {...register('title', {
-                        maxLength: {
-                          value: 30,
-                          message: 'Title cannot be more than 30 characters',
-                        },
-                        minLength: {
-                          value: 3,
-                          message: 'Title cannot be less than 3 characters',
-                        },
-                      })}
-                      className="form-input placeholder:gray-400"
-                      placeholder='e.g. "Software Engineer"'
-                    />
-                  </InputWithFieldError>
+                    <InputWithFieldError
+                      label="Name"
+                      errors={errors}
+                      name="displayName"
+                    >
+                      <input
+                        type="text"
+                        {...register('displayName', {
+                          required: 'Display name is required',
+                          maxLength: {
+                            value: 20,
+                            message:
+                              'Display name cannot be more than 20 characters',
+                          },
+                          minLength: {
+                            value: 3,
+                            message:
+                              'Display name cannot be less than 3 characters',
+                          },
+                        })}
+                        className="form-input placeholder:gray-400"
+                        placeholder='e.g. "John Doe"'
+                      />
+                    </InputWithFieldError>
 
-                  <InputWithFieldError
-                    label="Description"
-                    errors={errors}
-                    name="description"
-                  >
-                    <textarea
-                      {...register('description', {
-                        maxLength: {
-                          value: 200,
-                          message:
-                            'Desciption cannot be more than 200 characters',
-                        },
-                        minLength: {
-                          value: 3,
-                          message:
-                            'Description cannot be less than 3 characters',
-                        },
-                      })}
-                      className="form-input"
-                      placeholder='e.g. "I am a software engineer with 5 years of experience in the field. I am passionate about building products that make a difference in peoples lives."'
-                    />
-                  </InputWithFieldError>
+                    <InputWithFieldError
+                      label="Title"
+                      errors={errors}
+                      name="title"
+                    >
+                      <input
+                        type="text"
+                        {...register('title', {
+                          maxLength: {
+                            value: 30,
+                            message: 'Title cannot be more than 30 characters',
+                          },
+                          minLength: {
+                            value: 3,
+                            message: 'Title cannot be less than 3 characters',
+                          },
+                        })}
+                        className="form-input placeholder:gray-400"
+                        placeholder='e.g. "Software Engineer"'
+                      />
+                    </InputWithFieldError>
 
-                  <Controller
-                    name="country"
-                    control={control}
-                    render={({ field }) => (
-                      <InputWithFieldError
-                        label="Country"
-                        errors={errors}
-                        name="country"
-                      >
-                        <Select
-                          {...field}
-                          options={options}
-                          value={field.value}
-                          onChange={changeHandler}
-                        />
-                      </InputWithFieldError>
-                    )}
-                  />
-                </form>
+                    <InputWithFieldError
+                      label="Description"
+                      errors={errors}
+                      name="description"
+                    >
+                      <textarea
+                        {...register('description', {
+                          maxLength: {
+                            value: 500,
+                            message:
+                              'Desciption cannot be more than 500 characters',
+                          },
+                          minLength: {
+                            value: 3,
+                            message:
+                              'Description cannot be less than 3 characters',
+                          },
+                        })}
+                        className="form-input"
+                        placeholder='e.g. "I am a software engineer with 5 years of experience in the field. I am passionate about building products that make a difference in peoples lives."'
+                      />
+                    </InputWithFieldError>
+
+                    <CountrySelect />
+                  </form>
+                </FormProvider>
 
                 <div className="mt-4 flex items-center space-x-4">
                   <ModalRejectButton

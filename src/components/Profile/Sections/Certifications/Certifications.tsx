@@ -55,7 +55,7 @@ const Certifications = async ({ viewOnly, userId }: CertificationsProps) => {
       const { data } = await fetchCertifications(token, userId);
       certifications = data;
     } catch (error) {
-      cookies().delete('token');
+
       redirect('/signin');
     }
   }

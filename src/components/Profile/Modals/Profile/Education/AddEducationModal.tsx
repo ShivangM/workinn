@@ -3,8 +3,8 @@ import InputWithFieldError from '@/components/Common/Form/InputWithFieldError';
 import { Education } from '@/interfaces/user';
 import useProfileStore from '@/store/profile';
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment, useEffect, useMemo, useTransition } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import React, { Fragment, useEffect, useTransition } from 'react';
+import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
 import Select from 'react-select';
@@ -12,8 +12,8 @@ import useUserStore from '@/store/userStore';
 import addEducation from '@/actions/profile/educations/addEducation';
 import updateEducation from '@/actions/profile/educations/updateEducation';
 import yearOptions from '@/constants/yearOptions';
-import countryList from 'react-select-country-list';
 import titleOptions from '@/constants/degree-titles.json';
+import CountrySelect from '@/components/Common/Form/CountrySelect';
 
 const AddEducationModal = () => {
   const [addEducationModalOpen, toggleAddEducationModal, education] =
@@ -25,14 +25,8 @@ const AddEducationModal = () => {
 
   const [token] = useUserStore((state) => [state.token]);
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    register,
-    reset,
-    setValue,
-  } = useForm<Education>();
+  const methods = useForm<Education>();
+  const { handleSubmit, reset, control, register, formState: { errors } } = methods;
 
   const [loading, startTransaction] = useTransition();
 
@@ -60,12 +54,6 @@ const AddEducationModal = () => {
 
     toggleAddEducationModal(null);
     reset();
-  };
-
-  const options = useMemo<any>(() => countryList().getData(), []);
-
-  const changeHandler = (value: any) => {
-    setValue('country', value);
   };
 
   return (
@@ -106,119 +94,104 @@ const AddEducationModal = () => {
                   {education ? `Edit ${education.school}` : 'Add Education'}
                 </Dialog.Title>
 
-                <form className="mt-2 py-4 space-y-6">
-                  <Controller
-                    name="country"
-                    control={control}
-                    render={({ field }) => (
-                      <InputWithFieldError
-                        label="Country"
-                        errors={errors}
-                        name="country"
-                      >
-                        <Select
-                          {...field}
-                          options={options}
-                          value={field.value}
-                          onChange={changeHandler}
-                        />
-                      </InputWithFieldError>
-                    )}
-                  />
+                <FormProvider {...methods}>
+                  <form className="mt-2 py-4 space-y-6">
+                    <CountrySelect />
 
-                  <InputWithFieldError
-                    label="Major"
-                    errors={errors}
-                    name="major"
-                  >
-                    <div className="flex items-center w-full">
-                      <Controller
-                        name="title"
-                        control={control}
-                        render={({ field: { onChange, ref } }) => (
+                    <InputWithFieldError
+                      label="Major"
+                      errors={errors}
+                      name="major"
+                    >
+                      <div className="flex items-center w-full">
+                        <Controller
+                          name="title"
+                          control={control}
+                          render={({ field: { onChange, ref } }) => (
+                            <Select
+                              ref={ref}
+                              defaultValue={
+                                education
+                                  ? titleOptions.find(
+                                    (l) => l.value === education.title
+                                  )
+                                  : undefined
+                              }
+                              onChange={(val) => onChange(val?.value)}
+                              options={titleOptions}
+                              isSearchable={false}
+                            />
+                          )}
+                        />
+
+                        <input
+                          type="text"
+                          className="form-input placeholder:gray-400 outline-none !rounded-r-lg"
+                          placeholder="Major (e.g. Computer Science)"
+                          {...register('major', {
+                            required: 'Major is required',
+                            maxLength: {
+                              value: 50,
+                              message: 'Major cannot be more than 50 characters',
+                            },
+                            minLength: {
+                              value: 2,
+                              message: 'Major cannot be less than 2 characters',
+                            },
+                          })}
+                        />
+                      </div>
+                    </InputWithFieldError>
+
+                    <InputWithFieldError
+                      label="School"
+                      errors={errors}
+                      name="School"
+                    >
+                      <input
+                        type="text"
+                        className="form-input placeholder:gray-400"
+                        placeholder="School (e.g. University of Toronto)"
+                        {...register('school', {
+                          required: 'School is required',
+                          maxLength: {
+                            value: 50,
+                            message: 'School cannot be more than 50 characters',
+                          },
+                          minLength: {
+                            value: 2,
+                            message: 'School cannot be less than 2 characters',
+                          },
+                        })}
+                      />
+                    </InputWithFieldError>
+
+                    <Controller
+                      name="yearOfGraduation"
+                      control={control}
+                      render={({ field: { onChange, ref } }) => (
+                        <InputWithFieldError
+                          label="Year"
+                          errors={errors}
+                          name="year"
+                        >
                           <Select
                             ref={ref}
                             defaultValue={
                               education
-                                ? titleOptions.find(
-                                    (l) => l.value === education.title
-                                  )
+                                ? yearOptions.find(
+                                  (l) => l.label === education.yearOfGraduation
+                                )
                                 : undefined
                             }
                             onChange={(val) => onChange(val?.value)}
-                            options={titleOptions}
-                            isSearchable={false}
+                            options={yearOptions}
                           />
-                        )}
-                      />
-
-                      <input
-                        type="text"
-                        className="form-input placeholder:gray-400 outline-none !rounded-r-lg"
-                        placeholder="Major (e.g. Computer Science)"
-                        {...register('major', {
-                          required: 'Major is required',
-                          maxLength: {
-                            value: 50,
-                            message: 'Major cannot be more than 50 characters',
-                          },
-                          minLength: {
-                            value: 2,
-                            message: 'Major cannot be less than 2 characters',
-                          },
-                        })}
-                      />
-                    </div>
-                  </InputWithFieldError>
-
-                  <InputWithFieldError
-                    label="School"
-                    errors={errors}
-                    name="School"
-                  >
-                    <input
-                      type="text"
-                      className="form-input placeholder:gray-400"
-                      placeholder="School (e.g. University of Toronto)"
-                      {...register('school', {
-                        required: 'School is required',
-                        maxLength: {
-                          value: 50,
-                          message: 'School cannot be more than 50 characters',
-                        },
-                        minLength: {
-                          value: 2,
-                          message: 'School cannot be less than 2 characters',
-                        },
-                      })}
+                        </InputWithFieldError>
+                      )}
                     />
-                  </InputWithFieldError>
-
-                  <Controller
-                    name="yearOfGraduation"
-                    control={control}
-                    render={({ field: { onChange, ref } }) => (
-                      <InputWithFieldError
-                        label="Year"
-                        errors={errors}
-                        name="year"
-                      >
-                        <Select
-                          ref={ref}
-                          defaultValue={
-                            education
-                              ? yearOptions.find(
-                                  (l) => l.label === education.yearOfGraduation
-                                )
-                              : undefined
-                          }
-                          onChange={(val) => onChange(val?.value)}
-                          options={yearOptions}
-                        />
-                      </InputWithFieldError>
-                    )}
-                  />
-                </form>
+                  </form>
+                </FormProvider>
 
                 <div className="mt-4 flex items-center space-x-4">
                   <ModalRejectButton
@@ -235,8 +208,8 @@ const AddEducationModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : education
-                        ? 'Save'
-                        : 'Add'
+                          ? 'Save'
+                          : 'Add'
                     }
                     loading={loading}
                   />

@@ -42,7 +42,6 @@ const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
       const { data } = await fetchUserData(token.value, userId);
       userData = data;
     } catch (error) {
-      cookies().delete('token');
       redirect('/signin');
     }
   }

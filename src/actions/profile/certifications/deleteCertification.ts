@@ -1,6 +1,6 @@
 'use server';
 import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 const deleteCertification = async (id: string, token: string) => {
   const decodedToken = await auth.verifyIdToken(token);
@@ -13,7 +13,7 @@ const deleteCertification = async (id: string, token: string) => {
     .doc(id)
     .delete();
 
-  revalidateTag('certifications');
+  revalidatePath('/profile')
 };
 
 export default deleteCertification;

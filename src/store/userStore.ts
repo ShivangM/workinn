@@ -1,14 +1,15 @@
+import { UserData } from '@/interfaces/user';
 import { auth } from '@/utils/firebase';
 import { deleteCookie } from 'cookies-next';
-import { signOut, User } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 interface UserState {
   token: string | null;
   setToken: (token: string) => void;
-  userData: null | User;
-  setUserData: (user: User) => void;
+  userData: null | UserData;
+  setUserData: (user: UserData) => void;
   loading: {
     loadingState: boolean;
     loadingMessage?: string;
@@ -28,7 +29,7 @@ const useUserStore = create<UserState>()(
       set({ token });
     },
 
-    setUserData: (user: User) => {
+    setUserData: (user: UserData) => {
       set({ userData: user });
     },
 

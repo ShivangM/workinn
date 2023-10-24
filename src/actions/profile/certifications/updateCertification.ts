@@ -1,7 +1,7 @@
 'use server';
 import { Certification } from '@/interfaces/user';
-import { db, auth } from '@/utils/firebaseAdmin';
-import { revalidateTag } from 'next/cache';
+import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 
 const updateCertification = async (
   id: string,
@@ -16,9 +16,9 @@ const updateCertification = async (
     .doc(uid)
     .collection('certifications')
     .doc(id)
-    .update({ ...data });
+    .update({ ...data, updatedAt: admin.firestore.Timestamp.now() });
 
-  revalidateTag('certifications');
+  revalidatePath('/profile')
 };
 
 export default updateCertification;

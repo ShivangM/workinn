@@ -2,26 +2,11 @@ import Image from '../../node_modules/next/image';
 import Link from '../../node_modules/next/link';
 import SearchBar from './SearchBar';
 import HamburgerIcon from './HamburgerIcon';
-import fetchUserData from '@/lib/profile/fetchUserData';
 import { cookies } from 'next/headers';
 import UserProfileDropdown from './UserProfileDropdown';
-import { redirect } from 'next/navigation';
 
-type Props = {};
-
-const Navbar = async (props: Props) => {
-  const token = cookies().get('token');
-  let userData = null;
-
-  if (token) {
-    try {
-      const { data } = await fetchUserData(token.value);
-      userData = data;
-    } catch (error) {
-      cookies().delete('token');
-      redirect('/signin');
-    }
-  }
+const Navbar = async () => {
+  const isLoggedIn = cookies().has('token');
 
   return (
     <nav
@@ -64,8 +49,8 @@ const Navbar = async (props: Props) => {
             Become a Seller
           </Link>
 
-          {userData ? (
-            <UserProfileDropdown userData={userData} />
+          {isLoggedIn ? (
+            <UserProfileDropdown />
           ) : (
             <Link className="btn" href="/signin">
               Sign In

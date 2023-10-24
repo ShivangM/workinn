@@ -47,7 +47,7 @@ const Skills = async ({ viewOnly, userId }: SkillsProps) => {
       const { data } = await fetchSkills(token, userId);
       skills = data;
     } catch (error) {
-      cookies().delete('token');
+
       redirect('/signin');
     }
   }

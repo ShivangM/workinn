@@ -42,22 +42,25 @@ enum DegreeTitle {
 type Country = {
   label: string;
   value: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 };
 
 export interface Language {
   id: string;
-  language: {
-    name: string;
-    nativeName: string;
-    code: string;
-  };
+  name: string;
+  nativeName: string;
   level: LanguageLevels;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface Skill {
   id: string;
   name: string;
   level: SkillLevels;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface Education {
@@ -67,6 +70,8 @@ export interface Education {
   title: DegreeTitle;
   major: string;
   yearOfGraduation: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface Certification {
@@ -82,6 +87,7 @@ export interface BasicDetails {
   photoURL?: string;
   country?: Country;
   description?: string;
+  updatedAt: Timestamp;
 }
 
 export interface UserData extends BasicDetails {
