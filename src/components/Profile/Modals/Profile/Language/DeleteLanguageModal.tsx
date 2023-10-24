@@ -67,7 +67,7 @@ const DeleteLanguageModal = () => {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Delete Language {language?.language.name}
+                  Delete Language {language?.name}
                 </Dialog.Title>
 
                 <div className="mt-4 flex items-center space-x-4">
