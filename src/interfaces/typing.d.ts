@@ -8,3 +8,8 @@ interface BreadcrumLink {
   name: string;
   link: string;
 }
+
+interface FAQs {
+  question: string;
+  answer: string;
+}
