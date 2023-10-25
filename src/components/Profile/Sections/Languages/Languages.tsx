@@ -1,6 +1,5 @@
 import { Language } from '@/interfaces/user';
 import fetchLanguages from '@/lib/profile/fetchLanguages';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import AddLanguageButton from './AddLanguageButton';
@@ -41,17 +40,14 @@ type LanguageProps = {
 };
 
 const Languages = async ({ viewOnly, userId }: LanguageProps) => {
-  const token = cookies().get('token');
   let languages = null;
 
-  if (token) {
-    try {
-      const { data } = await fetchLanguages(token.value, userId);
-      languages = data;
-    } catch (error) {
+  try {
+    const { data } = await fetchLanguages(userId);
+    languages = data;
+  } catch (error) {
 
-      redirect('/signin');
-    }
+    redirect('/signin');
   }
 
   return (

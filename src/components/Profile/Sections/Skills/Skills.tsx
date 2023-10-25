@@ -1,6 +1,5 @@
 import { Skill } from '@/interfaces/user';
 import fetchSkills from '@/lib/profile/fetchSkills';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import AddSkillButton from './AddSkillButton';
@@ -39,17 +38,13 @@ type SkillsProps = {
 };
 
 const Skills = async ({ viewOnly, userId }: SkillsProps) => {
-  const token = cookies().get('token')?.value;
   let skills = null;
 
-  if (token) {
-    try {
-      const { data } = await fetchSkills(token, userId);
-      skills = data;
-    } catch (error) {
-
-      redirect('/signin');
-    }
+  try {
+    const { data } = await fetchSkills(userId);
+    skills = data;
+  } catch (error) {
+    redirect('/signin');
   }
 
   return (

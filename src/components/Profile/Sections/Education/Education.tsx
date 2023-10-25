@@ -1,6 +1,5 @@
 import { Education } from '@/interfaces/user';
 import fetchEducation from '@/lib/profile/fetchEducation';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import AddEducationButton from './AddEducationButton';
@@ -52,17 +51,14 @@ type EducationProps = {
 };
 
 const Education = async ({ viewOnly, userId }: EducationProps) => {
-  const token = cookies().get('token')?.value;
   let education = null;
 
-  if (token) {
-    try {
-      const { data } = await fetchEducation(token, userId);
-      education = data;
-    } catch (error) {
+  try {
+    const { data } = await fetchEducation(userId);
+    education = data;
+  } catch (error) {
 
-      redirect('/signin');
-    }
+    redirect('/signin');
   }
 
   return (
