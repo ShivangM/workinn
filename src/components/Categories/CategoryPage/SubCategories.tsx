@@ -1,4 +1,5 @@
 import { SubCategory } from '@/interfaces/service'
+import fetchServiceCategories from '@/lib/services/fetchServiceCategories'
 import getImageFromUnsplash from '@/utils/getImageFromUnsplash'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,8 +9,9 @@ type SubCategoryCardProps = {
     subCategory: SubCategory
 }
 
-const SubCategoryCard = ({ subCategory }: SubCategoryCardProps) => {
-    const { name, description, image, serviceCategories, categoryId, id } = subCategory
+const SubCategoryCard = async ({ subCategory }: SubCategoryCardProps) => {
+    const { name, description, image, categoryId, id } = subCategory
+    const { data: serviceCategories } = await fetchServiceCategories(categoryId, id)
     return (
         <div className="w-full space-y-4">
             <div className="w-full rounded-md h-72 relative overflow-hidden">
