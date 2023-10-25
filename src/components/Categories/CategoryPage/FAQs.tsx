@@ -1,4 +1,5 @@
 import ReadMorePara from '@/components/Common/ReadMorePara'
+import { FAQs } from '@/interfaces/typing'
 import React from 'react'
 
 type Props = {

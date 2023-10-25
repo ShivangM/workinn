@@ -1,6 +1,5 @@
 import { Certification } from '@/interfaces/user';
 import fetchCertifications from '@/lib/profile/fetchCertifications';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import AddCertificationButton from './AddCertificationButton';
@@ -47,17 +46,14 @@ type CertificationsProps = {
 };
 
 const Certifications = async ({ viewOnly, userId }: CertificationsProps) => {
-  const token = cookies().get('token')?.value;
   let certifications = null;
 
-  if (token) {
-    try {
-      const { data } = await fetchCertifications(token, userId);
-      certifications = data;
-    } catch (error) {
+  try {
+    const { data } = await fetchCertifications(userId);
+    certifications = data;
+  } catch (error) {
 
-      redirect('/signin');
-    }
+    redirect('/signin');
   }
 
   return (

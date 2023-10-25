@@ -8,7 +8,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
 import Select from 'react-select';
-import useUserStore from '@/store/userStore';
 import addCertification from '@/actions/profile/certifications/addCertification';
 import updateCertification from '@/actions/profile/certifications/updateCertification';
 import yearOptions from '@/constants/yearOptions';
@@ -23,8 +22,6 @@ const AddCertificationModal = () => {
     state.toggleAddCertificationModal,
     state.certification,
   ]);
-
-  const [token] = useUserStore((state) => [state.token]);
 
   const {
     handleSubmit,
@@ -50,13 +47,9 @@ const AddCertificationModal = () => {
   }, [certification, reset]);
 
   const onSubmit: SubmitHandler<Certification> = async (data) => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     certification
-      ? await updateCertification(certification.id, data, token)
-      : await addCertification(data, token);
+      ? await updateCertification(certification.id, data)
+      : await addCertification(data);
     toggleAddCertificationModal(null);
     reset();
   };
@@ -160,8 +153,8 @@ const AddCertificationModal = () => {
                           defaultValue={
                             certification
                               ? yearOptions.find(
-                                  (l) => l.label === certification.year
-                                )
+                                (l) => l.label === certification.year
+                              )
                               : null
                           }
                           onChange={(val) => onChange(val?.value)}
@@ -187,8 +180,8 @@ const AddCertificationModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : certification
-                        ? 'Save'
-                        : 'Add'
+                          ? 'Save'
+                          : 'Add'
                     }
                     loading={loading}
                   />

@@ -8,7 +8,6 @@ import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-for
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
 import Select from 'react-select';
-import useUserStore from '@/store/userStore';
 import addEducation from '@/actions/profile/educations/addEducation';
 import updateEducation from '@/actions/profile/educations/updateEducation';
 import yearOptions from '@/constants/yearOptions';
@@ -22,8 +21,6 @@ const AddEducationModal = () => {
       state.toggleAddEducationModal,
       state.education,
     ]);
-
-  const [token] = useUserStore((state) => [state.token]);
 
   const methods = useForm<Education>();
   const { handleSubmit, reset, control, register, formState: { errors } } = methods;
@@ -44,13 +41,9 @@ const AddEducationModal = () => {
   }, [education, reset]);
 
   const onSubmit: SubmitHandler<Education> = async (data) => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     education
-      ? await updateEducation(education.id, data, token)
-      : await addEducation(data, token);
+      ? await updateEducation(education.id, data)
+      : await addEducation(data);
 
     toggleAddEducationModal(null);
     reset();

@@ -9,9 +9,9 @@ import ModalConfirmButton from '../ModalConfirmButton';
 import ModalRejectButton from '../ModalRejectButton';
 import ImagePicker from '@/components/Common/Form/ImagePicker';
 import updateBasicDetails from '@/actions/profile/updateBasicDetails';
-import useUserStore from '@/store/userStore';
 import uploadImage from '@/utils/uploadFile';
 import CountrySelect from '@/components/Common/Form/CountrySelect';
+import { auth } from '@/utils/firebase';
 
 const EditBasicDetailsModal = () => {
   const [editBasicDetailsModalOpen, toggleEditBasicDetailsModal, basicDetails] =
@@ -21,13 +21,8 @@ const EditBasicDetailsModal = () => {
       state.basicDetails,
     ]);
 
-  const [token, userData] = useUserStore((state) => [
-    state.token,
-    state.userData,
-  ]);
-
   const methods = useForm<BasicDetails>();
-  const { handleSubmit, reset, control, register, formState: { errors }, setValue, getValues } = methods;
+  const { handleSubmit, reset, register, formState: { errors }, setValue, getValues } = methods;
 
   useEffect(() => {
     if (basicDetails) reset(basicDetails);
@@ -47,18 +42,14 @@ const EditBasicDetailsModal = () => {
   const [loading, startTransaction] = useTransition();
 
   const onSubmit: SubmitHandler<BasicDetails> = async (data) => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
-    const uid = userData?.uid;
+    const uid = await auth.currentUser?.uid;
 
     if (image) {
       const imageUrl = await uploadImage(image, `/users/${uid}/profile`);
       data.photoURL = imageUrl;
     }
 
-    await updateBasicDetails(data, token);
+    await updateBasicDetails(data);
     toggleEditBasicDetailsModal(null);
     reset();
   };

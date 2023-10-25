@@ -2,7 +2,9 @@ import { Language } from "@/interfaces/user";
 import { db } from "@/utils/firebaseAdmin";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse<{
+    languages: Language[];
+}>> {
     const searchParams = request.nextUrl.searchParams;
     const searchTerm = searchParams.get('searchTerm');
 

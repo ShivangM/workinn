@@ -4,9 +4,19 @@ import SearchBar from './SearchBar';
 import HamburgerIcon from './HamburgerIcon';
 import { cookies } from 'next/headers';
 import UserProfileDropdown from './UserProfileDropdown';
+import { auth, db } from '@/utils/firebaseAdmin';
+import { UserData } from '@/interfaces/user';
 
 const Navbar = async () => {
-  const isLoggedIn = cookies().has('token');
+  const token = cookies().get('token');
+  let userData = null;
+
+  if (token) {
+    const decodedToken = await auth.verifyIdToken(token.value);
+    const userRef = db.collection('users').doc(decodedToken.uid);
+    const userSnap = await userRef.get();
+    userData = userSnap.data() as UserData;
+  }
 
   return (
     <nav
@@ -49,8 +59,8 @@ const Navbar = async () => {
             Become a Seller
           </Link>
 
-          {isLoggedIn ? (
-            <UserProfileDropdown />
+          {userData ? (
+            <UserProfileDropdown userData={userData} />
           ) : (
             <Link className="btn" href="/signin">
               Sign In

@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
-import useUserStore from '@/store/userStore';
 import deleteCertification from '@/actions/profile/certifications/deleteCertification';
 
 const DeleteCertificationModal = () => {
@@ -18,20 +17,14 @@ const DeleteCertificationModal = () => {
     state.certification,
   ]);
 
-  const [token] = useUserStore((state) => [state.token]);
-
   const [loading, startTransaction] = useTransition();
 
   const handleDelete = async () => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     if (!certification) {
       throw new Error('Certification to delete not found');
     }
 
-    await deleteCertification(certification.id, token);
+    await deleteCertification(certification.id);
     toggleDeleteCertificationModal(null);
   };
 

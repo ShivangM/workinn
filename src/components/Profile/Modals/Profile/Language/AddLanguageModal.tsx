@@ -9,7 +9,6 @@ import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
 import AsyncSelect from 'react-select/async';
 import Select, { OptionProps } from 'react-select';
-import useUserStore from '@/store/userStore';
 import addLanguage from '@/actions/profile/languages/addLanguage';
 import languageLevels from '@/constants/language-levels.json';
 import updateLanguage from '@/actions/profile/languages/updateLanguage';
@@ -23,8 +22,6 @@ const AddLanguageModal = () => {
       state.toggleAddLanguageModal,
       state.language,
     ]);
-
-  const [token] = useUserStore((state) => [state.token]);
 
   const {
     handleSubmit,
@@ -42,13 +39,9 @@ const AddLanguageModal = () => {
   }, [language, reset]);
 
   const onSubmit: SubmitHandler<Language> = async (data) => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     language
-      ? await updateLanguage(language.id, data, token)
-      : await addLanguage(data, token);
+      ? await updateLanguage(language.id, data)
+      : await addLanguage(data);
 
     toggleAddLanguageModal(null);
     reset();

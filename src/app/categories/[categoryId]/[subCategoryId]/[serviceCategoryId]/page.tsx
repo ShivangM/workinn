@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/Common/Breadcrumb'
 import Pagination from '@/components/Common/Pagination'
 import ServiceCard from '@/components/ServiceCategory/ServiceCard'
+import { BreadcrumLink } from '@/interfaces/typing'
 import fetchCategory from '@/lib/services/fetchCategory'
 import fetchServiceCategory from '@/lib/services/fetchServiceCategory'
 import fetchServices from '@/lib/services/fetchServices'

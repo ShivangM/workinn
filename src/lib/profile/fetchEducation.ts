@@ -1,11 +1,18 @@
+import { APIResponse } from '@/interfaces/typing';
 import { Education } from '@/interfaces/user';
 import { auth, db } from '@/utils/firebaseAdmin';
+import { cookies } from 'next/headers';
 
 const fetchEducation = async (
-  token: string,
   userId?: string
 ): Promise<APIResponse<Education[]>> => {
-  const decodedToken = await auth.verifyIdToken(token);
+  const token = cookies().get('token')
+
+  if (!token) {
+    throw new Error('Unauthorized')
+  }
+
+  const decodedToken = await auth.verifyIdToken(token.value);
   const uid = userId || decodedToken.uid;
 
   const educationRef = db.collection('users').doc(uid).collection('education').orderBy('createdAt', 'desc');

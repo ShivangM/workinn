@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
-import useUserStore from '@/store/userStore';
 import deleteSkill from '@/actions/profile/skills/deleteSkill';
 
 const DeleteSkillModal = () => {
@@ -16,20 +15,14 @@ const DeleteSkillModal = () => {
     ]
   );
 
-  const [token] = useUserStore((state) => [state.token]);
-
   const [loading, startTransaction] = useTransition();
 
   const handleDelete = async () => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     if (!skill) {
       throw new Error('Skill to delete not found');
     }
 
-    await deleteSkill(skill.id, token);
+    await deleteSkill(skill.id);
     toggleDeleteSkillModal(null);
   };
 

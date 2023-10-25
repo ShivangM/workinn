@@ -10,6 +10,7 @@ const fetchLanguageOptions = async (
         },
         mode: "no-cors"
     }).then((res) => res.json());
+
     return res.languages;
 };
 

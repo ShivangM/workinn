@@ -7,7 +7,6 @@ import moment from 'moment';
 import { BsFillPersonFill } from 'react-icons/bs';
 import EditBasicDetailsButton from './EditBasicDetailsButton';
 import fetchUserData from '@/lib/profile/fetchUserData';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 type Props = {
@@ -34,16 +33,13 @@ type BasicDetailsProps = {
 };
 
 const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
-  const token = cookies().get('token');
   let userData = null;
 
-  if (token) {
-    try {
-      const { data } = await fetchUserData(token.value, userId);
-      userData = data;
-    } catch (error) {
-      redirect('/signin');
-    }
+  try {
+    const { data } = await fetchUserData(userId);
+    userData = data;
+  } catch (error) {
+    redirect('/signin');
   }
 
   return (

@@ -1,11 +1,18 @@
+import { APIResponse } from '@/interfaces/typing';
 import { Certification } from '@/interfaces/user';
 import { auth, db } from '@/utils/firebaseAdmin';
+import { cookies } from 'next/headers';
 
 const fetchCertifications = async (
-  token: string,
   userId?: string
 ): Promise<APIResponse<Certification[]>> => {
-  const decodedToken = await auth.verifyIdToken(token);
+  const token = cookies().get('token')
+
+  if (!token) {
+    throw new Error('Unauthorized')
+  }
+
+  const decodedToken = await auth.verifyIdToken(token.value);
   const uid = userId || decodedToken.uid;
 
   const certificationsRef = db
