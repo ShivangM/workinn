@@ -1,3 +1,5 @@
+import { DocumentReference } from "firebase/firestore";
+
 export interface ServiceCategory {
   id: string;
   name: string;
@@ -14,7 +16,6 @@ export interface SubCategory {
   description: string;
   image?: string;
   categoryId: string;
-  serviceCategories: ServiceCategory[];
 }
 
 export interface Category {
@@ -22,6 +23,24 @@ export interface Category {
   name: string;
   description: string;
   image?: string;
-  subCategories: SubCategory[];
   faqs: FAQs[];
+}
+
+type Rating = {
+  overall: number;
+  total: number;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  description: string;
+  image?: string;
+  categoryId: string;
+  subCategoryId: string;
+  serviceCategoryId: string;
+  subServiceCategoryId?: string;
+  ownerId: string;
+  rating: Rating;
+  price: number;
 }

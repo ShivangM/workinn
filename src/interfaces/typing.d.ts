@@ -6,7 +6,7 @@ interface APIResponse<T> {
 
 interface BreadcrumLink {
   name: string;
-  link: string;
+  link?: string;
 }
 
 interface FAQs {
