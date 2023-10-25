@@ -1,6 +1,7 @@
 import CategoryCard from '@/components/Categories/CategoryCard';
 import Breadcrumb from '@/components/Common/Breadcrumb';
 import Pagination from '@/components/Common/Pagination';
+import { BreadcrumLink } from '@/interfaces/typing';
 import fetchCategories from '@/lib/services/fetchCategories';
 import React from 'react';
 

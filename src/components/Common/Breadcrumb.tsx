@@ -1,3 +1,4 @@
+import { BreadcrumLink } from '@/interfaces/typing'
 import Link from 'next/link'
 import React from 'react'
 

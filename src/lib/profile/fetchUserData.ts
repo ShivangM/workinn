@@ -1,3 +1,4 @@
+import { APIResponse } from '@/interfaces/typing';
 import { UserData } from '@/interfaces/user';
 import { auth, db } from '@/utils/firebaseAdmin';
 

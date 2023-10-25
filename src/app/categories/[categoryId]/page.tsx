@@ -5,6 +5,7 @@ import fetchCategory from '@/lib/services/fetchCategory'
 import React from 'react'
 import Breadcrumb from '@/components/Common/Breadcrumb'
 import fetchSubCategories from '@/lib/services/fetchSubCategories'
+import { BreadcrumLink } from '@/interfaces/typing'
 
 type Props = {
     params: {
