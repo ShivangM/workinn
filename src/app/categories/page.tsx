@@ -29,7 +29,7 @@ const page = async ({ searchParams: { page } }: Props) => {
       <Breadcrumb path={path} />
 
       <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold">
-        Explore Categories
+        Explore Categories ({total})
       </h1>
       <p className="text-sm sm:text-base md:text-lg xl:text-xl font-medium text-gray-500 mt-1 sm:mt-2">
         Browse through our categories to find the service you need
