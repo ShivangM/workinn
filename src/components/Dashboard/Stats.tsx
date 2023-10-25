@@ -10,7 +10,7 @@ const Stats = ({ stats }: Props) => {
     return (
         <div className="grid grid-cols-3 gap-6 w-full">
             {
-                stats.map(stat => <StatCard stat={stat} />)
+                stats.map((stat, idx) => <StatCard key={idx} stat={stat} />)
             }
         </div>
     )
