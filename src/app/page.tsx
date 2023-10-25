@@ -4,7 +4,7 @@ import Features from '@/components/Homepage/Features';
 import PopularServiceCategories from '@/components/Homepage/PopularServiceCategories';
 import Testimonials from '@/components/Homepage/Testimonials';
 import ParallaxSection from '@/components/Parallax';
-import fetchTrendingServiceCategories from '@/lib/fetchTrendingServiceCategories';
+import fetchTrendingServiceCategories from '@/lib/services/fetchTrendingServiceCategories';
 
 export default async function Home() {
   const { data: trendingServiceCategories } =

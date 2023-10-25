@@ -1,4 +1,5 @@
 import { Category } from '@/interfaces/service';
+import { APIResponse } from '@/interfaces/typing';
 import { db } from '@/utils/firebaseAdmin';
 
 const fetchCategory = async (categoryId: string): Promise<APIResponse<Category>> => {

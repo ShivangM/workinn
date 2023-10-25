@@ -1,4 +1,5 @@
 import { Service } from '@/interfaces/service';
+import { APIResponse } from '@/interfaces/typing';
 import { db } from '@/utils/firebaseAdmin';
 
 const fetchService = async (serviceId: string): Promise<APIResponse<Service>> => {

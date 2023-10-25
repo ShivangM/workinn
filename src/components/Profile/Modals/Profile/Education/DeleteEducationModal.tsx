@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
-import useUserStore from '@/store/userStore';
 import deleteEducation from '@/actions/profile/educations/deleteEducation';
 
 const DeleteEducationModal = () => {
@@ -15,20 +14,14 @@ const DeleteEducationModal = () => {
       state.education,
     ]);
 
-  const [token] = useUserStore((state) => [state.token]);
-
   const [loading, startTransaction] = useTransition();
 
   const handleDelete = async () => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     if (!education) {
       throw new Error('Education to delete not found');
     }
 
-    await deleteEducation(education.id, token);
+    await deleteEducation(education.id);
     toggleDeleteEducationModal(null);
   };
 

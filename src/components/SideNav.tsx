@@ -6,11 +6,12 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { FaPowerOff } from 'react-icons/fa';
 import { BiLogInCircle } from 'react-icons/bi';
 import useUiStore from '@/store/uiStore';
-import useUserStore from '@/store/userStore';
 import { useRouter } from 'next/navigation';
 import SidebarLinks from './SidebarLinks';
 import { TbSwitchHorizontal } from 'react-icons/tb';
-import { UserModes } from '@/interfaces/user.d';
+import { UserData, UserModes } from '@/interfaces/user.d';
+import { useEffect, useState } from 'react';
+import logout from '@/utils/logout';
 
 const SideNav = () => {
   const [toggleSideNav, sideNavShow, userMode, toggleUserMode] = useUiStore(
@@ -22,10 +23,22 @@ const SideNav = () => {
     ]
   );
 
-  const [userData, logout] = useUserStore((state) => [
-    state.userData,
-    state.logout,
-  ]);
+  const [userData, setUserData] = useState<UserData | null>(null)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch('/api/user', {
+        mode: "no-cors",
+        next: {
+          tags: ['user-data']
+        }
+      });
+      const { user } = await response.json();
+      setUserData(user);
+    }
+
+    fetchUserData();
+  }, [])
 
   const router = useRouter();
 

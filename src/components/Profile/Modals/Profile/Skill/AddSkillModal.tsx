@@ -8,7 +8,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
 import Select from 'react-select';
-import useUserStore from '@/store/userStore';
 import addSkill from '@/actions/profile/skills/addSkill';
 import updateSkill from '@/actions/profile/skills/updateSkill';
 import skillLevels from '@/constants/skill-levels.json';
@@ -17,8 +16,6 @@ const AddSkillModal = () => {
   const [addSkillModalOpen, toggleAddSkillModal, skill] = useProfileStore(
     (state) => [state.addSkillModalOpen, state.toggleAddSkillModal, state.skill]
   );
-
-  const [token] = useUserStore((state) => [state.token]);
 
   const {
     handleSubmit,
@@ -43,13 +40,9 @@ const AddSkillModal = () => {
   const [loading, startTransaction] = useTransition();
 
   const onSubmit: SubmitHandler<Skill> = async (data) => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     skill
-      ? await updateSkill(skill.id, data, token)
-      : await addSkill(data, token);
+      ? await updateSkill(skill.id, data)
+      : await addSkill(data);
     toggleAddSkillModal(null);
     reset();
   };
@@ -152,8 +145,8 @@ const AddSkillModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : skill
-                        ? 'Save'
-                        : 'Add'
+                          ? 'Save'
+                          : 'Add'
                     }
                     loading={loading}
                   />

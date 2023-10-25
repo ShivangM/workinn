@@ -3,13 +3,13 @@ import Image from 'next/image';
 import { useState } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
-import useUserStore from '@/store/userStore';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { TbSwitchHorizontal } from 'react-icons/tb';
 import { UserProfileDropdownOption } from '@/interfaces/navbar';
 import useNavbarLinks from '@/hooks/useNavbarLinks';
 import useUiStore from '@/store/uiStore';
-import { UserModes } from '@/interfaces/user.d';
+import { UserData, UserModes } from '@/interfaces/user.d';
+import logout from '@/utils/logout';
 
 const UserProfileDropdownOption = ({
   option,
@@ -33,8 +33,7 @@ const UserProfileDropdownOption = ({
 };
 
 
-const UserProfileDropdown = () => {
-  const [logout, userData] = useUserStore((state) => [state.logout, state.userData]);
+const UserProfileDropdown = ({ userData }: { userData: UserData }) => {
 
   const [userMode, toggleUserMode] = useUiStore((state) => [
     state.userMode,

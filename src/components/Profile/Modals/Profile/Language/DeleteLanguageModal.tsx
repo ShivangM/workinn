@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
 import ModalConfirmButton from '../../ModalConfirmButton';
 import ModalRejectButton from '../../ModalRejectButton';
-import useUserStore from '@/store/userStore';
 import deleteLanguage from '@/actions/profile/languages/deleteLanguage';
 
 const DeleteLanguageModal = () => {
@@ -15,20 +14,14 @@ const DeleteLanguageModal = () => {
       state.language,
     ]);
 
-  const [token] = useUserStore((state) => [state.token]);
-
   const [loading, startTransaction] = useTransition();
 
   const handleDelete = async () => {
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     if (!language) {
       throw new Error('Language to delete not found');
     }
 
-    await deleteLanguage(language.id, token);
+    await deleteLanguage(language.id);
     toggleDeleteLanguageModal(null);
   };
 
