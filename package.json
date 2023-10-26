@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "populate": "node ./src/scripts/populate.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -45,6 +46,7 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "encoding": "^0.1.13"
   }
 }

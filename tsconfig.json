@@ -34,7 +34,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/constants/isoLangs.js"
   ],
   "exclude": [
     "node_modules"
