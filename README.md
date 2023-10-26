@@ -38,6 +38,35 @@
     </ul>
 </div>
 
+## **Setting up Firebase**
+
+Follow these steps to set up Firebase for this project.
+
+1. **Create a Firebase Project:**
+   - Go to [Firebase Console](https://console.firebase.google.com/) and create a new project. Make sure to enable necessary services like Firestore, Authentication, and Storage, depending on your project requirements.
+   - During the setup, enable Firebase Analytics to leverage powerful insights into your app's performance and user behavior.
+
+2. **Create a Firebase Web App:**
+   - In your Firebase project settings, add a web app to generate the necessary configuration details, including the API key, auth domain, and other required parameters. 
+
+3. **Setting up environment variables:**
+   - Rename `.env.template` to `.env.local`.
+   - Fill in the placeholder values in the `.env.local` file with your Firebase project configuration. Use the Firebase project settings to get the required values.
+
+4. **Service Account Key:**
+   - Download the service account key JSON file from the Firebase console.
+   - Convert the contents of the JSON file to a string. You can use online tools like [Remove Line Breaks Tool](https://capitalizemytitle.com/tools/remove-line-breaks/) for this.
+   - Set the converted JSON as the value for the `FIREBASE_SERVICE_ACCOUNT_KEY` environment variable in your `.env.local` file.
+   - Make sure you add value in the env file wrapped with a single quote ie. FIREBASE_SERVICE_ACCOUNT_KEY = 'Service Account JSON content after removing line breaks'.
+   - Please make sure that you keep your JSON file in the root directory or delete it once the value is set. Do not expose it while making commits.
+
+5. **Populating Database:**
+   - Run the following script using yarn or npm to populate your Firestore database.
+     
+   ```yml
+   yarn populate
+   ```
+
 ## **Getting Started**
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ShivangM/workinn?logo=github)](https://ShivangM/workinn/) [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ShivangM/workinn?color=bluevoilet&logo=github)](https://github.com/ShivangM/workinn/commits/) [![GitHub repo size](https://img.shields.io/github/repo-size/ShivangM/workinn?logo=github)](https://github.com/ShivangM/workinn)
 
