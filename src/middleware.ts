@@ -7,11 +7,12 @@ export function middleware(request: NextRequest) {
   requestHeaders.set('x-pathname', request.nextUrl.pathname);
 
   const signInURL = new URL('/signin', request.url);
+  const dashboardURL = new URL('/dashboard', request.url);
 
   const token = request.cookies.get('token')?.value;
 
   if (token && request.nextUrl.pathname === '/signin') {
-    return NextResponse.redirect('/dashboard');
+    return NextResponse.redirect(dashboardURL);
   }
 
   if (!token && protectedRoutes.includes(request.nextUrl.pathname)) {

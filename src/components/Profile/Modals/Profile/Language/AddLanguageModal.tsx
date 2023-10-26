@@ -57,14 +57,23 @@ const AddLanguageModal = () => {
     }
   };
 
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: any) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func(...args), delay);
+    };
+  };
+
   const loadLanguageOptions = async (inputValue: string) => {
     try {
       return await new Promise<Language[]>((resolve) => {
-        debounce(() => {
-          promiseLanguageOptions(inputValue, (res) => {
+        const debouncedPromise = debounce(async () => {
+          await promiseLanguageOptions(inputValue, (res) => {
             resolve(res);
           });
-        }, 300)();
+        }, 300);
+        debouncedPromise();
       });
     } catch (error) {
       // Todo: Handle error appropriately, e.g., log the error or show a user-friendly message
@@ -72,6 +81,7 @@ const AddLanguageModal = () => {
       return [];
     }
   };
+
 
 
   return (
