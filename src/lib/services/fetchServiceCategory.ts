@@ -6,7 +6,12 @@ const fetchServiceCategory = async (categoryId: string, subCategoryId: string, s
     const serviceCategoryRef = db.collection('categories').doc(categoryId).collection('sub-categories').doc(subCategoryId).collection('service-categories').doc(serviceCategoryId);
 
     const serviceCategorySnapshot = await serviceCategoryRef.get();
-    const serviceCategory = serviceCategorySnapshot.data() as ServiceCategory;
+    const serviceCategory = {
+        id: serviceCategorySnapshot.id,
+        categoryId,
+        subCategoryId,
+        ...serviceCategorySnapshot.data(),
+    } as ServiceCategory;
 
     return { data: serviceCategory };
 };

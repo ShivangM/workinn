@@ -36,11 +36,11 @@ const page = async ({ params, searchParams }: Props) => {
         },
         {
             name: category.name,
-            link: `/categories/${category.id}`,
+            link: `/categories/${categoryId}`,
         },
         {
             name: subCategory.name,
-            link: `/categories/${category.id}`,
+            link: `/categories/${categoryId}`,
         },
         {
             name: serviceCategory.name,

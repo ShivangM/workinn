@@ -47,17 +47,32 @@ const AddLanguageModal = () => {
     reset();
   };
 
-  const promiseLanguageOptions = (inputValue: string, callback: (res: Language[]) => void) => {
+  const promiseLanguageOptions = async (inputValue: string, callback: (res: Language[]) => void) => {
     try {
-      fetchLanguageOptions(inputValue).then((res) => {
-        callback(res);
-      });
+      const res = await fetchLanguageOptions(inputValue);
+      callback(res);
     } catch (error) {
-      // Todo: Handle error
+      // Todo: Handle error appropriately, e.g., log the error or show a user-friendly message
+      console.error('Error fetching language options:', error);
     }
   };
 
-  const loadLanguageOptions = debounce(promiseLanguageOptions, 300);
+  const loadLanguageOptions = async (inputValue: string) => {
+    try {
+      return await new Promise<Language[]>((resolve) => {
+        debounce(() => {
+          promiseLanguageOptions(inputValue, (res) => {
+            resolve(res);
+          });
+        }, 300)();
+      });
+    } catch (error) {
+      // Todo: Handle error appropriately, e.g., log the error or show a user-friendly message
+      console.error('Error loading language options:', error);
+      return [];
+    }
+  };
+
 
   return (
     <Transition appear show={addLanguageModalOpen} as={Fragment}>

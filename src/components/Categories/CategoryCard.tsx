@@ -16,7 +16,7 @@ const CategoryCard = ({ category }: Props) => {
                 <Image src={image || getImageFromUnsplash(name)} alt={name} fill className='object-cover object-center group-hover:scale-105 transition-all ease-in-out duration-300' />
             </div>
             <div className="mt-6 mb-2">
-                <span className="block text-xs font-medium tracki uppercase">Quisque</span>
+                <span className="block text-xs font-medium tracki uppercase">Category</span>
                 <h2 className="text-xl font-semibold group-hover:underline">{name}</h2>
             </div>
             <p className="">{description}</p>

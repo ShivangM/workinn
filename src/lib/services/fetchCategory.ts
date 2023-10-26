@@ -5,7 +5,10 @@ import { db } from '@/utils/firebaseAdmin';
 const fetchCategory = async (categoryId: string): Promise<APIResponse<Category>> => {
     const categoryRef = db.collection('categories').doc(categoryId);
     const categorySnapshot = await categoryRef.get();
-    const category = categorySnapshot.data() as Category;
+    const category = {
+        id: categorySnapshot.id,
+        ...categorySnapshot.data(),
+    } as Category;
 
     return { data: category };
 };
