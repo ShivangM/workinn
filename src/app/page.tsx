@@ -8,11 +8,7 @@ import fetchTrendingServiceCategories from '@/lib/services/fetchTrendingServiceC
 
 export default async function Home() {
   const { data: trendingServiceCategories } =
-    await fetchTrendingServiceCategories(
-      0,
-      'gzkMNphktJN3HsJLOPny',
-      '0e7JSDhNAXuHWxLzxjq6'
-    );
+    await fetchTrendingServiceCategories();
 
   return (
     <main className="space-y-10">

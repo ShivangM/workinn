@@ -21,7 +21,7 @@ const Navbar = async () => {
   return (
     <nav
       style={{ backdropFilter: 'blur(10px)' }}
-      className="w-full fixed z-30 bg-white bg-opacity-70 bg-clip-padding shadow-md py-2 px-2 sm:px-4"
+      className="w-full top-0 fixed z-30 bg-white bg-opacity-70 bg-clip-padding shadow-md py-2 px-2 sm:px-4"
     >
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center justify-center space-x-2 sm:space-x-4">

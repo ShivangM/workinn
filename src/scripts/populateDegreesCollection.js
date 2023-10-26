@@ -1,96 +1,21 @@
-const { collection, doc, setDoc, serverTimestamp } = require("firebase/firestore");
-
-const degrees = [
-    {
-        "name": "Associate",
-        "id": "Associate"
-    },
-    {
-        "name": "Certificate",
-        "id": "Certificate"
-    },
-    {
-        "name": "Bachelor of Arts",
-        "id": "BA"
-    },
-    {
-        "name": "Bachelor of Architecture",
-        "id": "BArch"
-    },
-    {
-        "name": "Bachelor of Music",
-        "id": "BM"
-    },
-    {
-        "name": "Bachelor of Fine Arts",
-        "id": "BFA"
-    },
-    {
-        "name": "Bachelor of Science",
-        "id": "BSc"
-    },
-    {
-        "name": "Master of Arts",
-        "id": "MA"
-    },
-    {
-        "name": "Master of Business Administration",
-        "id": "MBA"
-    },
-    {
-        "name": "Master of Science",
-        "id": "MSc"
-    },
-    {
-        "name": "Master of Fine Arts",
-        "id": "MFA"
-    },
-    {
-        "name": "Juris Doctor",
-        "id": "JD"
-    },
-    {
-        "name": "Doctor of Medicine",
-        "id": "MD"
-    },
-    {
-        "name": "Doctor of Philosophy",
-        "id": "PhD"
-    },
-    {
-        "name": "Bachelor of Laws",
-        "id": "LLB"
-    },
-    {
-        "name": "Master of Laws",
-        "id": "LLM"
-    },
-    {
-        "name": "Other",
-        "id": "Other"
-    }
-]
-
-console.log('Adding Degrees...', '\n');
+const admin = require('firebase-admin');
 
 const populateDegreesCollection = async (db) => {
-    const promises = degrees.map((degree) => {
-        console.log(`Adding ${degree.id}`);
+    const degrees = require("./degrees.json");
 
-        const collectionRef = collection(db, 'degrees');
-        const docRef = doc(collectionRef, degree.id);
-        return setDoc(docRef, {
-            name: degree.name,
-            timestamp: serverTimestamp(),
-        });
-    });
+    try {
+        for (const degree of degrees) {
+            console.log(`Adding ${degree.id}`);
 
-    await Promise.all(promises).then(() => {
+            const docRef = await db.collection('degrees').doc(degree.id).set({
+                name: degree.name,
+                timestamp: admin.firestore.FieldValue.serverTimestamp(),
+            });
+        }
         console.log('\n', 'Degrees Added', '\n');
-    }).catch((error) => {
+    } catch (error) {
         console.error('Error adding degrees: ', error);
-    });
+    }
 };
 
 module.exports = populateDegreesCollection;
-

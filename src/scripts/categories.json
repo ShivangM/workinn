@@ -1,0 +1,122 @@
+[
+    {
+        "name": "Graphics & Design",
+        "description": "Designs to make you stand out.",
+        "faqs": [
+            {
+                "question": "What is graphic design?",
+                "answer": "Graphic design is the art and craft of creating visual content that communicates a concept, an idea or a brand message to the public."
+            },
+            {
+                "question": "How to hire top graphic designers?",
+                "answer": "You can find a freelance graphic designer for any budget on WorkInn, starting from just $5 per gig. You should research their portfolio, write a clear brief, define a budget and deadline, and communicate with them throughout the project."
+            },
+            {
+                "question": "How much does it cost to hire a graphic designer?",
+                "answer": "The cost of hiring a graphic designer depends on many factors, such as the level of experience, the type and complexity of the project, the number of revisions and extras. You can browse different categories and subcategories on WorkInn to compare prices and find the best fit for your needs."
+            },
+            {
+                "question": "How do I write a good creative design brief?",
+                "answer": "A good creative design brief should include the following elements: your goal, your audience, your message, your deliverables, your deadline, your budget, and your success criteria. You should be clear, concise and specific in your brief and provide relevant examples or references if possible."
+            },
+            {
+                "question": "What’s the best way to hire a designer in less than 48 hours?",
+                "answer": "If you need to hire a designer in a hurry, you can publish a buyer request on WorkInn and state your requirements, budget and deadline. You will receive offers from freelancers who are available and interested in your project. You can also look for sellers who offer express delivery or 24-hour delivery options."
+            },
+            {
+                "question": "What makes graphic design so important?",
+                "answer": "Graphic design is important because it helps you communicate your ideas and messages effectively and attractively to your target audience. It also helps you build your brand identity, differentiate yourself from your competitors, and influence your customers' perceptions and emotions."
+            }
+        ],
+        "subCategories": [
+            {
+                "name": "Logo & Brand Identity",
+                "serviceCategories": [
+                    {
+                        "name": "Logo Design",
+                        "description": "A logo is a symbol or graphic representation of your brand name, company or organization. It is used to identify and distinguish your products or services from others. A logo design is the process of creating a logo that reflects your brand identity, values and personality."
+                    },
+                    {
+                        "name": "Brand Style Guides",
+                        "description": "A brand style guide is a document that defines the visual elements of your brand, such as colors, fonts, shapes, icons, images, etc. It also provides guidelines on how to use them consistently across different media and platforms. A brand style guide helps you maintain a coherent and professional image of your brand."
+                    },
+                    {
+                        "name": "Business Cards & Stationery",
+                        "description": "Business cards and stationery are printed materials that contain your contact information, logo and other details related to your business or profession. They are used to introduce yourself, network with potential clients or partners, and promote your brand. Business cards and stationery design is the process of creating attractive and functional business cards and stationery that match your brand style."
+                    },
+                    {
+                        "name": "Fonts & Typography",
+                        "description": "Fonts and typography are the art and technique of arranging letters, numbers and symbols in a visually appealing way. They are used to enhance the readability, aesthetics and mood of your text content. Fonts and typography design is the process of creating or selecting fonts and typography that suit your brand voice and tone."
+                    }
+                ]
+            },
+            {
+                "name": "Web & App Design",
+                "serviceCategories": [
+                    {
+                        "name": "Website Design",
+                        "description": "Website design is the process of creating user-friendly interfaces for websites that meet the needs of your target audience. It involves designing wireframes, mockups, prototypes, layouts, graphics, icons, buttons, forms, etc., that are visually appealing and easy to navigate."
+                    },
+                    {
+                        "name": "App Design",
+                        "description": "App design is the process of creating user-friendly interfaces for mobile apps that meet the needs of your target audience. It involves designing wireframes, mockups, prototypes, layouts, graphics, icons, buttons, forms, etc., that are visually appealing and easy to navigate."
+                    },
+                    {
+                        "name": "UX Design",
+                        "description": "UX design is the process of creating user-centered interfaces for websites and mobile apps that provide a positive and seamless experience to your target audience. It involves researching user needs and behaviors, defining user personas and scenarios, creating user flows and wireframes, testing and iterating designs based on feedback."
+                    },
+                    {
+                        "name": "Landing Page Design",
+                        "description": "Landing page design is the process of creating a single web page that serves as an entry point for a specific marketing campaign or product. It involves designing a clear and compelling value proposition, a call-to-action (CTA), a lead capture form or button, and other elements that encourage visitors to take a desired action."
+                    },
+                    {
+                        "name": "Icon Design",
+                        "description": "Icon design is the process of creating small graphical symbols or pictograms that represent an action, an object or a concept in a simple and recognizable way. Icons are used in user interfaces (UI) to enhance navigation, communication and branding. Icon design involves selecting appropriate shapes, colors and styles that match the context and purpose of the icon."
+                    }
+                ]
+            },
+            {
+                "name": "Art & Illustration",
+                "serviceCategories": [
+                    {
+                        "name": "Illustration",
+                        "description": "Illustration is the art of creating visual representations of ideas, concepts, or stories. It is used in various fields such as advertising, publishing, entertainment, education, and more. Illustrators use different techniques and styles to create illustrations that convey a message or evoke emotions. Some common types of illustration include editorial illustration, book illustration, comic illustration, and scientific illustration."
+                    },
+                    {
+                        "name": "Portraits & Caricatures",
+                        "description": "Portraits & caricatures are artistic representations of people's faces or bodies that capture their likeness or personality in a creative way. They are used in personal or professional contexts such as gifts, social media profiles or business cards. Portraits & caricatures design includes sketching or painting techniques using digital tools or traditional media."
+                    },
+                    {
+                        "name": "Cartoons & Comics",
+                        "description": "Cartoons & comics are visual narratives that use humor or satire to convey a message or tell a story. They are used in newspapers, magazines, books, websites or social media to entertain or educate readers. Cartoons & comics design includes creating characters, backgrounds, speech bubbles, captions, etc., that are expressive and engaging."
+                    },
+                    {
+                        "name": "Tattoo Design",
+                        "description": "Tattoo design is the process of creating unique and personalized designs for tattoos that reflect the client's personality, preferences and values. It involves sketching or drawing techniques using digital tools or traditional media to create original artwork that can be transferred to the skin. Tattoo design includes different styles such as traditional, realistic, tribal, geometric, etc."
+                    }
+                ]
+            },
+            {
+                "name": "Architecture & Building Design",
+                "serviceCategories": [
+                    {
+                        "name": "Architecture & Interior Design",
+                        "description": "Architecture & Interior Design deals with designing and planning the layout, structure, and aesthetics of buildings and interior spaces. It involves selecting appropriate materials, colors, lighting, furniture, and accessories that match the client's requirements and preferences."
+                    },
+                    {
+                        "name": "Landscape Design",
+                        "description": "Landscape Design deals with designing and planning outdoor spaces such as gardens, parks, public spaces, and commercial areas. It involves selecting appropriate plants, trees, shrubs, hardscapes, water features, and lighting that match the site's topography, climate, and purpose."
+                    },
+                    {
+                        "name": "Building Engineering",
+                        "description": "Building Engineering deals with designing and planning the structural, mechanical, electrical, plumbing, and fire protection systems of buildings. It involves ensuring that the building meets the safety codes, regulations, and standards of the local authorities."
+                    },
+                    {
+                        "name": "Architecture & Building Information Modeling (BIM)",
+                        "description": "Architecture & Building Information Modeling (BIM) deals with creating digital models of buildings and structures using specialized software tools. It involves collaborating with architects, engineers, contractors, and clients to create accurate and detailed 3D models that simulate the building's performance and lifecycle."
+                    }
+                ]
+            }
+        ]
+    }
+]

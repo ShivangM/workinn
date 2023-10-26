@@ -1,32 +1,38 @@
-const { getApp, getApps, initializeApp } = require("firebase/app");
 const populateDegreesCollection = require("./populateDegreesCollection");
 const populateLanguagesCollection = require("./populateLanguagesCollection");
+const populateCategoriesCollection = require("./populateCategoriesCollection");
 const dotenv = require("dotenv");
 const path = require("path");
+const admin = require("firebase-admin");
 
 dotenv.config({
     path: path.resolve(__dirname, "../../.env.local"),
 });
-const { getFirestore } = require("firebase/firestore");
 
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
+const serviceAccount = JSON.parse(
+    process.env.FIREBASE_SERVICE_ACCOUNT_KEY
+);
 
-// Initialize Firebase
-const apps = getApps();
-const app = !apps.length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
+try {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+    });
+} catch (error) {
+    /*
+     * We skip the "already exists" message which is
+     * not an actual error when we're hot-reloading.
+     */
+    if (!/already exists/u.test(error.message)) {
+        console.error('Firebase admin initialization error', error.stack);
+    }
+}
+
+const db = admin.firestore();
 
 const populateDatabase = async () => {
     await populateDegreesCollection(db);
     await populateLanguagesCollection(db);
+    await populateCategoriesCollection(db);
 }
 
 populateDatabase().then(() => {
