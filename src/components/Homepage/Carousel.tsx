@@ -51,6 +51,7 @@ const HomePageCarousel = ({ serviceCategories }: Props) => {
     <div>
       <Carousel
         autoPlay={true}
+        interval={3000}
         infiniteLoop
         showIndicators={false}
         showThumbs={false}
@@ -58,7 +59,7 @@ const HomePageCarousel = ({ serviceCategories }: Props) => {
       >
         {serviceCategories?.map((serviceCategory) => (
           <HomePageCarouselCard
-            key={serviceCategory.id}
+            key={serviceCategory.id} 
             serviceCategory={serviceCategory}
           />
         ))}
