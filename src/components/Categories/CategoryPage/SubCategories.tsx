@@ -1,5 +1,5 @@
 import { SubCategory } from '@/interfaces/service'
-import fetchServiceCategories from '@/lib/services/fetchServiceCategories'
+import fetchServiceCategories from '@/lib/services/service-category/fetchServiceCategories'
 import getImageFromUnsplash from '@/utils/getImageFromUnsplash'
 import Image from 'next/image'
 import Link from 'next/link'

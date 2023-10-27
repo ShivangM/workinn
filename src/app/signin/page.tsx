@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { doc, setDoc } from 'firebase/firestore';
+import { setCookie } from 'cookies-next';
 
 const SignIn = () => {
   const loadFirebaseui = useCallback(async () => {
@@ -18,7 +19,7 @@ const SignIn = () => {
       firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
 
     const uiConfig: firebaseui.auth.Config = {
-      signInSuccessUrl: '/',
+      signInSuccessUrl: '/dashboard',
       signInOptions: [
         GoogleAuthProvider.PROVIDER_ID,
         EmailAuthProvider.PROVIDER_ID,
@@ -47,6 +48,10 @@ const SignIn = () => {
             });
           }
 
+          authResult.user.getIdToken().then((token: string) => {
+            setCookie('token', token);
+          });
+
           return true;
         },
       },
@@ -60,7 +65,7 @@ const SignIn = () => {
   }, [loadFirebaseui]);
 
   return (
-    <main className="container mx-auto py-32">
+    <main className="container mx-auto h-screen flex items-center justify-center">
       <div id="firebaseui-auth-container" />
     </main>
   );

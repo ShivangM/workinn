@@ -1,4 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
+import { FAQ, SelectOption } from "./typing";
 
 export interface ServiceCategory {
   id: string;
@@ -23,7 +24,7 @@ export interface Category {
   name: string;
   description: string;
   image?: string;
-  faqs: FAQs[];
+  faqs: FAQ[];
 }
 
 type Rating = {
@@ -35,12 +36,18 @@ export interface Service {
   id: string;
   name: string;
   description: string;
-  image?: string;
+  images: string[];
   categoryId: string;
   subCategoryId: string;
   serviceCategoryId: string;
-  subServiceCategoryId?: string;
   ownerId: string;
   rating: Rating;
   price: number;
+  isPaused: boolean;
+  faqs: FAQ[];
+  tags: string[];
+  category?: Category;
+  subCategory?: SubCategory;
+  serviceCategory?: ServiceCategory;
+  sellerWalletAddress?: string;
 }

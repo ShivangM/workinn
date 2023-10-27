@@ -11,7 +11,7 @@ interface BreadcrumLink {
   link?: string;
 }
 
-interface FAQs {
+interface FAQ {
   question: string;
   answer: string;
 }
@@ -20,4 +20,11 @@ interface Stat {
   name: string;
   value: string | number;
   Icon: IconType
+}
+
+interface ETHRates {
+  USD: number;
+  EUR: number;
+  BTC: number;
+  INR: number;
 }

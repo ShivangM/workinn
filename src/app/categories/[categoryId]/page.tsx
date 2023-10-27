@@ -1,10 +1,10 @@
 import Banner from '@/components/Categories/CategoryPage/Banner'
 import SubCategories from '@/components/Categories/CategoryPage/SubCategories'
 import FAQs from '@/components/Categories/CategoryPage/FAQs'
-import fetchCategory from '@/lib/services/fetchCategory'
+import fetchCategory from '@/lib/services/category/fetchCategory'
 import React from 'react'
 import Breadcrumb from '@/components/Common/Breadcrumb'
-import fetchSubCategories from '@/lib/services/fetchSubCategories'
+import fetchSubCategories from '@/lib/services/sub-category/fetchSubCategories'
 import { BreadcrumLink } from '@/interfaces/typing'
 
 type Props = {

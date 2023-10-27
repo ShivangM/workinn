@@ -1,9 +1,9 @@
 'use client';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
-import ModalConfirmButton from '../../ModalConfirmButton';
-import ModalRejectButton from '../../ModalRejectButton';
+import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
+import ModalRejectButton from '../../../../Common/ModalRejectButton';
 import deleteCertification from '@/actions/profile/certifications/deleteCertification';
 
 const DeleteCertificationModal = () => {

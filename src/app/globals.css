@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .btn {
-  @apply inline-flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-lg transition-all ease-in-out duration-300 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply inline-flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium leading-6 text-white whitespace-nowrap bg-brand border border-brand rounded-md shadow-lg transition-all ease-in-out duration-300 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:animate-pulse;
 }
 
 .btnOutline {
