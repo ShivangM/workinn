@@ -38,6 +38,19 @@
     </ul>
 </div>
 
+## **Alchemy API Key Setup**
+1. **Create an account on Alchemy:**
+    - Go to the [Alchemy website](https://alchemy.com/) and create an account if you don't have one already.
+
+2. **Generate an API key:**
+    - Once you have an account, navigate to the API section in your Alchemy account dashboard.
+    - Create a new project named WorkInn or any other name if you want.
+    - Generate an API key for your project.
+3. Add your API key to env.local file setting up the ALCHEMY_ID environment variable.
+   ```yml
+   ALCHEMY_ID = your_alchemy_id
+   ```
+
 ## **Setting up Firebase**
 
 Follow these steps to set up Firebase for this project.
