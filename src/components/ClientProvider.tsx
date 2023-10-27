@@ -25,8 +25,8 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-    appName: 'WorkInn',
-    projectId: 'ab98d5da5c7055753cce884d6f7b9d8c',
+    appName: process.env.NEXT_PUBLIC_WALLET_CONNECT_APPNAME as string,
+    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECTID as string,
     chains
 });
 
