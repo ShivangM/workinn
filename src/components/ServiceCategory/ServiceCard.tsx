@@ -41,10 +41,10 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md">
             <div className="flex justify-between">
                 <OwnerDetails ownerId={ownerId} />
-                <MdFavoriteBorder />
+                <MdFavoriteBorder className='h-5 aspect-square text-pink-500' />
             </div>
 
-            <Link href={`/service/${id}`} className='group hover:cursor-pointer' >
+            <Link href={`/services/${id}`} className='group hover:cursor-pointer' >
                 <div className="relative aspect-square w-full mb-4 overflow-hidden">
                     <Image src={images[0] || getImageFromUnsplash(name)} fill alt={name} className="object-cover group-hover:scale-105 transition-all ease-in-out duration-300" />
                 </div>
