@@ -1,12 +1,12 @@
 'use client';
 import InputWithFieldError from '@/components/Common/Form/InputWithFieldError';
 import { Skill } from '@/interfaces/user';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../ModalConfirmButton';
-import ModalRejectButton from '../../ModalRejectButton';
+import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
+import ModalRejectButton from '../../../../Common/ModalRejectButton';
 import Select from 'react-select';
 import addSkill from '@/actions/profile/skills/addSkill';
 import updateSkill from '@/actions/profile/skills/updateSkill';

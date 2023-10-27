@@ -1,6 +1,6 @@
 'use client';
 import { BasicDetails } from '@/interfaces/user';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 import { BiSolidEdit } from 'react-icons/bi';
 
 type Props = {

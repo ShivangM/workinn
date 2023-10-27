@@ -1,5 +1,5 @@
 'use client';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 
 const AddEducationButton = () => {
   const [toggleAddEducationModal] = useProfileStore((state) => [

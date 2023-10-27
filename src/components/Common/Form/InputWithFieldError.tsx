@@ -6,14 +6,15 @@ type Props = {
   name: string;
   errors: any;
   children: React.ReactNode;
+  labelClassName?: string;
 };
 
 const InputWithFieldError = (props: Props) => {
-  const { label, name, children, errors } = props;
+  const { label, name, children, errors, labelClassName } = props;
 
   return (
     <div className="space-y-2">
-      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+      <label htmlFor={name} className={labelClassName || "text-sm font-medium text-gray-700"}>
         {label}
       </label>
 

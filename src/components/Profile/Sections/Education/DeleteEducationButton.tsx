@@ -1,7 +1,7 @@
 'use client';
 
 import { Education } from '@/interfaces/user';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 type Props = {

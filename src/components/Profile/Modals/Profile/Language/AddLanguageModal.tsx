@@ -1,18 +1,17 @@
 'use client';
 import InputWithFieldError from '@/components/Common/Form/InputWithFieldError';
 import { Language } from '@/interfaces/user';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../ModalConfirmButton';
-import ModalRejectButton from '../../ModalRejectButton';
+import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
+import ModalRejectButton from '../../../../Common/ModalRejectButton';
 import AsyncSelect from 'react-select/async';
-import Select, { OptionProps } from 'react-select';
+import Select, { OptionProps, SingleValue } from 'react-select';
 import addLanguage from '@/actions/profile/languages/addLanguage';
 import languageLevels from '@/constants/language-levels.json';
 import updateLanguage from '@/actions/profile/languages/updateLanguage';
-import debounce from 'lodash.debounce';
 import fetchLanguageOptions from '@/lib/profile/fetchLanguageOptions';
 
 const AddLanguageModal = () => {
@@ -134,20 +133,23 @@ const AddLanguageModal = () => {
                       >
                         <AsyncSelect
                           ref={ref}
+                          defaultOptions
                           defaultValue={language}
                           isDisabled={!!language}
                           isMulti={false}
-                          onChange={(val) => onChange((val as Language).id)}
+                          // @ts-ignore
+                          onChange={(val: SingleValue<Language>) => onChange(val?.id)}
                           loadOptions={loadLanguageOptions}
-                          getOptionLabel={(option) => option.name}
+                          getOptionLabel={(option) => option?.name}
+                          getOptionValue={(option) => option?.id}
                           components={{
                             Option: ({ data, innerProps, innerRef }: OptionProps<Language>) => {
                               return (
                                 <div className='cursor-pointer' ref={innerRef} {...innerProps}>
                                   <div className="flex py-2 px-4 items-center space-x-2">
                                     <div className="text-sm">
-                                      <p className='text-gray-900 font-medium'>{data.name}</p>
-                                      <p className='text-gray-500'>{data.nativeName}</p>
+                                      <p className='text-gray-900 font-medium'>{data?.name}</p>
+                                      <p className='text-gray-500'>{data?.nativeName}</p>
                                     </div>
                                   </div>
                                 </div>

@@ -1,12 +1,12 @@
 import ReadMorePara from '@/components/Common/ReadMorePara'
-import { FAQs } from '@/interfaces/typing'
+import { FAQ } from '@/interfaces/typing'
 import React from 'react'
 
 type Props = {
-    faqs: FAQs[]
+    faqs: FAQ[]
 }
 
-const FAQ = ({ question, answer }: FAQs) => {
+const FAQ = ({ question, answer }: FAQ) => {
     return (
         <div className="mb-10">
             <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">

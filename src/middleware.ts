@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = ['/dashboard', '/settings', '/profile'];
+const protectedRoutes = ['/dashboard', '/settings', '/profile', 'manage-service'];
 
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);

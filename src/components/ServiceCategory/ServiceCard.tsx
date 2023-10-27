@@ -35,7 +35,7 @@ const OwnerDetails = async ({ ownerId }: OwnerDetailsProps) => {
 }
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
-    const { ownerId, image, name, id, rating, price } = service
+    const { ownerId, images, name, id, rating, price } = service
 
     return (
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md">
@@ -46,7 +46,7 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
 
             <Link href={`/service/${id}`} className='group hover:cursor-pointer' >
                 <div className="relative aspect-square w-full mb-4 overflow-hidden">
-                    <Image src={image || getImageFromUnsplash(name)} fill alt={name} className="object-cover group-hover:scale-105 transition-all ease-in-out duration-300" />
+                    <Image src={images[0] || getImageFromUnsplash(name)} fill alt={name} className="object-cover group-hover:scale-105 transition-all ease-in-out duration-300" />
                 </div>
                 <div className="space-y-2 text-lg">
                     <h2 className="mb-1 text-gray-900 group-hover:underline">{name}</h2>

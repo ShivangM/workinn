@@ -1,5 +1,5 @@
 'use client';
-import useProfileStore from '@/store/profile';
+import useProfileStore from '@/store/profileStore';
 
 const AddLanguageButton = () => {
   const [toggleAddLanguageModal] = useProfileStore((state) => [
