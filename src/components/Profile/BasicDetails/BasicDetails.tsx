@@ -1,31 +1,13 @@
 import Image from 'next/image';
 import React from 'react';
 import ReadMorePara from '../../Common/ReadMorePara';
-import { IoLocationSharp } from 'react-icons/io5';
-import { IconType } from 'react-icons/lib';
+import { IoLocationSharp } from 'react-icons//io5';
 import moment from 'moment';
-import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillPersonFill } from 'react-icons//bs';
 import EditBasicDetailsButton from './EditBasicDetailsButton';
 import fetchUserData from '@/lib/profile/fetchUserData';
 import { redirect } from 'next/navigation';
-
-type Props = {
-  title: string;
-  value: string;
-  Icon: IconType;
-};
-
-const BasicDetailProperty = ({ title, value, Icon }: Props) => {
-  return (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center space-x-4">
-        <Icon />
-        <span>{title}</span>
-      </div>
-      <p className="font-bold">{value}</p>
-    </div>
-  );
-};
+import BasicDetailProperty from './BasicDetailProperty';
 
 type BasicDetailsProps = {
   viewOnly: boolean;
@@ -45,7 +27,7 @@ const BasicDetails = async ({ viewOnly, userId }: BasicDetailsProps) => {
   return (
     <section
       title="Basic Details"
-      className="flex flex-col w-full bg-white rounded-lg p-6 lg:col-span-1 shadow-md gap-2 sticky top-24"
+      className="flex flex-col w-full bg-white rounded-lg p-6 lg:col-span-1 shadow-md gap-2 sticky top-28"
     >
       {!viewOnly && userData ? (
         <EditBasicDetailsButton basicDetails={userData} />

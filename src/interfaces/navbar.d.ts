@@ -1,4 +1,4 @@
-import { IconType } from 'react-icons/lib';
+import { IconType } from 'react-icons//lib';
 
 interface NavLink {
   name: string;

@@ -1,5 +1,5 @@
-import { DocumentReference } from "firebase/firestore";
-import { FAQ, FAQInput, SelectOption } from "./typing";
+import { DocumentReference } from 'firebase/firestore';
+import { FAQ, FAQInput, SelectOption } from './typing';
 
 export interface ServiceCategory {
   id: string;
@@ -30,25 +30,25 @@ export interface Category {
 type Rating = {
   overall: number;
   total: number;
-}
+};
 
 export interface ServiceInput {
   name: string;
   description: string;
-  images: File[] | string[];
   categoryId: string;
   subCategoryId: string;
   serviceCategoryId: string;
+  images: string[];
   price: number;
   tags: string[];
-  faqs?: FAQInput[];
-  sellerWalletAddress?: string;
+  faqs: FAQInput[];
+  sellerWalletAddress: `0x${string}`;
 }
 
 export interface Service extends ServiceInput {
   id: string;
-  images: string[];
   ownerId: string;
   rating: Rating;
+  faqs: FAQ[];
   isPaused: boolean;
 }
