@@ -1,6 +1,6 @@
 'use client'
 import { useTransition, useEffect, useState } from 'react'
-import { Category, Service, ServiceCategory, SubCategory } from "@/interfaces/service";
+import { Category, Service, ServiceCategory, ServiceInput, SubCategory } from "@/interfaces/service";
 import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import updateService from '@/actions/dashboard/updateService';
 import addService from '@/actions/dashboard/addService';
@@ -23,9 +23,12 @@ import { useAccount } from 'wagmi';
 
 type Props = {
     service?: Service
+    category?: Category
+    subCategory?: SubCategory
+    serviceCategory?: ServiceCategory
 }
 
-const AddServiceForm = ({ service }: Props) => {
+const AddServiceForm = ({ service, category, serviceCategory, subCategory }: Props) => {
     const {
         handleSubmit,
         formState: { errors },
@@ -33,7 +36,7 @@ const AddServiceForm = ({ service }: Props) => {
         reset,
         control,
         watch,
-    } = useForm<Service>();
+    } = useForm<ServiceInput>();
 
     const { isConnected, address } = useAccount();
 
@@ -46,8 +49,9 @@ const AddServiceForm = ({ service }: Props) => {
         }
     }, [service, reset]);
 
-    const onSubmit: SubmitHandler<Service> = async (data) => {
+    const onSubmit: SubmitHandler<ServiceInput> = async (data) => {
         data.tags = tags;
+
         if (isConnected) {
             data.sellerWalletAddress = address;
         }
@@ -56,8 +60,7 @@ const AddServiceForm = ({ service }: Props) => {
 
         if (data.images) {
             let imageIndex = 0;
-            for (const image of data.images) {
-                // @ts-ignore
+            for (const image of data.images as File[]) {
                 const imageUrl = await uploadImage(image, `/services/${serviceId}/images/image-${++imageIndex}`);
                 imagesUrl.push(imageUrl);
             }
@@ -192,7 +195,7 @@ const AddServiceForm = ({ service }: Props) => {
                                 >
                                     <AsyncSelect
                                         ref={ref}
-                                        defaultValue={service?.category}
+                                        defaultValue={category}
                                         isMulti={false}
                                         onChange={(val: SingleValue<Category>) => onChange(val?.id)}
                                         loadOptions={loadCategoryOptions}
@@ -219,7 +222,7 @@ const AddServiceForm = ({ service }: Props) => {
                                         >
                                             <AsyncSelect
                                                 ref={ref}
-                                                defaultValue={service?.subCategory}
+                                                defaultValue={subCategory}
                                                 isMulti={false}
                                                 onChange={(val: SingleValue<SubCategory>) => onChange(val?.id)}
                                                 loadOptions={(inputValue) => loadSubCategoryOptions(selectedCategoryId, inputValue)}
@@ -247,7 +250,7 @@ const AddServiceForm = ({ service }: Props) => {
                                         >
                                             <AsyncSelect
                                                 ref={ref}
-                                                defaultValue={service?.serviceCategory}
+                                                defaultValue={serviceCategory}
                                                 isMulti={false}
                                                 onChange={(val: SingleValue<ServiceCategory>) => onChange(val?.id)}
                                                 loadOptions={(inputValue) => loadServiceCategoryOptions(selectedCategoryId, selectedSubCategoryId, inputValue)}

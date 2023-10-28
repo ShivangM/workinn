@@ -1,10 +1,10 @@
 'use server';
-import { Service } from '@/interfaces/service';
+import { Service, ServiceInput } from '@/interfaces/service';
 import admin, { db, auth } from '@/utils/firebaseAdmin';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-const updateService = async (id: string, updatedService: Service) => {
+const updateService = async (id: string, updatedService: ServiceInput) => {
     const token = cookies().get('token');
 
     if (!token) {
