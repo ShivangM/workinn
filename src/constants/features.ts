@@ -1,6 +1,6 @@
-import { SiBlockchaindotcom } from 'react-icons/si';
-import { LuBrainCircuit } from 'react-icons/lu';
-import { GiIndianPalace } from 'react-icons/gi';
+import { SiBlockchaindotcom } from 'react-icons//si';
+import { LuBrainCircuit } from 'react-icons//lu';
+import { GiIndianPalace } from 'react-icons//gi';
 
 const features = [
   {

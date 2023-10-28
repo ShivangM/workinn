@@ -1,7 +1,7 @@
 'use client';
 import useUiStore from '@/store/uiStore';
 import React from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { GiHamburgerMenu } from 'react-icons//gi';
 
 const HamburgerIcon = () => {
   const [toggleSideNav] = useUiStore((state) => [state.toggleSideNav]);

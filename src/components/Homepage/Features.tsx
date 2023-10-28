@@ -1,7 +1,7 @@
 import features from '@/constants/features';
 import Image from 'next/image';
 import React from 'react';
-import { IconType } from 'react-icons/lib';
+import { IconType } from 'react-icons//lib';
 
 type Feature = {
   Icon: IconType;

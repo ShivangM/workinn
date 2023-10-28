@@ -11,9 +11,13 @@ interface BreadcrumLink {
   link?: string;
 }
 
-interface FAQ {
+interface FAQInput {
   question: string;
   answer: string;
+}
+
+interface FAQ extends FAQInput {
+  id: string;
 }
 
 interface Stat {

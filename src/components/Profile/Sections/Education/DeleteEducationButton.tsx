@@ -2,7 +2,7 @@
 
 import { Education } from '@/interfaces/user';
 import useProfileStore from '@/store/profileStore';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons//ai';
 
 type Props = {
   education: Education;
