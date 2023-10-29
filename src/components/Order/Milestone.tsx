@@ -1,3 +1,4 @@
+'use client';
 import useCurrencyConversion from '@/hooks/useCurrencyConversion';
 import { Milestone } from '@/interfaces/order';
 import React from 'react';
