@@ -46,7 +46,6 @@ const Languages = async ({ viewOnly, userId }: LanguageProps) => {
     const { data } = await fetchLanguages(userId);
     languages = data;
   } catch (error) {
-
     redirect('/signin');
   }
 

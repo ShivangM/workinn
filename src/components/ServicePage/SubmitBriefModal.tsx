@@ -1,8 +1,10 @@
 'use client';
 import createOrder from '@/actions/order/createOrder';
-import { BuyerBrief } from '@/interfaces/order';
+import updateOrder from '@/actions/order/updateOrder';
+import { Order } from '@/interfaces/order';
 import { ExtendedFile } from '@/interfaces/typing';
 import useServiceStore from '@/store/serviceStore';
+import uploadFile from '@/utils/uploadFile';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -22,7 +24,7 @@ const SubmitBriefModal = () => {
     ]);
 
   const [loading, startTransaction] = useTransition();
-  const methods = useForm<BuyerBrief>();
+  const methods = useForm<Order>();
 
   const {
     handleSubmit,
@@ -39,19 +41,39 @@ const SubmitBriefModal = () => {
     setFiles([]);
   };
 
-  const onSubmit: SubmitHandler<BuyerBrief> = async (data) => {
+  const onSubmit: SubmitHandler<Order> = async (data) => {
     if (!service) return;
 
+    let orderId = null;
+
     try {
-      await createOrder(data, service.id, service.ownerId);
+      orderId = await createOrder(data, service.id, service.ownerId);
       handleReset();
       toggleSubmitBriefModal(null);
-      toast.success(
-        'Brief submitted successfully, please wait for the freelancer to respond.'
-      );
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.message);
     }
+
+    let filesUrl: string[] = [];
+
+    if (files.length > 0) {
+      let fileIndex = 0;
+      for (const file of files) {
+        const fileUrl = await uploadFile(
+          file,
+          `/orders/${orderId}/buyer/file-${++fileIndex}`
+        );
+        filesUrl.push(fileUrl);
+      }
+
+      data.buyersBrief.projectFiles = filesUrl;
+
+      await updateOrder(orderId!, data);
+    }
+
+    toast.success(
+      'Brief submitted successfully, please wait for the freelancer to respond.'
+    );
   };
 
   return (
@@ -109,7 +131,7 @@ const SubmitBriefModal = () => {
                       type="text"
                       placeholder="Title of your project"
                       className="form-input placeholder:gray-400 outline-none !rounded-r-lg"
-                      {...register('projectTitle', {
+                      {...register('buyersBrief.projectTitle', {
                         required: 'Project Title is required',
                         maxLength: {
                           value: 100,
@@ -132,7 +154,7 @@ const SubmitBriefModal = () => {
                         {...field}
                       />
                     )}
-                    name="projectDescription"
+                    name="buyersBrief.projectDescription"
                     control={control}
                     rules={{
                       required: 'Description is required',
@@ -158,7 +180,7 @@ const SubmitBriefModal = () => {
                       type="date"
                       placeholder="Title of your project"
                       className="form-input placeholder:gray-400 outline-none !rounded-r-lg"
-                      {...register('projectDeadline', {
+                      {...register('buyersBrief.projectDeadline', {
                         required: 'Project Deadline is required',
                         min: {
                           value: new Date(Date.now() + 24 * 60 * 60 * 1000)
@@ -180,7 +202,7 @@ const SubmitBriefModal = () => {
                       type="number"
                       className="form-input placeholder:gray-400 outline-none !rounded-r-lg"
                       placeholder="Estimate budget for your project"
-                      {...register('projectBudget', {
+                      {...register('buyersBrief.projectBudget', {
                         required: 'Budget is required (in INR)',
                         min: {
                           value: service?.price || 0,

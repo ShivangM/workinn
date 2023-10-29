@@ -1,12 +1,11 @@
 'use server';
-import { BuyerBrief, OrderStatus } from '@/interfaces/order.d';
-import { Service } from '@/interfaces/service';
+import { Order, OrderStatus } from '@/interfaces/order.d';
 import admin, { db, auth } from '@/utils/firebaseAdmin';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 const createOrder = async (
-  data: BuyerBrief,
+  data: Order,
   serviceId: string,
   sellerId: string
 ) => {
@@ -25,7 +24,7 @@ const createOrder = async (
     NextResponse.redirect('/signin');
   }
 
-  await db.collection('orders').add({
+  const order = await db.collection('orders').add({
     buyersBrief: data,
     buyerId: uid,
     serviceId: serviceId,
@@ -34,6 +33,9 @@ const createOrder = async (
     createdAt: admin.firestore.Timestamp.now(),
     updatedAt: admin.firestore.Timestamp.now(),
   });
+
+  const orderId = order.id;
+  return orderId;
 };
 
 export default createOrder;

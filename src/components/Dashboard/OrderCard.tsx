@@ -2,12 +2,11 @@ import { Order, OrderStatus } from '@/interfaces/order.d';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { GiCancel, GiReceiveMoney } from 'react-icons/gi';
-import { MdOpenInNew } from 'react-icons/md';
 import { SiProgress } from 'react-icons/si';
 import { GrDeliver } from 'react-icons/gr';
-import useUiStore from '@/store/uiStore';
-import { UserData, UserModes } from '@/interfaces/user';
-import fetchUserData from '@/lib/profile/fetchUserData';
+import { UserData } from '@/interfaces/user';
+import { auth } from '@/utils/firebase';
+import Image from 'next/image';
 
 type Props = {
   order: Order;
@@ -16,7 +15,7 @@ type Props = {
 const OrderStatusIcon = ({ status }: { status: OrderStatus }) => {
   switch (status) {
     case OrderStatus.NEGOTIATION:
-      return <GiReceiveMoney className="w-7 h-7 text-gray-500  mb-3" />;
+      return <GiReceiveMoney className="w-7 h-7 text-cyan-500  mb-3" />;
     case OrderStatus.IN_PROGRESS:
       return <SiProgress className="w-7 h-7 text-yellow-500  mb-3" />;
     case OrderStatus.COMPLETED:
@@ -30,26 +29,30 @@ const OrderStatusIcon = ({ status }: { status: OrderStatus }) => {
 
 const OrderCard = ({ order }: Props) => {
   const { id, status, buyerId, sellerId, buyersBrief } = order;
-  const userMode = useUiStore((state) => state.userMode);
-  const [orderWith, setOrderWith] = useState<UserData | null>();
-
   const { projectBudget, projectDeadline, projectTitle } = buyersBrief;
+  const userId = auth.currentUser?.uid;
 
-  //   useEffect(() => {
-  //     const fetchOrderWith = async (userId: string) => {
-  //       const { data } = await fetchUserData(userId);
-  //       setOrderWith(data);
-  //     };
+  const [orderWith, setOrderWith] = useState<UserData | null>(null);
 
-  //     if (userMode === UserModes.BUYER) {
-  //       fetchOrderWith(sellerId);
-  //     } else {
-  //       fetchOrderWith(buyerId);
-  //     }
-  //   }, [userMode, buyerId, sellerId]);
+  useEffect(() => {
+    const fetchOrderWith = async (userId: string) => {
+      console.log(userId);
+      const response = await fetch(`/api/user?userId=${userId}`, {
+        mode: 'no-cors',
+        next: {
+          tags: ['user-data'],
+        },
+      });
+      const { user } = await response.json();
+      setOrderWith(user);
+    };
+
+    const orderWithId = userId === buyerId ? sellerId : buyerId;
+    fetchOrderWith(orderWithId);
+  }, []);
 
   return (
-    <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow">
+    <div className="w-full p-6 bg-white border space-y-8 border-gray-200 rounded-lg shadow">
       <OrderStatusIcon status={status} />
       <Link
         href={`/order/${id}`}
@@ -60,16 +63,59 @@ const OrderCard = ({ order }: Props) => {
         Order #{id}
       </Link>
 
-      <p className="mb-3 font-normal text-gray-500">{projectTitle}</p>
-      <p className="mb-3 font-normal text-gray-500">{projectBudget}</p>
-      <p className="mb-3 font-normal text-gray-500">{projectDeadline}</p>
-
-      {/* <div className="flex items-center mb-3 space-x-2">
-        <p className="font-semibold">
-          {userMode === UserModes.BUYER ? 'Seller' : 'Buyer'}:
+      <div className="space-y-2">
+        <p>
+          <b>Project Title: </b>
+          <span className="mb-3 font-normal text-gray-500">{projectTitle}</span>
         </p>
-        <p className="font-normal text-gray-500">{orderWith?.displayName}</p>
-      </div> */}
+
+        <div className="flex items-center w-full space-x-4">
+          <p>
+            <b>Order Status: </b>
+            <span className="mb-3 font-normal text-gray-500">{status}</span>
+          </p>
+
+          <p>
+            <b>Project Budget: </b>
+            <span className="mb-3 font-normal text-gray-500">
+              ₹{projectBudget}
+            </span>
+          </p>
+
+          <p>
+            <b>Project Deadline: </b>
+            <span className="mb-3 font-normal text-gray-500">
+              {projectDeadline}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      {orderWith ? (
+        <div className="flex items-center space-x-2">
+          <Image
+            alt={orderWith.displayName || 'User Profile Picture'}
+            src={orderWith.photoURL || '/assets/Dummy Profile.png'}
+            height={40}
+            width={40}
+            className="object-cover rounded-full overflow-hidden"
+          />
+
+          <div className="text-left">
+            <Link
+              target="_blank"
+              rel="noreffer"
+              href={`/profile/${orderWith.uid}`}
+              className="text-base font-bold hover:underline"
+            >
+              {orderWith.displayName}
+            </Link>
+            <h3 className="text-sm text-gray-900">
+              {orderWith.email || 'No title provided'}
+            </h3>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

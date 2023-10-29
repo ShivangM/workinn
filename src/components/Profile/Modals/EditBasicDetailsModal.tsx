@@ -5,13 +5,13 @@ import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useState, useTransition } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../Common/ModalRejectButton';
 import ImagePicker from '@/components/Common/Form/ImagePicker';
 import updateBasicDetails from '@/actions/profile/updateBasicDetails';
 import uploadImage from '@/utils/uploadFile';
 import CountrySelect from '@/components/Common/Form/CountrySelect';
 import { auth } from '@/utils/firebase';
+import ModalRejectButton from '@/components/Common/ModalRejectButton';
+import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
 
 const EditBasicDetailsModal = () => {
   const [editBasicDetailsModalOpen, toggleEditBasicDetailsModal, basicDetails] =
@@ -22,7 +22,14 @@ const EditBasicDetailsModal = () => {
     ]);
 
   const methods = useForm<BasicDetails>();
-  const { handleSubmit, reset, register, formState: { errors }, setValue, getValues } = methods;
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = methods;
 
   useEffect(() => {
     if (basicDetails) reset(basicDetails);

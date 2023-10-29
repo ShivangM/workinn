@@ -2,25 +2,11 @@ import Image from '../../node_modules/next/image';
 import Link from '../../node_modules/next/link';
 import SearchBar from './SearchBar';
 import HamburgerIcon from './HamburgerIcon';
-import { cookies } from 'next/headers';
 import UserProfileDropdown from './UserProfileDropdown';
-import { auth, db } from '@/utils/firebaseAdmin';
-import { UserData } from '@/interfaces/user';
+import fetchUserData from '@/lib/profile/fetchUserData';
 
 const Navbar = async () => {
-  const token = cookies().get('token');
-  let userData = null;
-
-  if (token) {
-    try {
-      const decodedToken = await auth.verifyIdToken(token.value);
-      const userRef = db.collection('users').doc(decodedToken.uid);
-      const userSnap = await userRef.get();
-      userData = userSnap.data() as UserData;
-    } catch (error) {
-      userData = null;
-    }
-  }
+  const { data: userData } = await fetchUserData();
 
   return (
     <nav

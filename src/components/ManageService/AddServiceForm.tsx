@@ -22,7 +22,7 @@ import { stripHtml } from 'string-strip-html';
 import Dropzone from '../Common/Dropzone';
 import ModalConfirmButton from '../Common/ModalConfirmButton';
 import ModalRejectButton from '../Common/ModalRejectButton';
-import uploadImage from '@/utils/uploadFile';
+import uploadFile from '@/utils/uploadFile';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { FileWithPath } from 'react-dropzone';
@@ -80,7 +80,7 @@ const AddServiceForm = ({
     if (files.length > 0) {
       let imageIndex = 0;
       for (const image of files) {
-        const imageUrl = await uploadImage(
+        const imageUrl = await uploadFile(
           image,
           `/services/${serviceId}/images/image-${++imageIndex}`
         );

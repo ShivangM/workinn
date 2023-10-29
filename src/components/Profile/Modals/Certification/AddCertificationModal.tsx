@@ -5,8 +5,8 @@ import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../../Common/ModalRejectButton';
+import ModalConfirmButton from '../../../Common/ModalConfirmButton';
+import ModalRejectButton from '../../../Common/ModalRejectButton';
 import Select from 'react-select';
 import addCertification from '@/actions/profile/certifications/addCertification';
 import updateCertification from '@/actions/profile/certifications/updateCertification';
@@ -153,8 +153,8 @@ const AddCertificationModal = () => {
                           defaultValue={
                             certification
                               ? yearOptions.find(
-                                (l) => l.label === certification.year
-                              )
+                                  (l) => l.label === certification.year
+                                )
                               : null
                           }
                           onChange={(val) => onChange(val?.value)}
@@ -180,8 +180,8 @@ const AddCertificationModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : certification
-                          ? 'Save'
-                          : 'Add'
+                        ? 'Save'
+                        : 'Add'
                     }
                     loading={loading}
                   />

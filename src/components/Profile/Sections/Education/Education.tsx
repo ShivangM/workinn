@@ -31,13 +31,9 @@ const EducationCard = ({ education, viewOnly }: EducationCardProps) => {
           ) : null}
         </div>
 
-        <span className="text-sm text-gray-500">
-          {education.school}
-        </span>
+        <span className="text-sm text-gray-500">{education.school}</span>
         <p className="text-sm text-gray-500">
-          <span className="">
-            {education.country.label}
-          </span>,{' '}
+          <span className="">{education.country.label}</span>,{' '}
           <span>Graduated {education.yearOfGraduation}</span>
         </p>
       </div>
@@ -57,7 +53,6 @@ const Education = async ({ viewOnly, userId }: EducationProps) => {
     const { data } = await fetchEducation(userId);
     education = data;
   } catch (error) {
-
     redirect('/signin');
   }
 

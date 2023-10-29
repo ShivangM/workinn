@@ -70,17 +70,10 @@ const page = async ({ params: { serviceId } }: Props) => {
     },
   ];
 
-  const {
-    name,
-    images,
-    description,
-    sellerWalletAddress,
-    price,
-    faqs,
-    ownerId,
-  } = service;
+  const { name, images, description, faqs, ownerId } = service;
 
   const { data: userData } = await fetchUserData(ownerId);
+  const decodedDescription = decodeURIComponent(description);
 
   return (
     <div className="space-y-8">
@@ -99,7 +92,7 @@ const page = async ({ params: { serviceId } }: Props) => {
           <ImageGallery images={images} />
           <div className="space-y-2 pt-6">
             <h2 className="text-2xl font-bold">Description</h2>
-            <div dangerouslySetInnerHTML={{ __html: description }} />
+            <div dangerouslySetInnerHTML={{ __html: decodedDescription }} />
           </div>
 
           <div className="space-y-2 pt-6">

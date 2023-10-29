@@ -1,8 +1,8 @@
 import { Timestamp } from 'firebase/firestore';
 
 export enum UserModes {
-  BUYER = 'Buyer',
-  SELLER = 'Seller',
+  BUYER = 'buyer',
+  SELLER = 'seller',
 }
 
 enum LanguageLevels {

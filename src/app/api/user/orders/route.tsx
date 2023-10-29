@@ -1,4 +1,5 @@
-import { Order } from '@/interfaces/order';
+import { Order } from '@/interfaces/order.d';
+import { UserModes } from '@/interfaces/user.d';
 import { auth, db } from '@/utils/firebaseAdmin';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -9,6 +10,8 @@ export async function GET(request: NextRequest): Promise<
   }>
 > {
   const token = request.cookies.get('token');
+  const searchParams = request.nextUrl.searchParams;
+  let mode = searchParams.get('mode') as UserModes;
 
   if (!token) {
     return NextResponse.json(
@@ -23,7 +26,11 @@ export async function GET(request: NextRequest): Promise<
   const decodedToken = await auth.verifyIdToken(token.value);
   const uid = decodedToken.uid;
 
-  const userOrdersRef = db.collection('orders').where('buyerId', '==', uid);
+  const userOrdersRef =
+    mode === UserModes.BUYER
+      ? db.collection('orders').where('buyerId', '==', uid)
+      : db.collection('orders').where('sellerId', '==', uid);
+
   const userOrders = await userOrdersRef.get();
 
   const orders = userOrders.docs.map((order) => ({
