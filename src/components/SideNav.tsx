@@ -2,13 +2,13 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AiFillCloseCircle } from 'react-icons//ai';
-import { FaPowerOff } from 'react-icons//fa';
-import { BiLogInCircle } from 'react-icons//bi';
+import { AiFillCloseCircle } from 'react-icons/ai';
+import { FaPowerOff } from 'react-icons/fa';
+import { BiLogInCircle } from 'react-icons/bi';
 import useUiStore from '@/store/uiStore';
 import { useRouter } from 'next/navigation';
 import SidebarLinks from './SidebarLinks';
-import { TbSwitchHorizontal } from 'react-icons//tb';
+import { TbSwitchHorizontal } from 'react-icons/tb';
 import { UserData, UserModes } from '@/interfaces/user.d';
 import { useEffect, useState } from 'react';
 import logout from '@/utils/logout';

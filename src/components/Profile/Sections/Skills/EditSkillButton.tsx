@@ -2,7 +2,7 @@
 
 import { Skill } from '@/interfaces/user';
 import useProfileStore from '@/store/profileStore';
-import { BiSolidEdit } from 'react-icons//bi';
+import { BiSolidEdit } from 'react-icons/bi';
 
 type Props = {
   skill: Skill;

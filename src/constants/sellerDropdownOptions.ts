@@ -1,10 +1,10 @@
-import { FaCog, FaUser } from 'react-icons//fa';
-import { RxDashboard } from 'react-icons//rx';
-import { AiOutlineHome, AiOutlineTeam } from 'react-icons//ai';
-import { BiHelpCircle } from 'react-icons//bi';
-import { RiBillLine } from 'react-icons//ri';
-import { MdExplore } from 'react-icons//md';
-import { BsFillPersonFill } from 'react-icons//bs';
+import { FaCog, FaUser } from 'react-icons/fa';
+import { RxDashboard } from 'react-icons/rx';
+import { AiOutlineHome, AiOutlineTeam } from 'react-icons/ai';
+import { BiHelpCircle } from 'react-icons/bi';
+import { RiBillLine } from 'react-icons/ri';
+import { MdExplore } from 'react-icons/md';
+import { BsFillPersonFill } from 'react-icons/bs';
 
 const sellerDropdownOptions = [
   {

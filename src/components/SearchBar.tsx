@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import { ImSearch } from 'react-icons//im';
+import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
 
 const SearchBar = () => {

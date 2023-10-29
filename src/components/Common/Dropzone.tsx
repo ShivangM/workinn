@@ -57,7 +57,7 @@ function Dropzone({
       className="inline-flex border border-gray-300 rounded m-1 p-1"
       key={file.name}
     >
-      <div className="flex h-28 w-28 relative flex-1 min-w-0 overflow-hidden">
+      <div className="flex flex-col relative items-center justify-center p-4 border-dashed rounded-lg flex-1 min-w-0 overflow-hidden">
         <button
           className="absolute top-0 z-20 right-0 p-1 rounded-full h-5 aspect-square flex items-center justify-center cursor-pointer bg-red-500 text-white"
           onClick={() => removeFile(file)}
@@ -67,10 +67,12 @@ function Dropzone({
         <Image
           src={getFileThumbnail(file)}
           className="block w-full h-full object-cover"
-          fill
+          height={20}
+          width={20}
           alt={file.name}
         />
       </div>
+      <p>{file.name}</p>
     </div>
   ));
 

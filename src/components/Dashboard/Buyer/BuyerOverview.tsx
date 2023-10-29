@@ -1,7 +1,7 @@
 import { Stat } from '@/interfaces/typing';
-import { FaMoneyBill } from 'react-icons//fa';
-import { IoBagRemoveSharp } from 'react-icons//io5';
-import { BsFillBagCheckFill } from 'react-icons//bs';
+import { FaMoneyBill } from 'react-icons/fa';
+import { IoBagRemoveSharp } from 'react-icons/io5';
+import { BsFillBagCheckFill } from 'react-icons/bs';
 import Stats from '../Stats';
 
 type Props = {};

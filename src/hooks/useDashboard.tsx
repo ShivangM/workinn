@@ -10,7 +10,7 @@ import { UserModes } from '@/interfaces/user.d';
 import useDashboardStore from '@/store/dashboardStore';
 import useUiStore from '@/store/uiStore';
 import { useEffect, useState } from 'react';
-import { IconType } from 'react-icons//lib';
+import { IconType } from 'react-icons/lib';
 
 const useDashboard = () => {
   const mode = useUiStore((state) => state.userMode);

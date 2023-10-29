@@ -17,7 +17,7 @@ const updateOrder = async (orderId: string, updateData: Order) => {
   const order = await orderRef.get();
   const data = order.data() as Order;
 
-  if (data.buyerId !== uid || data.sellerId !== uid) {
+  if (data.buyerId !== uid && data.sellerId !== uid) {
     throw new Error('Unauthorized');
   }
 

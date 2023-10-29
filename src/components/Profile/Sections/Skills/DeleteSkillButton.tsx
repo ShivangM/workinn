@@ -2,7 +2,7 @@
 
 import { Skill } from '@/interfaces/user';
 import useProfileStore from '@/store/profileStore';
-import { AiOutlineDelete } from 'react-icons//ai';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 type Props = {
   skill: Skill;

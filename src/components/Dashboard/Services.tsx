@@ -4,7 +4,7 @@ import getImageFromUnsplash from '@/utils/getImageFromUnsplash';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { IoMdAddCircleOutline } from 'react-icons//io';
+import { IoMdAddCircleOutline } from 'react-icons/io';
 import ServiceCardOptions from './ServiceCardOptions';
 import classNames from 'classnames';
 

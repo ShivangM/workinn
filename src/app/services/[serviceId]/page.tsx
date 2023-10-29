@@ -13,8 +13,8 @@ import fetchServiceCategory from '@/lib/services/service-category/fetchServiceCa
 import fetchService from '@/lib/services/service/fetchService';
 import fetchSubCategory from '@/lib/services/sub-category/fetchSubCategory';
 import React from 'react';
-import { AiOutlineShareAlt } from 'react-icons//ai';
-import { MdFavoriteBorder } from 'react-icons//md';
+import { AiOutlineShareAlt } from 'react-icons/ai';
+import { MdFavoriteBorder } from 'react-icons/md';
 
 type Props = {
   params: {
@@ -92,7 +92,10 @@ const page = async ({ params: { serviceId } }: Props) => {
           <ImageGallery images={images} />
           <div className="space-y-2 pt-6">
             <h2 className="text-2xl font-bold">Description</h2>
-            <div dangerouslySetInnerHTML={{ __html: decodedDescription }} />
+            <div
+              className="space-y-4"
+              dangerouslySetInnerHTML={{ __html: decodedDescription }}
+            />
           </div>
 
           <div className="space-y-2 pt-6">

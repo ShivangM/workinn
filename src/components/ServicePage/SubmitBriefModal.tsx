@@ -43,16 +43,19 @@ const SubmitBriefModal = () => {
 
   const onSubmit: SubmitHandler<Order> = async (data) => {
     if (!service) return;
-
+    data.serviceId = service.id;
+    data.sellerId = service.ownerId;
     let orderId = null;
 
     try {
-      orderId = await createOrder(data, service.id, service.ownerId);
+      orderId = await createOrder(data);
       handleReset();
       toggleSubmitBriefModal(null);
     } catch (error: any) {
       toast.error(error.message);
     }
+
+    console.log(orderId);
 
     let filesUrl: string[] = [];
 
@@ -114,14 +117,17 @@ const SubmitBriefModal = () => {
                   Submit Brief
                 </Dialog.Title>
 
-                <p className="my-2 text-xs text-gray-600">
+                <p className="my-2 text-sm text-gray-600">
                   Write brief description about your project, what are the
                   requirments, what are the goals, what are the deadlines, etc.
                   This will help the freelancer to understand your project
                   better. You can also attach files.
                 </p>
 
-                <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className="space-y-8 py-4"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <InputWithFieldError
                     label="Project Title"
                     errors={errors}

@@ -6,8 +6,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { AiFillStar } from 'react-icons//ai';
-import { MdFavoriteBorder } from 'react-icons//md';
+import { AiFillStar } from 'react-icons/ai';
+import { MdFavoriteBorder } from 'react-icons/md';
 
 type ServiceCardProps = {
   service: Service;

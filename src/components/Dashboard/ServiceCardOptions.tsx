@@ -14,8 +14,8 @@ import {
   AiOutlineEdit,
   AiOutlineEye,
   AiOutlinePauseCircle,
-} from 'react-icons//ai';
-import { BsThreeDotsVertical } from 'react-icons//bs';
+} from 'react-icons/ai';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export default function ServiceCardOptions({ service }: { service: Service }) {
   const router = useRouter();

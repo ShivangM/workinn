@@ -10,11 +10,17 @@ const fetchUserData = async (
 
   let uid = null;
 
-  if (token) {
+  if (userId) {
+    uid = userId;
+  } else {
+    if (!token) {
+      return {
+        data: null,
+      };
+    }
+
     const decodedToken = await auth.verifyIdToken(token.value);
     uid = decodedToken.uid;
-  } else {
-    uid = userId;
   }
 
   if (!uid) {

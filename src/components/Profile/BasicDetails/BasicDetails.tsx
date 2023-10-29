@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 import ReadMorePara from '../../Common/ReadMorePara';
-import { IoLocationSharp } from 'react-icons//io5';
+import { IoLocationSharp } from 'react-icons/io5';
 import moment from 'moment';
-import { BsFillPersonFill } from 'react-icons//bs';
+import { BsFillPersonFill } from 'react-icons/bs';
 import EditBasicDetailsButton from './EditBasicDetailsButton';
 import fetchUserData from '@/lib/profile/fetchUserData';
 import { redirect } from 'next/navigation';

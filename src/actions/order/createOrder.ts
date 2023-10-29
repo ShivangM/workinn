@@ -4,11 +4,7 @@ import admin, { db, auth } from '@/utils/firebaseAdmin';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-const createOrder = async (
-  data: Order,
-  serviceId: string,
-  sellerId: string
-) => {
+const createOrder = async (data: Order) => {
   const token = cookies().get('token');
 
   if (!token) {
@@ -25,10 +21,8 @@ const createOrder = async (
   }
 
   const order = await db.collection('orders').add({
-    buyersBrief: data,
+    ...data,
     buyerId: uid,
-    serviceId: serviceId,
-    sellerId: sellerId,
     status: OrderStatus.NEGOTIATION,
     createdAt: admin.firestore.Timestamp.now(),
     updatedAt: admin.firestore.Timestamp.now(),
