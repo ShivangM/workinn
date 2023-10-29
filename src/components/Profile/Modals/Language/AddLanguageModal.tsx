@@ -5,14 +5,14 @@ import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../../Common/ModalRejectButton';
 import AsyncSelect from 'react-select/async';
 import Select, { OptionProps, SingleValue } from 'react-select';
 import addLanguage from '@/actions/profile/languages/addLanguage';
 import languageLevels from '@/constants/language-levels.json';
 import updateLanguage from '@/actions/profile/languages/updateLanguage';
 import fetchLanguageOptions from '@/lib/profile/fetchLanguageOptions';
+import ModalRejectButton from '@/components/Common/ModalRejectButton';
+import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
 
 const AddLanguageModal = () => {
   const [addLanguageModalOpen, toggleAddLanguageModal, language] =
@@ -46,7 +46,10 @@ const AddLanguageModal = () => {
     reset();
   };
 
-  const promiseLanguageOptions = async (inputValue: string, callback: (res: Language[]) => void) => {
+  const promiseLanguageOptions = async (
+    inputValue: string,
+    callback: (res: Language[]) => void
+  ) => {
     try {
       const res = await fetchLanguageOptions(inputValue);
       callback(res);
@@ -80,8 +83,6 @@ const AddLanguageModal = () => {
       return [];
     }
   };
-
-
 
   return (
     <Transition appear show={addLanguageModalOpen} as={Fragment}>
@@ -138,18 +139,32 @@ const AddLanguageModal = () => {
                           isDisabled={!!language}
                           isMulti={false}
                           // @ts-ignore
-                          onChange={(val: SingleValue<Language>) => onChange(val?.id)}
+                          onChange={(val: SingleValue<Language>) =>
+                            onChange(val?.id)
+                          }
                           loadOptions={loadLanguageOptions}
                           getOptionLabel={(option) => option?.name}
                           getOptionValue={(option) => option?.id}
                           components={{
-                            Option: ({ data, innerProps, innerRef }: OptionProps<Language>) => {
+                            Option: ({
+                              data,
+                              innerProps,
+                              innerRef,
+                            }: OptionProps<Language>) => {
                               return (
-                                <div className='cursor-pointer' ref={innerRef} {...innerProps}>
+                                <div
+                                  className="cursor-pointer"
+                                  ref={innerRef}
+                                  {...innerProps}
+                                >
                                   <div className="flex py-2 px-4 items-center space-x-2">
                                     <div className="text-sm">
-                                      <p className='text-gray-900 font-medium'>{data?.name}</p>
-                                      <p className='text-gray-500'>{data?.nativeName}</p>
+                                      <p className="text-gray-900 font-medium">
+                                        {data?.name}
+                                      </p>
+                                      <p className="text-gray-500">
+                                        {data?.nativeName}
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
@@ -175,8 +190,8 @@ const AddLanguageModal = () => {
                           defaultValue={
                             language
                               ? languageLevels.find(
-                                (l) => l.value === language.level
-                              )
+                                  (l) => l.value === language.level
+                                )
                               : null
                           }
                           onChange={(val) => onChange(val?.value)}
@@ -202,8 +217,8 @@ const AddLanguageModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : language
-                          ? 'Save'
-                          : 'Add'
+                        ? 'Save'
+                        : 'Add'
                     }
                     loading={loading}
                   />

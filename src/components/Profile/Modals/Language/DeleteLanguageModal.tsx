@@ -2,8 +2,8 @@
 import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useTransition } from 'react';
-import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../../Common/ModalRejectButton';
+import ModalRejectButton from '@/components/Common/ModalRejectButton';
+import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
 import deleteLanguage from '@/actions/profile/languages/deleteLanguage';
 
 const DeleteLanguageModal = () => {

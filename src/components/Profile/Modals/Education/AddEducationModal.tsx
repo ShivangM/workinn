@@ -4,15 +4,20 @@ import { Education } from '@/interfaces/user';
 import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
-import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../../Common/ModalRejectButton';
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import Select from 'react-select';
 import addEducation from '@/actions/profile/educations/addEducation';
 import updateEducation from '@/actions/profile/educations/updateEducation';
 import yearOptions from '@/constants/yearOptions';
 import titleOptions from '@/constants/degree-titles.json';
 import CountrySelect from '@/components/Common/Form/CountrySelect';
+import ModalRejectButton from '@/components/Common/ModalRejectButton';
+import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
 
 const AddEducationModal = () => {
   const [addEducationModalOpen, toggleAddEducationModal, education] =
@@ -23,7 +28,13 @@ const AddEducationModal = () => {
     ]);
 
   const methods = useForm<Education>();
-  const { handleSubmit, reset, control, register, formState: { errors } } = methods;
+  const {
+    handleSubmit,
+    reset,
+    control,
+    register,
+    formState: { errors },
+  } = methods;
 
   const [loading, startTransaction] = useTransition();
 
@@ -106,8 +117,8 @@ const AddEducationModal = () => {
                               defaultValue={
                                 education
                                   ? titleOptions.find(
-                                    (l) => l.value === education.title
-                                  )
+                                      (l) => l.value === education.title
+                                    )
                                   : undefined
                               }
                               onChange={(val) => onChange(val?.value)}
@@ -125,7 +136,8 @@ const AddEducationModal = () => {
                             required: 'Major is required',
                             maxLength: {
                               value: 50,
-                              message: 'Major cannot be more than 50 characters',
+                              message:
+                                'Major cannot be more than 50 characters',
                             },
                             minLength: {
                               value: 2,
@@ -173,8 +185,9 @@ const AddEducationModal = () => {
                             defaultValue={
                               education
                                 ? yearOptions.find(
-                                  (l) => l.label === education.yearOfGraduation
-                                )
+                                    (l) =>
+                                      l.label === education.yearOfGraduation
+                                  )
                                 : undefined
                             }
                             onChange={(val) => onChange(val?.value)}
@@ -201,8 +214,8 @@ const AddEducationModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : education
-                          ? 'Save'
-                          : 'Add'
+                        ? 'Save'
+                        : 'Add'
                     }
                     loading={loading}
                   />

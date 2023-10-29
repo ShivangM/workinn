@@ -5,8 +5,8 @@ import useProfileStore from '@/store/profileStore';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import ModalConfirmButton from '../../../../Common/ModalConfirmButton';
-import ModalRejectButton from '../../../../Common/ModalRejectButton';
+import ModalRejectButton from '@/components/Common/ModalRejectButton';
+import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
 import Select from 'react-select';
 import addSkill from '@/actions/profile/skills/addSkill';
 import updateSkill from '@/actions/profile/skills/updateSkill';
@@ -40,9 +40,7 @@ const AddSkillModal = () => {
   const [loading, startTransaction] = useTransition();
 
   const onSubmit: SubmitHandler<Skill> = async (data) => {
-    skill
-      ? await updateSkill(skill.id, data)
-      : await addSkill(data);
+    skill ? await updateSkill(skill.id, data) : await addSkill(data);
     toggleAddSkillModal(null);
     reset();
   };
@@ -145,8 +143,8 @@ const AddSkillModal = () => {
                           ? 'Saving...'
                           : 'Adding...'
                         : skill
-                          ? 'Save'
-                          : 'Add'
+                        ? 'Save'
+                        : 'Add'
                     }
                     loading={loading}
                   />
