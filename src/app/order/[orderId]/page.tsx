@@ -15,6 +15,7 @@ const page = async ({ params: { orderId } }: Props) => {
     <div className="flex min-h-screen space-x-8">
       {/* @ts-ignore */}
       <OrderActions order={data} />
+      {/* @ts-ignore */}
       <OrderDetails order={data} />
     </div>
   );

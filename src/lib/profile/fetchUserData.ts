@@ -2,6 +2,7 @@ import { APIResponse } from '@/interfaces/typing';
 import { UserData } from '@/interfaces/user';
 import { auth, db } from '@/utils/firebaseAdmin';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 const fetchUserData = async (
   userId?: string
@@ -19,8 +20,12 @@ const fetchUserData = async (
       };
     }
 
-    const decodedToken = await auth.verifyIdToken(token.value);
-    uid = decodedToken.uid;
+    try {
+      const decodedToken = await auth.verifyIdToken(token.value);
+      uid = decodedToken.uid;
+    } catch (error) {
+      redirect('/signin');
+    }
   }
 
   if (!uid) {

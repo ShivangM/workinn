@@ -1,15 +1,17 @@
 import { UserData } from './user';
 
-export interface Brief {
-  id: number;
+interface ProjectFile {
+  name: string;
+  url: string;
+  type: string;
 }
 
-export interface BuyerBrief extends Brief {
+export interface BuyerBrief {
   projectTitle: string;
   projectDescription: string;
   projectBudget: number;
   projectDeadline: string;
-  projectFiles: string[];
+  projectFiles: ProjectFile[];
 }
 
 export interface Milestone {
@@ -19,14 +21,14 @@ export interface Milestone {
   amount: number;
   deadline: string;
   status: string;
-  files: string[];
+  files: ProjectFile[];
   createdAt: string;
   updatedAt: string;
   completedAt: string;
   paidAt: string;
 }
 
-export interface SellerBrief extends Brief {
+export interface SellerBrief {
   summary: string;
   milestones: Milestone[];
 }
