@@ -133,8 +133,8 @@ const page = async ({ params: { serviceId } }: Props) => {
         </div>
 
         <div className="space-y-8 sticky top-28 col-span-2 z-10">
-          <BuyService price={price} sellerWalletAddress={sellerWalletAddress} />
-          <AboutSeller userData={userData} />
+          <BuyService service={service} />
+          {userData ? <AboutSeller userData={userData} /> : null}
         </div>
       </div>
     </div>

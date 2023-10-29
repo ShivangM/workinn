@@ -1,6 +1,8 @@
+import { ExtendedFile } from '@/interfaces/typing';
+import getFileThumbnail from '@/utils/getFileThumbnail';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import { FileWithPath, useDropzone } from 'react-dropzone';
+import React, { useEffect } from 'react';
+import { Accept, useDropzone } from 'react-dropzone';
 import { Control, useController } from 'react-hook-form';
 
 type DropzoneProps = {
@@ -8,30 +10,36 @@ type DropzoneProps = {
   name: string;
   setFiles: React.Dispatch<React.SetStateAction<ExtendedFile[]>>;
   files: ExtendedFile[];
+  maxFiles?: number;
+  accept?: Accept;
 };
 
-type ExtendedFile = FileWithPath & {
-  preview: string;
-};
-
-function Dropzone({ control, name, files, setFiles }: DropzoneProps) {
+function Dropzone({
+  control,
+  name,
+  files,
+  setFiles,
+  maxFiles,
+  accept,
+}: DropzoneProps) {
   const {
     field: { onChange },
   } = useController({ name, control });
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      'image/*': ['.png', '.jpg', '.jpeg'],
-    },
+    accept: accept,
     onDrop: (acceptedFiles) => {
       setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
-        )
+        acceptedFiles.map((file) => {
+          const type = file.type.split('/')[0];
+          return type === 'image'
+            ? Object.assign(file, { preview: URL.createObjectURL(file) })
+            : file;
+        })
       );
       onChange(acceptedFiles);
     },
-    maxFiles: 5,
+    maxFiles: maxFiles,
   });
 
   const removeFile = (file: ExtendedFile) => {
@@ -49,7 +57,7 @@ function Dropzone({ control, name, files, setFiles }: DropzoneProps) {
       className="inline-flex border border-gray-300 rounded m-1 p-1"
       key={file.name}
     >
-      <div className="flex h-20 w-20 relative flex-1 min-w-0 overflow-hidden">
+      <div className="flex h-28 w-28 relative flex-1 min-w-0 overflow-hidden">
         <button
           className="absolute top-0 z-20 right-0 p-1 rounded-full h-5 aspect-square flex items-center justify-center cursor-pointer bg-red-500 text-white"
           onClick={() => removeFile(file)}
@@ -57,8 +65,8 @@ function Dropzone({ control, name, files, setFiles }: DropzoneProps) {
           X
         </button>
         <Image
-          src={file.preview}
-          className="block w-full h-full"
+          src={getFileThumbnail(file)}
+          className="block w-full h-full object-cover"
           fill
           alt={file.name}
         />

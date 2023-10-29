@@ -6,10 +6,10 @@ import { cookies } from 'next/headers';
 const fetchCertifications = async (
   userId?: string
 ): Promise<APIResponse<Certification[]>> => {
-  const token = cookies().get('token')
+  const token = cookies().get('token');
 
   if (!token) {
-    throw new Error('Unauthorized')
+    throw new Error('Unauthorized');
   }
 
   const decodedToken = await auth.verifyIdToken(token.value);
@@ -18,7 +18,8 @@ const fetchCertifications = async (
   const certificationsRef = db
     .collection('users')
     .doc(uid)
-    .collection('certifications').orderBy('createdAt', 'desc');
+    .collection('certifications')
+    .orderBy('createdAt', 'desc');
 
   const certificationsSnapshot = await certificationsRef.get();
   const certifications = certificationsSnapshot.docs.map((doc) => {

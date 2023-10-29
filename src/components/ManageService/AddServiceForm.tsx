@@ -19,7 +19,7 @@ import InputWithFieldError from '../Common/Form/InputWithFieldError';
 import WYSIWYGEditor from '../Common/WYSIWYGEditor';
 // @ts-ignore
 import { stripHtml } from 'string-strip-html';
-import Dropzone from './Dropzone';
+import Dropzone from '../Common/Dropzone';
 import ModalConfirmButton from '../Common/ModalConfirmButton';
 import ModalRejectButton from '../Common/ModalRejectButton';
 import uploadImage from '@/utils/uploadFile';
@@ -30,16 +30,13 @@ import SelectCategories from './SelectCategories';
 import AddFaqs from './AddFaqs';
 import AddTags from './AddTags';
 import AddPrice from './AddPrice';
+import { ExtendedFile } from '@/interfaces/typing';
 
 type Props = {
   service: Service | null;
   category: Category | null;
   subCategory: SubCategory | null;
   serviceCategory: ServiceCategory | null;
-};
-
-type ExtendedFile = FileWithPath & {
-  preview: string;
 };
 
 const AddServiceForm = ({
@@ -177,6 +174,10 @@ const AddServiceForm = ({
                 setFiles={setFiles}
                 control={control}
                 name="images"
+                maxFiles={5}
+                accept={{
+                  'image/*': ['.png', '.jpg', '.jpeg'],
+                }}
               />
             </InputWithFieldError>
 
@@ -192,6 +193,24 @@ const AddServiceForm = ({
               </label>
               <ConnectButton />
             </div>
+
+            {isConnected ? (
+              <InputWithFieldError
+                label="Sellers Wallet Address"
+                errors={errors}
+                name="se"
+                labelClassName="text-lg font-medium text-gray-700"
+              >
+                <input
+                  type="text"
+                  className="form-input placeholder:gray-400"
+                  placeholder="I will do... (Ex: I will create a website for you)"
+                  {...register('sellerWalletAddress')}
+                  value={address}
+                  disabled
+                />
+              </InputWithFieldError>
+            ) : null}
 
             <AddPrice />
             <AddFaqs />

@@ -42,7 +42,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
   );
 };
 
-const SellerServices = () => {
+const Services = () => {
   const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
@@ -75,4 +75,4 @@ const SellerServices = () => {
   );
 };
 
-export default SellerServices;
+export default Services;

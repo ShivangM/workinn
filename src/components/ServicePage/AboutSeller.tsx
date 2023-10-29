@@ -21,8 +21,8 @@ const AboutSeller = ({ userData }: Props) => {
           <Image
             alt={displayName || 'User Profile Picture'}
             src={photoURL || '/assets/Dummy Profile.png'}
-            height={60}
-            width={60}
+            height={50}
+            width={50}
             className="object-cover rounded-full overflow-hidden"
           />
 
@@ -31,11 +31,11 @@ const AboutSeller = ({ userData }: Props) => {
               target="_blank"
               rel="noreffer"
               href={`/profile/${uid}`}
-              className="text-lg font-bold"
+              className="text-lg font-bold hover:underline"
             >
               {displayName}
             </Link>
-            <h3 className="text-sm text-gray-700">
+            <h3 className="text-sm text-gray-900">
               {title || 'No title provided'}
             </h3>
           </div>

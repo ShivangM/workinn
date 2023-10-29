@@ -17,6 +17,8 @@ const path: BreadcrumLink[] = [
   },
 ];
 
+export const revalidate = 60 * 60 * 24; // 24 hours
+
 const page = async ({ searchParams: { page } }: Props) => {
   const {
     data: categories,
@@ -25,7 +27,7 @@ const page = async ({ searchParams: { page } }: Props) => {
   } = await fetchCategories(parseInt(page || '1'));
 
   return (
-    <div className='space-y-8' >
+    <div className="space-y-8">
       <Breadcrumb path={path} />
 
       <div className="">
@@ -37,7 +39,7 @@ const page = async ({ searchParams: { page } }: Props) => {
         </p>
       </div>
 
-      <hr className='border-gray-300 w-full' />
+      <hr className="border-gray-300 w-full" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 my-10">
         {categories.length > 0 ? (

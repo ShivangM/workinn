@@ -1,5 +1,5 @@
-import DeleteServiceModal from "@/components/Dashboard/Seller/Modals/DeleteServiceModal";
-import ToggelServiceStatusModal from "@/components/Dashboard/Seller/Modals/ToggelServiceStatusModal";
+import DeleteServiceModal from '@/components/Dashboard/Modals/DeleteServiceModal';
+import ToggelServiceStatusModal from '@/components/Dashboard/Modals/ToggelServiceStatusModal';
 
 export default function ProfileLayout({
   children,

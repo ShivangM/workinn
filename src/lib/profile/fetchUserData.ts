@@ -5,15 +5,23 @@ import { cookies } from 'next/headers';
 
 const fetchUserData = async (
   userId?: string
-): Promise<APIResponse<UserData>> => {
-  const token = cookies().get('token')
+): Promise<APIResponse<UserData | null>> => {
+  const token = cookies().get('token');
 
-  if (!token) {
-    throw new Error('Unauthorized')
+  let uid = null;
+
+  if (token) {
+    const decodedToken = await auth.verifyIdToken(token.value);
+    uid = decodedToken.uid;
+  } else {
+    uid = userId;
   }
 
-  const decodedToken = await auth.verifyIdToken(token.value);
-  const uid = userId || decodedToken.uid;
+  if (!uid) {
+    return {
+      data: null,
+    };
+  }
 
   const userRef = db.collection('users').doc(uid);
   const userSnapshot = await userRef.get();

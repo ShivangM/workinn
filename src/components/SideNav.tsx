@@ -27,14 +27,18 @@ const SideNav = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await fetch('/api/user', {
-        mode: 'no-cors',
-        next: {
-          tags: ['user-data'],
-        },
-      });
-      const { user } = await response.json();
-      setUserData(user);
+      try {
+        const response = await fetch('/api/user', {
+          mode: 'no-cors',
+          next: {
+            tags: ['user-data'],
+          },
+        });
+        const { user } = await response.json();
+        setUserData(user);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchUserData();

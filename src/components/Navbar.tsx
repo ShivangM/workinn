@@ -12,10 +12,14 @@ const Navbar = async () => {
   let userData = null;
 
   if (token) {
-    const decodedToken = await auth.verifyIdToken(token.value);
-    const userRef = db.collection('users').doc(decodedToken.uid);
-    const userSnap = await userRef.get();
-    userData = userSnap.data() as UserData;
+    try {
+      const decodedToken = await auth.verifyIdToken(token.value);
+      const userRef = db.collection('users').doc(decodedToken.uid);
+      const userSnap = await userRef.get();
+      userData = userSnap.data() as UserData;
+    } catch (error) {
+      userData = null;
+    }
   }
 
   return (

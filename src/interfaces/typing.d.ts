@@ -1,4 +1,5 @@
-import { IconType } from "react-icons/lib";
+import { FileWithPath } from 'react-dropzone';
+import { IconType } from 'react-icons/lib';
 
 interface APIResponse<T> {
   data: T;
@@ -23,7 +24,7 @@ interface FAQ extends FAQInput {
 interface Stat {
   name: string;
   value: string | number;
-  Icon: IconType
+  Icon: IconType;
 }
 
 interface ETHRates {
@@ -32,3 +33,7 @@ interface ETHRates {
   BTC: number;
   INR: number;
 }
+
+type ExtendedFile = FileWithPath & {
+  preview?: string;
+};
