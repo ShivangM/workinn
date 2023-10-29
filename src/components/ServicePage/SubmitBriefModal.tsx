@@ -1,7 +1,7 @@
 'use client';
 import createOrder from '@/actions/order/createOrder';
 import updateOrder from '@/actions/order/updateOrder';
-import { Order } from '@/interfaces/order';
+import { Order, ProjectFile } from '@/interfaces/order';
 import { ExtendedFile } from '@/interfaces/typing';
 import useServiceStore from '@/store/serviceStore';
 import uploadFile from '@/utils/uploadFile';
@@ -55,9 +55,7 @@ const SubmitBriefModal = () => {
       toast.error(error.message);
     }
 
-    console.log(orderId);
-
-    let filesUrl: string[] = [];
+    let projectFiles: ProjectFile[] = [];
 
     if (files.length > 0) {
       let fileIndex = 0;
@@ -66,10 +64,14 @@ const SubmitBriefModal = () => {
           file,
           `/orders/${orderId}/buyer/file-${++fileIndex}`
         );
-        filesUrl.push(fileUrl);
+        projectFiles.push({
+          name: file.name,
+          url: fileUrl,
+          type: file.type,
+        });
       }
 
-      data.buyersBrief.projectFiles = filesUrl;
+      data.buyersBrief.projectFiles = projectFiles;
 
       await updateOrder(orderId!, data);
     }
