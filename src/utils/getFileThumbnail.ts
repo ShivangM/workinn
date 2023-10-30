@@ -1,5 +1,3 @@
-import { ExtendedFile } from '@/interfaces/typing';
-
 const fileTypeMap: { [key: string]: string } = {
   image: '/assets/images/jpg.svg',
   video: '/assets/images/video.svg',
@@ -15,16 +13,4 @@ const fileTypeMap: { [key: string]: string } = {
   'application/zip': '/assets/images/zip.svg',
 };
 
-const getFileThumbnail = (file: ExtendedFile) => {
-  const { type } = file;
-  for (const key in fileTypeMap) {
-    if (type.startsWith(key)) {
-      return fileTypeMap[key];
-    }
-  }
-
-  return '/assets/images/file.svg';
-};
-
-export { fileTypeMap };
-export default getFileThumbnail;
+export default fileTypeMap;

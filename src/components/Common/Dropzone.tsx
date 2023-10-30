@@ -1,88 +1,32 @@
-import { ExtendedFile } from '@/interfaces/typing';
-import getFileThumbnail from '@/utils/getFileThumbnail';
-import Image from 'next/image';
-import React, { useEffect } from 'react';
+'use client';
+import { ProjectFile } from '@/interfaces/typing';
+import { auth } from '@/utils/firebase';
+import uploadFiles, { deleteFile } from '@/utils/uploadFile';
 import { Accept, useDropzone } from 'react-dropzone';
-import { Control, useController } from 'react-hook-form';
+import FilePreview from '../Order/FilePreview';
 
 type DropzoneProps = {
-  control: Control<any, any>;
-  name: string;
-  setFiles: React.Dispatch<React.SetStateAction<ExtendedFile[]>>;
-  files: ExtendedFile[];
+  files: ProjectFile[];
+  setFiles: React.Dispatch<React.SetStateAction<ProjectFile[]>>;
   maxFiles?: number;
   accept?: Accept;
 };
 
-function Dropzone({
-  control,
-  name,
-  files,
-  setFiles,
-  maxFiles,
-  accept,
-}: DropzoneProps) {
-  const {
-    field: { onChange },
-  } = useController({ name, control });
-
+function Dropzone({ files, setFiles, maxFiles, accept }: DropzoneProps) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: accept,
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) => {
-          const type = file.type.split('/')[0];
-          return type === 'image'
-            ? Object.assign(file, { preview: URL.createObjectURL(file) })
-            : file;
-        })
-      );
-      onChange(acceptedFiles);
+    onDrop: async (acceptedFiles) => {
+      const uploadedFiles = await uploadFiles(acceptedFiles);
+      setFiles(uploadedFiles);
     },
     maxFiles: maxFiles,
   });
 
-  const removeFile = (file: ExtendedFile) => {
+  const removeFile = async (file: ProjectFile) => {
     const newFiles = files.filter((f) => f !== file);
+    deleteFile(file.id);
     setFiles(newFiles);
-    const acceptedFiles = newFiles.map((f) => {
-      const { preview, ...rest } = f;
-      return rest;
-    });
-    onChange(acceptedFiles);
   };
-
-  const thumbs = files.map((file) => (
-    <div
-      className="inline-flex border border-gray-300 rounded m-1 p-1"
-      key={file.name}
-    >
-      <div className="flex flex-col relative items-center justify-center p-4 border-dashed rounded-lg flex-1 min-w-0 overflow-hidden">
-        <button
-          className="absolute top-0 z-20 right-0 p-1 rounded-full h-5 aspect-square flex items-center justify-center cursor-pointer bg-red-500 text-white"
-          onClick={() => removeFile(file)}
-        >
-          X
-        </button>
-        <Image
-          src={getFileThumbnail(file)}
-          className="block w-full h-full object-cover"
-          height={20}
-          width={20}
-          alt={file.name}
-        />
-      </div>
-      <p>{file.name}</p>
-    </div>
-  ));
-
-  useEffect(() => {
-    return () => {
-      files.forEach((file) => {
-        if (file.preview) URL.revokeObjectURL(file.preview);
-      });
-    };
-  }, [files]);
 
   return (
     <div className="container mx-auto p-4">
@@ -97,7 +41,11 @@ function Dropzone({
           files
         </p>
       </div>
-      <div className="flex flex-wrap mt-4">{thumbs}</div>
+      <div className="flex flex-wrap space-x-4 mt-4">
+        {files.map((file) => (
+          <FilePreview key={file.id} file={file} removeFile={removeFile} />
+        ))}
+      </div>
     </div>
   );
 }

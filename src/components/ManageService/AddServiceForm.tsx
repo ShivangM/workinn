@@ -14,7 +14,6 @@ import {
   useForm,
 } from 'react-hook-form';
 import updateService from '@/actions/dashboard/updateService';
-import addService from '@/actions/dashboard/addService';
 import InputWithFieldError from '../Common/Form/InputWithFieldError';
 import WYSIWYGEditor from '../Common/WYSIWYGEditor';
 // @ts-ignore
@@ -22,15 +21,14 @@ import { stripHtml } from 'string-strip-html';
 import Dropzone from '../Common/Dropzone';
 import ModalConfirmButton from '../Common/ModalConfirmButton';
 import ModalRejectButton from '../Common/ModalRejectButton';
-import uploadFile from '@/utils/uploadFile';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
-import { FileWithPath } from 'react-dropzone';
 import SelectCategories from './SelectCategories';
 import AddFaqs from './AddFaqs';
 import AddTags from './AddTags';
 import AddPrice from './AddPrice';
-import { ExtendedFile } from '@/interfaces/typing';
+import { ProjectFile } from '@/interfaces/typing';
+import addService from '@/actions/dashboard/addService';
 
 type Props = {
   service: Service | null;
@@ -56,43 +54,21 @@ const AddServiceForm = ({
 
   const { isConnected, address } = useAccount();
   const [loading, startTransaction] = useTransition();
-  const [files, setFiles] = useState<ExtendedFile[]>([]);
+  const [files, setFiles] = useState<ProjectFile[]>([]);
 
   useEffect(() => {
     if (service) {
       reset(service);
-      service.images.forEach((image, index) => {
-        setFiles((prev) => [
-          ...prev,
-          {
-            name: `image-${index + 1}`,
-            preview: image,
-          } as ExtendedFile,
-        ]);
-      });
+      setFiles(service.images);
     }
   }, [service, reset]);
 
   const onSubmit: SubmitHandler<ServiceInput> = async (data) => {
-    const imagesUrl: string[] = [];
-    const serviceId = service ? service.id : await addService(data);
-
-    if (files.length > 0) {
-      let imageIndex = 0;
-      for (const image of files) {
-        const imageUrl = await uploadFile(
-          image,
-          `/services/${serviceId}/images/image-${++imageIndex}`
-        );
-        imagesUrl.push(imageUrl);
-      }
-      data.images = imagesUrl;
-    }
-
-    try {
-      await updateService(serviceId, data);
-    } catch (error) {
-      console.error('Error in updating service:', error);
+    data.images = files;
+    if (service) {
+      await updateService(service.id, data);
+    } else {
+      await addService(data);
     }
 
     handleReset();
@@ -172,8 +148,6 @@ const AddServiceForm = ({
               <Dropzone
                 files={files}
                 setFiles={setFiles}
-                control={control}
-                name="images"
                 maxFiles={5}
                 accept={{
                   'image/*': ['.png', '.jpg', '.jpeg'],

@@ -1,5 +1,5 @@
 import { DocumentReference } from 'firebase/firestore';
-import { FAQ, FAQInput, SelectOption } from './typing';
+import { FAQ, FAQInput, ProjectFile, SelectOption } from './typing';
 
 export interface ServiceCategory {
   id: string;
@@ -38,7 +38,7 @@ export interface ServiceInput {
   categoryId: string;
   subCategoryId: string;
   serviceCategoryId: string;
-  images: string[];
+  images: ProjectFile[];
   price: number;
   tags: string[];
   faqs: FAQInput[];

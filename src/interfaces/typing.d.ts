@@ -34,6 +34,9 @@ interface ETHRates {
   INR: number;
 }
 
-type ExtendedFile = FileWithPath & {
-  preview?: string;
-};
+interface ProjectFile {
+  id: string;
+  name: string;
+  url: string;
+  type: string;
+}

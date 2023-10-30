@@ -1,10 +1,5 @@
+import { ProjectFile } from './typing';
 import { UserData } from './user';
-
-interface ProjectFile {
-  name: string;
-  url: string;
-  type: string;
-}
 
 export interface BuyerBrief {
   projectTitle: string;

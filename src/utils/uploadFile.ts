@@ -1,10 +1,46 @@
-import { getDownloadURL, uploadBytes, ref } from 'firebase/storage';
+import { ProjectFile } from '@/interfaces/typing';
+import { Timestamp } from 'firebase/firestore';
+import {
+  getDownloadURL,
+  uploadBytes,
+  ref,
+  deleteObject,
+} from 'firebase/storage';
 import { storage } from './firebase';
 
-const uploadFile = async (file: File, path: string): Promise<string> => {
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
+const uploadFile = async (file: File): Promise<ProjectFile> => {
+  const id = Timestamp.now().toMillis();
+  const name = file.name;
+  const fileId = `${id}-${name}`;
+  const fileRef = ref(storage, `files/${fileId}`);
+  await uploadBytes(fileRef, file);
+  const url = await getDownloadURL(fileRef);
+  const projectFile: ProjectFile = {
+    id: fileId,
+    name: file.name,
+    url,
+    type: file.type,
+  };
+
+  return projectFile;
 };
 
-export default uploadFile;
+const deleteFile = async (id: string): Promise<void> => {
+  const fileRef = ref(storage, `files/${id}`);
+  await deleteObject(fileRef);
+};
+
+const uploadFiles = async (files: File[]): Promise<ProjectFile[]> => {
+  const projectFiles: ProjectFile[] = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const projectFile = await uploadFile(file);
+    projectFiles.push(projectFile);
+  }
+
+  return projectFiles;
+};
+
+export { uploadFile, deleteFile };
+export default uploadFiles;
