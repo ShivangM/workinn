@@ -1,11 +1,8 @@
 'use client';
 import useCurrencyConversion from '@/hooks/useCurrencyConversion';
 import { BuyerBrief } from '@/interfaces/order.d';
-import getFileThumbnail, { fileTypeMap } from '@/utils/getFileThumbnail';
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
-import Link from 'next/link';
 import FilePreview from './FilePreview';
 import TableRow from './TableRow';
 

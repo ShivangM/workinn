@@ -148,6 +148,7 @@ const AddServiceForm = ({
               <Dropzone
                 files={files}
                 setFiles={setFiles}
+                deleteAllowed
                 maxFiles={5}
                 accept={{
                   'image/*': ['.png', '.jpg', '.jpeg'],

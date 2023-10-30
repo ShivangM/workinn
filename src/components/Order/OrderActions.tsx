@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import CancelOrderButton from './CancelOrderButton';
-import FreezeOrderButton from './FreezeOrderButton';
+import FreezeOrderButton from './EditOrderButton';
 import SignOrderButton from './SignOrderButton';
 
 type Props = {
@@ -62,11 +62,9 @@ const OrderActions = async ({ order }: Props) => {
       ) : null}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-2 pt-6">
-        <CancelOrderButton />
-        <FreezeOrderButton />
+        <CancelOrderButton order={order} />
+        <SignOrderButton order={order} />
       </div>
-
-      <SignOrderButton />
     </div>
   );
 };

@@ -208,6 +208,7 @@ const SubmitBriefModal = () => {
                       setFiles={setFiles}
                       files={files}
                       maxFiles={5}
+                      deleteAllowed
                       accept={{
                         'image/*': ['.png', '.jpg', '.jpeg', '.gif'],
                         'video/*': ['.mp4', '.avi', '.mkv', '.mov'],

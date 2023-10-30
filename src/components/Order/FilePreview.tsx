@@ -7,18 +7,27 @@ import { TiDelete } from 'react-icons/ti';
 
 type Props = {
   file: ProjectFile;
-  removeFile: (file: ProjectFile) => void;
+  removeFile?: (file: ProjectFile) => void;
+  deleteAllowed?: boolean;
 };
 
-const FilePreview = ({ file, removeFile }: Props) => {
+const FilePreview = ({ file, removeFile, deleteAllowed }: Props) => {
+  const handleDelete = () => {
+    if (removeFile) {
+      removeFile(file);
+    }
+  };
+
   return (
     <div className="flex flex-col relative items-start justify-center space-y-2">
-      <button
-        className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-white hover:bg-red-600"
-        onClick={() => removeFile(file)}
-      >
-        <TiDelete className="h-4 w-4" />
-      </button>
+      {deleteAllowed ? (
+        <button
+          className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-white hover:bg-red-600"
+          onClick={handleDelete}
+        >
+          <TiDelete className="h-4 w-4" />
+        </button>
+      ) : null}
 
       <Image
         src={file.type.startsWith('image') ? file.url : fileTypeMap[file.type]}

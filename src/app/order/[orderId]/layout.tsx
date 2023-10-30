@@ -1,3 +1,5 @@
+import CancelOrderModal from '@/components/Order/Modals/CancelOrderModal';
+
 export default function ProfileLayout({
   children,
 }: {
@@ -5,6 +7,7 @@ export default function ProfileLayout({
 }) {
   return (
     <div className="bg-gray-100">
+      <CancelOrderModal />
       <div className="container mx-auto py-32 px-6">{children}</div>
     </div>
   );

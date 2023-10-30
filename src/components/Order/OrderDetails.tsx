@@ -1,6 +1,7 @@
-import { Order } from '@/interfaces/order';
+import { Order, OrderStatus } from '@/interfaces/order.d';
 import fetchService from '@/lib/services/service/fetchService';
 import BuyersBrief from './BuyersBrief';
+import EditOrder from './EditOrder';
 import SellersBrief from './SellersBrief';
 import ServiceBrief from './ServiceBrief';
 
@@ -13,13 +14,21 @@ const OrderDetails = async ({ order }: Props) => {
   const { data: service } = await fetchService(serviceId);
 
   return (
-    <div className="bg-white rounded-xl p-8 h-full w-full space-y-4">
-      <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold capitalize">
-        Order #{id}
-      </h3>
-      <ServiceBrief service={service} />
-      <BuyersBrief buyerBrief={buyersBrief} />
-      {sellersBrief ? <SellersBrief sellerBrief={sellersBrief} /> : null}
+    <div className="h-full w-full space-y-4">
+      <div className="bg-white rounded-xl p-8 space-y-4">
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold capitalize">
+          Order #{id}
+        </h3>
+        <ServiceBrief service={service} />
+        <BuyersBrief buyerBrief={buyersBrief} />
+        {sellersBrief ? <SellersBrief sellerBrief={sellersBrief} /> : null}
+      </div>
+
+      {order.status === OrderStatus.NEGOTIATION ? (
+        <div className="bg-white rounded-xl p-8">
+          <EditOrder order={order} />
+        </div>
+      ) : null}
     </div>
   );
 };

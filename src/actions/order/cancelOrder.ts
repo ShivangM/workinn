@@ -1,5 +1,5 @@
 'use server';
-import { Order, OrderStatus } from '@/interfaces/order';
+import { Order, OrderStatus } from '@/interfaces/order.d';
 import admin, { db, auth } from '@/utils/firebaseAdmin';
 import { cookies } from 'next/headers';
 

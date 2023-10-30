@@ -1,6 +1,7 @@
 'use server';
 import { Order } from '@/interfaces/order';
 import admin, { db, auth } from '@/utils/firebaseAdmin';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 const updateOrder = async (orderId: string, updateData: Order) => {
@@ -25,6 +26,8 @@ const updateOrder = async (orderId: string, updateData: Order) => {
     ...updateData,
     updatedAt: admin.firestore.Timestamp.now(),
   });
+
+  revalidatePath('/order/' + orderId);
 };
 
 export default updateOrder;

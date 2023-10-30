@@ -15,7 +15,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
     <div className="flex flex-col max-w-lg p-6 rounded-lg shadow-md">
       <div className="relative aspect-square w-full mb-4 overflow-hidden">
         <Image
-          src={images[0] || getImageFromUnsplash(name)}
+          src={images[0].url || getImageFromUnsplash(name)}
           fill
           alt={name}
           className="object-cover"

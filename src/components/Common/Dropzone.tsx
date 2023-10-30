@@ -1,6 +1,5 @@
 'use client';
 import { ProjectFile } from '@/interfaces/typing';
-import { auth } from '@/utils/firebase';
 import uploadFiles, { deleteFile } from '@/utils/uploadFile';
 import { Accept, useDropzone } from 'react-dropzone';
 import FilePreview from '../Order/FilePreview';
@@ -10,9 +9,16 @@ type DropzoneProps = {
   setFiles: React.Dispatch<React.SetStateAction<ProjectFile[]>>;
   maxFiles?: number;
   accept?: Accept;
+  deleteAllowed?: boolean;
 };
 
-function Dropzone({ files, setFiles, maxFiles, accept }: DropzoneProps) {
+function Dropzone({
+  files,
+  setFiles,
+  maxFiles,
+  accept,
+  deleteAllowed,
+}: DropzoneProps) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: accept,
     onDrop: async (acceptedFiles) => {
@@ -43,7 +49,12 @@ function Dropzone({ files, setFiles, maxFiles, accept }: DropzoneProps) {
       </div>
       <div className="flex flex-wrap space-x-4 mt-4">
         {files.map((file) => (
-          <FilePreview key={file.id} file={file} removeFile={removeFile} />
+          <FilePreview
+            key={file.id}
+            file={file}
+            deleteAllowed
+            removeFile={removeFile}
+          />
         ))}
       </div>
     </div>
