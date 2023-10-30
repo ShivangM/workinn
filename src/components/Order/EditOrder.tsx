@@ -1,7 +1,8 @@
 'use client';
+import useOrder from '@/hooks/useOrder';
 import { Order } from '@/interfaces/order.d';
 import { auth } from '@/utils/firebase';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BuyerEdit from './BuyerEdit';
 import SellerEdit from './SellerEdit';
 
@@ -10,8 +11,8 @@ type Props = {
 };
 
 const EditOrder = ({ order }: Props) => {
-  const { id, buyerId } = order;
-  const userId = auth.currentUser?.uid;
+  const { id } = order;
+  const { isBuyer, loading } = useOrder({ order });
 
   return (
     <div className="space-y-4">
@@ -19,10 +20,14 @@ const EditOrder = ({ order }: Props) => {
         Edit Order #{id}
       </h3>
 
-      {userId === buyerId ? (
-        <BuyerEdit order={order} />
+      {!loading ? (
+        isBuyer ? (
+          <BuyerEdit order={order} />
+        ) : (
+          <SellerEdit order={order} />
+        )
       ) : (
-        <SellerEdit order={order} />
+        <p className="text-gray-600 animate-pulse">Loading ...</p>
       )}
     </div>
   );

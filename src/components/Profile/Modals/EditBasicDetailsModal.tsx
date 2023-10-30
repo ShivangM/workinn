@@ -7,11 +7,10 @@ import React, { Fragment, useEffect, useState, useTransition } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ImagePicker from '@/components/Common/Form/ImagePicker';
 import updateBasicDetails from '@/actions/profile/updateBasicDetails';
-import { uploadFile } from '@/utils/uploadFile';
 import CountrySelect from '@/components/Common/Form/CountrySelect';
-import { auth } from '@/utils/firebase';
 import ModalRejectButton from '@/components/Common/ModalRejectButton';
 import ModalConfirmButton from '@/components/Common/ModalConfirmButton';
+import { auth } from '@/utils/firebase';
 
 const EditBasicDetailsModal = () => {
   const [editBasicDetailsModalOpen, toggleEditBasicDetailsModal, basicDetails] =
@@ -27,39 +26,21 @@ const EditBasicDetailsModal = () => {
     reset,
     register,
     formState: { errors },
-    setValue,
-    getValues,
   } = methods;
 
   useEffect(() => {
     if (basicDetails) reset(basicDetails);
   }, [basicDetails, reset]);
 
-  const [image, setImage] = useState<File | null>(null);
-
-  const setImageHandler = (file: File | null) => {
-    if (file === null) {
-      reset({ photoURL: undefined });
-    } else {
-      setValue('photoURL', URL.createObjectURL(file));
-      setImage(file);
-    }
-  };
-
   const [loading, startTransaction] = useTransition();
 
   const onSubmit: SubmitHandler<BasicDetails> = async (data) => {
-    const uid = await auth.currentUser?.uid;
-
-    if (image) {
-      const imageUploaded = await uploadFile(image);
-      data.photoURL = imageUploaded.url;
-    }
-
     await updateBasicDetails(data);
     toggleEditBasicDetailsModal(null);
     reset();
   };
+
+  const userId = auth.currentUser?.uid;
 
   return (
     <Transition appear show={editBasicDetailsModalOpen} as={Fragment}>
@@ -101,10 +82,7 @@ const EditBasicDetailsModal = () => {
 
                 <FormProvider {...methods}>
                   <form className="mt-2 py-4 space-y-6">
-                    <ImagePicker
-                      previewImage={getValues('photoURL') as string}
-                      setImage={setImageHandler}
-                    />
+                    <ImagePicker path={`users/${userId}/profile`} />
 
                     <InputWithFieldError
                       label="Name"

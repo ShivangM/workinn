@@ -88,7 +88,7 @@ const BuyersBrief = ({ buyerBrief }: BuyersBriefProps) => {
             <div className="space-y-4">
               <h3 className="font-semibold text-gray-900">Project Files</h3>
 
-              <div className="grid grid-cols-4 gap-4">
+              <div className="flex items-center space-x-4">
                 {projectFiles && projectFiles.length > 0 ? (
                   projectFiles.map((file, index) => (
                     <FilePreview file={file} key={index} />

@@ -1,31 +1,40 @@
+import { uploadFile } from '@/utils/uploadFile';
 import classNames from 'classnames';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-type Props = {
-  setImage: (file: File | null) => void;
-  previewImage?: string;
+type ImagePickerProps = {
+  path: string;
 };
 
-const ImagePicker = ({ setImage, previewImage }: Props) => {
+const ImagePicker = ({ path }: ImagePickerProps) => {
   // Image Upload and Preview
   const imageRef = useRef<HTMLInputElement | null>(null);
 
+  const { setValue, watch } = useFormContext();
+
+  const handleUploadImage = async (file: File | null) => {
+    if (!file) return;
+    const uploadedImage = await uploadFile(file, path);
+    setValue('photoURL', uploadedImage.url);
+  };
+
   const handleReset = () => {
-    setImage(null);
+    handleUploadImage(null);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setImage(file);
+      handleUploadImage(file);
     }
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     if (e.clipboardData.files.length > 0) {
       const file = e.clipboardData.files[0];
-      setImage(file);
+      handleUploadImage(file);
     }
   };
 
@@ -47,7 +56,7 @@ const ImagePicker = ({ setImage, previewImage }: Props) => {
     e.preventDefault();
     if (e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      setImage(file);
+      handleUploadImage(file);
     }
   };
 
@@ -66,7 +75,7 @@ const ImagePicker = ({ setImage, previewImage }: Props) => {
         )}
       >
         <Image
-          src={previewImage || '/assets/image-placeholder.svg'}
+          src={watch('photoURL') || '/assets/image-placeholder.svg'}
           onClick={() => imageRef?.current?.click()}
           alt="Upload Image"
           width={500}

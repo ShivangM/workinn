@@ -34,12 +34,20 @@ const SellersBrief = ({ sellerBrief }: Props) => {
               />
             </div>
 
-            <div className="flex flex-col space-y-4 divide-y-2">
-              <h3 className="font-semibold text-gray-900">Milestones</h3>
+            <div className="flex flex-col space-y-2">
+              <h3 className="font-bold text-lg text-gray-900">Milestones</h3>
 
-              {milestones.map((milestone, index) => (
-                <Milestone key={index} milestones={milestone} />
-              ))}
+              <div className="space-y-8 divide-y-2">
+                {milestones.map((milestone, index) => (
+                  <div key={index} className="">
+                    <h3 className="font-semibold pt-4 text-gray-900">
+                      Milestones {index + 1}
+                    </h3>
+
+                    <Milestone milestones={milestone} />
+                  </div>
+                ))}
+              </div>
             </div>
           </Disclosure.Panel>
         </>

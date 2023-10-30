@@ -8,11 +8,11 @@ import {
 } from 'firebase/storage';
 import { storage } from './firebase';
 
-const uploadFile = async (file: File): Promise<ProjectFile> => {
+const uploadFile = async (file: File, path?: string): Promise<ProjectFile> => {
   const id = Timestamp.now().toMillis();
   const name = file.name;
   const fileId = `${id}-${name}`;
-  const fileRef = ref(storage, `files/${fileId}`);
+  const fileRef = ref(storage, path || `files/${fileId}`);
   await uploadBytes(fileRef, file);
   const url = await getDownloadURL(fileRef);
   const projectFile: ProjectFile = {
@@ -25,17 +25,20 @@ const uploadFile = async (file: File): Promise<ProjectFile> => {
   return projectFile;
 };
 
-const deleteFile = async (id: string): Promise<void> => {
-  const fileRef = ref(storage, `files/${id}`);
+const deleteFile = async (id: string, path?: string): Promise<void> => {
+  const fileRef = ref(storage, path || `files/${id}`);
   await deleteObject(fileRef);
 };
 
-const uploadFiles = async (files: File[]): Promise<ProjectFile[]> => {
+const uploadFiles = async (
+  files: File[],
+  path?: string
+): Promise<ProjectFile[]> => {
   const projectFiles: ProjectFile[] = [];
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const projectFile = await uploadFile(file);
+    const projectFile = await uploadFile(file, path);
     projectFiles.push(projectFile);
   }
 

@@ -2,7 +2,7 @@
 import updateOrder from '@/actions/order/updateOrder';
 import { Order } from '@/interfaces/order';
 import { ProjectFile } from '@/interfaces/typing';
-import React, { useState, useTransition } from 'react';
+import React, { useState, useTransition, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Dropzone from '../Common/Dropzone';
@@ -33,6 +33,13 @@ const BuyerEdit = ({ order }: Props) => {
     reset();
     setFiles([]);
   };
+
+  useEffect(() => {
+    if (order) {
+      reset(order);
+      setFiles(order.buyersBrief.projectFiles);
+    }
+  }, [order, reset]);
 
   const onSubmit: SubmitHandler<Order> = async (data) => {
     if (!order.id) return;
