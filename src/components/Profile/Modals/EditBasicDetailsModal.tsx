@@ -7,7 +7,7 @@ import React, { Fragment, useEffect, useState, useTransition } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ImagePicker from '@/components/Common/Form/ImagePicker';
 import updateBasicDetails from '@/actions/profile/updateBasicDetails';
-import uploadImage from '@/utils/uploadFile';
+import { uploadFile } from '@/utils/uploadFile';
 import CountrySelect from '@/components/Common/Form/CountrySelect';
 import { auth } from '@/utils/firebase';
 import ModalRejectButton from '@/components/Common/ModalRejectButton';
@@ -52,8 +52,8 @@ const EditBasicDetailsModal = () => {
     const uid = await auth.currentUser?.uid;
 
     if (image) {
-      const imageUrl = await uploadImage(image, `/users/${uid}/profile`);
-      data.photoURL = imageUrl;
+      const imageUploaded = await uploadFile(image);
+      data.photoURL = imageUploaded.url;
     }
 
     await updateBasicDetails(data);
