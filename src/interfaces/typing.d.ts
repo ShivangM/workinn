@@ -38,5 +38,5 @@ interface ProjectFile {
   id: string;
   name: string;
   url: string;
-  type: string;
+  fileType: string;
 }

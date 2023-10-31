@@ -1,11 +1,11 @@
 'use client';
-import Image from 'next/image';
+import { ProjectFile } from '@/interfaces/typing';
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 type Props = {
-  images: string[];
+  images: ProjectFile[];
 };
 
 const ImageGallery = ({ images }: Props) => {
@@ -19,9 +19,9 @@ const ImageGallery = ({ images }: Props) => {
     >
       {images.map((image, index) => (
         <img
-          src={image}
+          src={image.url}
           key={index}
-          alt="Service Image"
+          alt={image.name}
           className="object-cover"
         />
       ))}

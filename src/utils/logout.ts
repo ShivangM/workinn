@@ -1,6 +1,6 @@
 import { deleteCookie } from 'cookies-next';
 import { signOut } from 'firebase/auth';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { auth } from './firebase';
 
 const logout = async () => {
@@ -8,6 +8,7 @@ const logout = async () => {
     .then(() => {
       deleteCookie('token');
       revalidateTag('user-data');
+      revalidatePath('/');
     })
     .catch((error) => {
       const errorCode = error.code;

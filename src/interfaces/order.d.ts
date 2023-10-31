@@ -19,7 +19,7 @@ export interface MilestoneInput {
 
 export interface Milestone extends MilestoneInput {
   id: number;
-  status: string;
+  status: MilestoneState;
   createdAt: string;
   updatedAt: string;
   completedAt: string;
@@ -44,9 +44,11 @@ export enum OrderStatus {
   CANCELLED = 'CANCELLED',
 }
 
-export interface OrderInput {
-  buyersBrief: BuyerBrief;
-  sellersBrief: SellerBriefInput;
+enum MilestoneState {
+  INCOMPLETE = 'INCOMPLETE',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CANCELED = 'CANCELED',
 }
 
 export interface Order {
@@ -55,7 +57,7 @@ export interface Order {
   sellerId: string;
   serviceId: string;
   buyersBrief: BuyerBrief;
-  sellersBrief: SellerBrief;
+  sellersBrief: SellerBriefInput;
   status: OrderStatus;
   createdAt: string;
   updatedAt: string;

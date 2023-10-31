@@ -30,7 +30,11 @@ const FilePreview = ({ file, removeFile, deleteAllowed }: Props) => {
       ) : null}
 
       <Image
-        src={file.type.startsWith('image') ? file.url : fileTypeMap[file.type]}
+        src={
+          file.fileType.startsWith('image')
+            ? file.url
+            : fileTypeMap[file.fileType]
+        }
         alt={file.name}
         width={60}
         height={60}

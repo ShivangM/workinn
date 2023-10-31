@@ -19,7 +19,7 @@ const uploadFile = async (file: File, path?: string): Promise<ProjectFile> => {
     id: fileId,
     name: file.name,
     url,
-    type: file.type,
+    fileType: file.type,
   };
 
   return projectFile;
