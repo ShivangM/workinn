@@ -1,4 +1,4 @@
-import { MilestoneInput, OrderInput } from '@/interfaces/order.d';
+import { MilestoneInput, Order } from '@/interfaces/order.d';
 import { ProjectFile } from '@/interfaces/typing';
 import React, { useState } from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -20,7 +20,7 @@ const AddMilestone = () => {
     formState: { errors },
     control,
     register,
-  } = useFormContext<OrderInput>();
+  } = useFormContext<Order>();
 
   const { fields, append, remove } = useFieldArray({
     name: 'sellersBrief.milestones',
