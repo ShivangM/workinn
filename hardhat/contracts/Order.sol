@@ -190,6 +190,12 @@ contract OrderContract {
         }
     }
 
+    function getMilestones(
+        string memory orderId
+    ) external view returns (Milestone[] memory) {
+        return milestones[orderId];
+    }
+
     // Function to get the current time
     function getCurrentTime() internal view returns (string memory) {
         return string(abi.encodePacked(block.timestamp));

@@ -2,6 +2,25 @@ import { ethers } from 'ethers';
 import { abi } from '../artifacts/contracts/Order.sol/OrderContract.json';
 import dotenv from 'dotenv';
 
+enum MilestoneState {
+  INCOMPLETE,
+  IN_PROGRESS,
+  COMPLETED,
+  CANCELED,
+}
+
+export interface Milestone {
+  id: number;
+  title: string;
+  description: string;
+  amount: number;
+  deadline: string;
+  files: string[];
+  state: MilestoneState;
+  completedAt: string;
+  paidAt: string;
+}
+
 dotenv.config();
 
 const privateKey = process.env.PRIVATE_KEY || '';
@@ -14,7 +33,7 @@ const provider = new ethers.providers.InfuraProvider(
 const wallet = new ethers.Wallet(privateKey);
 const signer = wallet.connect(provider);
 
-async function createMilestone(orderId: string, milestone) {
+async function createMilestone(orderId: string, milestone: Milestone) {
   try {
     const contract = new ethers.Contract(contractAddress, abi, signer);
     const tx = await contract.addMilestone(orderId, milestone);
@@ -26,14 +45,14 @@ async function createMilestone(orderId: string, milestone) {
 }
 
 // Define your milestone parameters here
-const milestone = {
-  id: 1, // Replace with a suitable milestone ID
+const milestone: Milestone = {
+  id: 2,
   title: 'Milestone Title',
   description: 'Milestone Description',
-  amount: 500, // Replace with the desired milestone amount
-  deadline: '2023-11-30', // Replace with the desired deadline
-  files: ['file1', 'file2'], // Replace with the milestone files
-  state: 0, // Replace with the appropriate state value
+  amount: 1,
+  deadline: '2023-11-30',
+  files: ['file1', 'file2'],
+  state: MilestoneState.IN_PROGRESS,
   completedAt: '',
   paidAt: '',
 };
