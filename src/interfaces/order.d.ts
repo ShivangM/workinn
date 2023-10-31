@@ -57,7 +57,7 @@ export interface Order {
   sellerId: string;
   serviceId: string;
   buyersBrief: BuyerBrief;
-  sellersBrief: SellerBriefInput;
+  sellersBrief: SellerBrief;
   status: OrderStatus;
   createdAt: string;
   updatedAt: string;

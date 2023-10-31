@@ -1,4 +1,4 @@
-import { MilestoneInput, Order } from '@/interfaces/order.d';
+import { Milestone, MilestoneInput, Order } from '@/interfaces/order.d';
 import { ProjectFile } from '@/interfaces/typing';
 import React, { useState } from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -35,7 +35,7 @@ const AddMilestone = () => {
 
   const handleAppend = (data: MilestoneInput) => {
     data.files = files;
-    append(data);
+    append(data as Milestone);
     setFiles([]);
   };
 
