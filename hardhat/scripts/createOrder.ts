@@ -8,12 +8,10 @@ const privateKey = process.env.PRIVATE_KEY || '';
 
 const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3';
 
-// const provider = new ethers.providers.InfuraProvider(
-//   'goerli',
-//   process.env.INFURA_API_KEY!
-// );
-
-const provider = new ethers.providers.JsonRpcProvider();
+const provider = new ethers.providers.InfuraProvider(
+  'goerli',
+  process.env.INFURA_API_KEY!
+);
 
 const wallet = new ethers.Wallet(privateKey);
 
@@ -33,9 +31,9 @@ async function createOrder() {
       {
         projectTitle: 'Project Title',
         projectDescription: 'Project Description',
-        projectBudget: 1000, // Update with the desired budget
-        projectDeadline: '2023-12-31', // Update with the desired deadline
-        projectFiles: ['file1', 'file2', 'file3'], // Update with the project files
+        projectBudget: 1000,
+        projectDeadline: '2023-12-31',
+        projectFiles: ['file1', 'file2', 'file3'],
       },
       'Seller summary'
     );
