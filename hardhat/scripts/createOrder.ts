@@ -6,7 +6,7 @@ dotenv.config();
 
 const privateKey = process.env.PRIVATE_KEY || '';
 
-const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3';
+const contractAddress = process.env.ORDER_CONTRACT!;
 
 const provider = new ethers.providers.InfuraProvider(
   'goerli',
