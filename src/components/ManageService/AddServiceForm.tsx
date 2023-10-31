@@ -50,6 +50,7 @@ const AddServiceForm = ({
     register,
     reset,
     control,
+    setValue,
   } = methods;
 
   const { isConnected, address } = useAccount();
@@ -73,6 +74,12 @@ const AddServiceForm = ({
 
     handleReset();
   };
+
+  useEffect(() => {
+    if (address) {
+      setValue('sellerWalletAddress', address);
+    }
+  }, [address, setValue]);
 
   const handleReset = () => {
     reset();
@@ -173,7 +180,7 @@ const AddServiceForm = ({
               <InputWithFieldError
                 label="Sellers Wallet Address"
                 errors={errors}
-                name="se"
+                name="sellerWalletAddress"
                 labelClassName="text-lg font-medium text-gray-700"
               >
                 <input

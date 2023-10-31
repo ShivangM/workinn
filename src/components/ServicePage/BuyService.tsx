@@ -35,13 +35,16 @@ const BuyService = ({ service }: Props) => {
             {convertInrToETH(price)} ETH
           </span>
         </p>
-        <p className="flex items-center text-sm justify-between">
-          <span>Seller Address: </span>{' '}
-          <span className="text-gray-800 font-bold">
-            {sellerWalletAddress.trim().slice(0, 6)}...
-            {sellerWalletAddress.trim().slice(-4)}
-          </span>
-        </p>
+
+        {sellerWalletAddress ? (
+          <p className="flex items-center text-sm justify-between">
+            <span>Seller Address: </span>{' '}
+            <span className="text-gray-800 font-bold">
+              {sellerWalletAddress.trim().slice(0, 6)}...
+              {sellerWalletAddress.trim().slice(-4)}
+            </span>
+          </p>
+        ) : null}
       </div>
 
       <button

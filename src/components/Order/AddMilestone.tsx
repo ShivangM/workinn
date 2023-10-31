@@ -134,7 +134,23 @@ const AddMilestone = () => {
               deleteAllowed
               maxFiles={5}
               accept={{
-                'image/*': ['.png', '.jpg', '.jpeg'],
+                'image/*': ['.png', '.jpg', '.jpeg', '.gif'],
+                'video/*': ['.mp4', '.avi', '.mkv', '.mov'],
+                'audio/*': ['.mp3', '.wav', '.ogg'],
+                'application/pdf': ['.pdf'],
+                'application/msword': ['.doc'],
+                'application/vnd.ms-excel': ['.xls'],
+                'application/vnd.ms-powerpoint': ['.ppt'],
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                  ['.docx'],
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                  ['.xlsx'],
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                  ['.pptx'],
+                'application/zip': ['.zip'],
+                'text/plain': ['.txt'],
+                'application/x-rar-compressed': ['.rar'],
+                'application/x-7z-compressed': ['.7z'],
               }}
             />
           </InputWithFieldError>
