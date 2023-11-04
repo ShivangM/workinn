@@ -23,7 +23,7 @@ export interface Milestone {
 
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY || '';
+const privateKey = process.env.SELLER_PRIVATE_KEY || '';
 const contractAddress = process.env.ORDER_CONTRACT!;
 const provider = new ethers.providers.InfuraProvider(
   'goerli',
@@ -46,16 +46,15 @@ async function createMilestone(orderId: string, milestone: Milestone) {
 
 // Define your milestone parameters here
 const milestone: Milestone = {
-  id: 2,
+  id: 3,
   title: 'Milestone Title',
   description: 'Milestone Description',
   amount: 1,
-  deadline: '2023-11-30',
+  deadline: '2024-11-30',
   files: ['file1', 'file2'],
   state: MilestoneState.IN_PROGRESS,
   completedAt: '',
   paidAt: '',
 };
 
-// Replace 'ORDER_ID' with the actual order ID
 createMilestone('ORDER_ID', milestone);

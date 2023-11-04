@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY || '';
+const privateKey = process.env.BUYER_PRIVATE_KEY || '';
 const contractAddress = process.env.ORDER_CONTRACT!;
 const provider = new ethers.providers.InfuraProvider(
   'goerli',
@@ -25,6 +25,8 @@ async function releaseMilestoneFunds(orderId: string, milestoneId: number) {
   }
 }
 
-// Replace 'ORDER_ID' with the actual order ID
 // Replace 'MILESTONE_ID' with the ID of the milestone to release funds for
 releaseMilestoneFunds('ORDER_ID', 1);
+
+// 1986
+// 3341

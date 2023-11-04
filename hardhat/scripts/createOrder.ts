@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY || '';
+const privateKey = process.env.SELLER_PRIVATE_KEY || '';
 
 const contractAddress = process.env.ORDER_CONTRACT!;
 
@@ -31,7 +31,7 @@ async function createOrder() {
       {
         projectTitle: 'Project Title',
         projectDescription: 'Project Description',
-        projectBudget: 1000,
+        projectBudget: 5,
         projectDeadline: '2023-12-31',
         projectFiles: ['file1', 'file2', 'file3'],
       },

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY || '';
+const privateKey = process.env.BUYER_PRIVATE_KEY || '';
 const contractAddress = process.env.ORDER_CONTRACT!;
 const provider = new ethers.providers.InfuraProvider(
   'goerli',
@@ -17,7 +17,7 @@ const signer = wallet.connect(provider);
 async function signOrder(orderId: string, amount: number) {
   try {
     const contract = new ethers.Contract(contractAddress, abi, signer);
-    const tx = await contract.signOrder(orderId, amount, {
+    const tx = await contract.signOrder(orderId, {
       value: amount,
     });
     await tx.wait();
@@ -27,6 +27,5 @@ async function signOrder(orderId: string, amount: number) {
   }
 }
 
-// Replace 'ORDER_ID' with the actual order ID
 // Replace the value of 'amount' with the appropriate value in wei
-signOrder('ORDER_ID', 1);
+signOrder('ORDER_ID', 5);

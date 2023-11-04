@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY || '';
+const privateKey = process.env.BUYER_PRIVATE_KEY || '';
 const contractAddress = process.env.ORDER_CONTRACT!;
 const provider = new ethers.providers.InfuraProvider(
   'goerli',
